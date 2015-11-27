@@ -28,14 +28,26 @@
 							echo $this->Html->link($this->Html->tag('i', '', array('class' => 'fa fa-dashboard fa-fw')) . "Dashboard",array('controller' => 'users', 'action' => 'dashboard'),array('class' => 'active', 'escape' => false));
 						?>
                         </li>
+                        
                         <li>
-                            <a href="#"><i class="fa fa-files-o fa-fw"></i>Main Actions</a>
+                        <?php
+							echo $this->Html->link($this->Html->tag('i', '', array('class' => 'fa fa-dashboard fa-fw')) . "Admin Users",array('controller' => 'users', 'action' => 'index'),array('class' => 'active', 'escape' => false));
+						?>
+                        </li>
+                        
+                      
+                        <li>
+                            <a href="#"><i class="fa fa-files-o fa-fw"></i>Settings</a>
                             <ul class="nav nav-second-level">
-                                <li>
-                                    <?php echo $this->Html->link("Users",array('controller' => 'users')); ?>
+                               <li>
+									<?php
+                                        echo $this->Html->link($this->Html->tag('i', '', array('class' => 'fa fa-dashboard fa-fw')) . "General",array('controller' => 'settings', 'action' => 'index'),array('class' => 'active', 'escape' => false));
+                                    ?>
                                 </li>
                                 <li>
-                                    <?php echo $this->Html->link("Categories",array('controller' => 'categories','action' => 'index')); ?>
+                                    <?php
+                                        echo $this->Html->link($this->Html->tag('i', '', array('class' => 'fa fa-dashboard fa-fw')) . "Files",array('controller' => 'imgfiles', 'action' => 'index'),array('class' => 'active', 'escape' => false));
+                                    ?>
                                 </li>
                                 <li>
                                     <?php echo $this->Html->link("Products",array('controller' => 'products','action' => 'index')); ?>
@@ -46,6 +58,13 @@
                             </ul>
 
                         </li>
+                        
+                        <li>
+                        <?php
+							echo $this->Html->link($this->Html->tag('i', '', array('class' => 'fa fa-dashboard fa-fw')) . "Customers",array('controller' => 'users', 'action' => 'customers'),array('class' => 'active', 'escape' => false));
+						?>
+                        </li>
+                        
                         <?php echo $this->fetch('sidebar'); ?>
                     </ul>
                 </div>

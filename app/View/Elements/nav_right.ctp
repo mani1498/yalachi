@@ -20,7 +20,7 @@
             <li class="divider"></li>
             <!--<li><a href="/users/logout"><i class="fa fa-sign-out fa-fw"></i> Logout</a>-->
             <?php
-			echo $this->Html->link($this->Html->tag('i', '', array('class' => 'fa fa-sign-out fa-fw')) . "Logout",array('controller' => 'users', 'action' => 'logout'),array('escape' => false));
+			echo $this->Html->link($this->Html->tag('i', '', array('class' => 'fa fa-sign-out fa-fw')) . "Logout",array('action' => 'logout'),array('escape' => false));
 			?>
         </ul>
     </li>

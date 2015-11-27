@@ -31,4 +31,38 @@ App::uses('Controller', 'Controller');
  * @link		http://book.cakephp.org/2.0/en/controllers.html#the-app-controller
  */
 class AppController extends Controller {
+	
+/**
+ * Components
+ *
+ * @var array
+ */
+	public $components = array('ImageTool','Session');//,'Pagination'
+	
+/**
+ * Helpers
+ *
+ * @var array
+ */
+	public $helpers = array('Session');//,'Pagination'
+	
+/**
+ * Those models are used in site for common
+ *
+ * @var array
+ * @access public
+ */
+	public $uses = array('User');
+
+/**
+ * checkadmin method
+ *
+ * @return void
+ */
+	public function checkadmin(){
+		if(!$this->Session->read('User'))
+			$this->redirect(array('controller'=>'users','action'=>'login'));
+		else
+			$this->set('adminuser', $this->User->find('first',array('id'=>$this->Session->read('User.id'))));
+	}
 }

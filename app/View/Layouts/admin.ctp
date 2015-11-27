@@ -17,17 +17,9 @@
 	echo $this->Html->css('sb-admin-2'); 
 	echo $this->Html->css('plugins/morris'); 
 	echo $this->Html->css('font-awesome-4.1.0/css/font-awesome.min');
-	
+	echo $this->Html->css('dataTables/dataTables.responsive.css'); 
+	echo $this->Html->css('dataTables/dataTables.responsive.css'); 
 	?>
-<!-- 
-    <link href="../css/bootstrap.min.css" rel="stylesheet">
-    <link href="../css/plugins/metisMenu/metisMenu.min.css" rel="stylesheet">
-    <link href="../css/plugins/timeline.css" rel="stylesheet">
-    <link href="../css/sb-admin-2.css" rel="stylesheet">
-    <link href="../css/plugins/morris.css" rel="stylesheet">-->
-
-    <!-- Custom Fonts -->
-
     <?php 
 	echo $this->Html->script('jquery-1.11.0'); 
 	echo $this->Html->script('yalachi');
@@ -39,7 +31,6 @@
 	//echo $this->Html->script('plugins/morris/morris.min');
 	//echo $this->Html->script('plugins/morris/morris-data');
 	?>
-
     <style>
 	#page-wrapper{
 	padding-bottom:20px;
@@ -53,29 +44,45 @@
         <?php echo $this->fetch('content'); ?>
     </div>
     <!-- /#wrapper -->
-    <script>
-                // Replace the <textarea id="editor1"> with a CKEditor
-                // instance, using default configuration.
-				// CKEDITOR.replace( 'CategoryDescription' );
-               // CKEDITOR.replace( 'CategoryDescription' );
-				//CKEDITOR.replace( 'CategoryImgSrc' );
-	function initMCEexact(e){
-		  tinymce.init({
-		  selector: e,
-		  theme: "modern",
-		  width: 900,
-		  height: 150,
-		  plugins: [
-			"advlist autolink link image lists charmap print preview hr anchor pagebreak spellchecker",
-			"searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking",
-			"save table contextmenu directionality emoticons template paste textcolor"
-		  ],
-		  toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image | print preview media fullpage | forecolor backcolor emoticons"
-		 });
-	}
-
-	initMCEexact("#CategoryDescription");
+	<?php 
+	echo $this->Html->script('jquery.min'); 
+	echo $this->Html->script('yalachi');
+	echo $this->Html->script('bootstrap.min');
+	
+	echo $this->Html->script('plugins/metisMenu/metisMenu.min');
+	//echo $this->Html->script('plugins/morris/raphael.min');
+	//echo $this->Html->script('plugins/morris/morris.min');
+	//echo $this->Html->script('plugins/morris/morris-data');
+	echo $this->Html->script('dataTables/jquery.dataTables.min.js'); 
+	echo $this->Html->script('dataTables/dataTables.bootstrap.min.js'); 
+	echo $this->Html->script('sb-admin-2');
+	?>
+	
+	 <script>
+		$(document).ready(function() {
+			$('#dataTables-example').DataTable({
+					responsive: true
+			});
+		});
+	
+		function initMCEexact(e){
+			  tinymce.init({
+			  selector: e,
+			  theme: "modern",
+			  width: 900,
+			  height: 150,
+			  plugins: [
+				"advlist autolink link image lists charmap print preview hr anchor pagebreak spellchecker",
+				"searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking",
+				"save table contextmenu directionality emoticons template paste textcolor"
+			  ],
+			  toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image | print preview media fullpage | forecolor backcolor emoticons"
+			 });
+		}
+	
+		initMCEexact("#CategoryDescription");
 
    </script>
+
 </body>
 </html>

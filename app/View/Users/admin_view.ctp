@@ -1,3 +1,8 @@
+<?php echo $this->element('view_header'); ?>
+    <div class="col-lg-12">
+            <?php echo $this->Html->link(__('New User'), array('action' => 'add')); ?>
+        </div>
+
 <div class="users view">
 <h2><?php echo __('User'); ?></h2>
 	<dl>
@@ -111,4 +116,7 @@
 		<li><?php echo $this->Html->link(__('List Users'), array('action' => 'index')); ?> </li>
 		<li><?php echo $this->Html->link(__('New User'), array('action' => 'add')); ?> </li>
 	</ul>
+</div>
+<?php echo $this->element('view_footer'); ?>
+
 </div>
