@@ -17,7 +17,8 @@
 	echo $this->Html->css('sb-admin-2'); 
 	echo $this->Html->css('plugins/morris'); 
 	echo $this->Html->css('font-awesome-4.1.0/css/font-awesome.min');
-	
+	echo $this->Html->css('dataTables/dataTables.responsive.css'); 
+	echo $this->Html->css('dataTables/dataTables.responsive.css'); 
 	?>
 <!-- 
     <link href="../css/bootstrap.min.css" rel="stylesheet">
@@ -29,16 +30,7 @@
     <!-- Custom Fonts -->
    
 
-    <?php 
-	echo $this->Html->script('jquery-1.11.0'); 
-	echo $this->Html->script('yalachi');
-	echo $this->Html->script('bootstrap.min');
-	echo $this->Html->script('sb-admin-2');
-	echo $this->Html->script('plugins/metisMenu/metisMenu.min');
-	echo $this->Html->script('plugins/morris/raphael.min');
-	//echo $this->Html->script('plugins/morris/morris.min');
-	//echo $this->Html->script('plugins/morris/morris-data');
-	?>
+    
 
     <style>
 	#page-wrapper{
@@ -53,5 +45,26 @@
         <?php echo $this->fetch('content'); ?>
     </div>
     <!-- /#wrapper -->
+	<?php 
+	echo $this->Html->script('jquery.min'); 
+	echo $this->Html->script('yalachi');
+	echo $this->Html->script('bootstrap.min');
+	
+	echo $this->Html->script('plugins/metisMenu/metisMenu.min');
+	//echo $this->Html->script('plugins/morris/raphael.min');
+	//echo $this->Html->script('plugins/morris/morris.min');
+	//echo $this->Html->script('plugins/morris/morris-data');
+	echo $this->Html->script('dataTables/jquery.dataTables.min.js'); 
+	echo $this->Html->script('dataTables/dataTables.bootstrap.min.js'); 
+	echo $this->Html->script('sb-admin-2');
+	?>
+	
+	 <script>
+    $(document).ready(function() {
+        $('#dataTables-example').DataTable({
+                responsive: true
+        });
+    });
+    </script>
 </body>
 </html>

@@ -343,3 +343,9 @@ table.dataTable thead .sorting:after {
 .panel-yellow a:hover {
     color: #df8a13;
 }
+.logo_link{
+    display: block;
+    margin-top: 25px;
+    padding-bottom: 10px;
+    text-align: center;
+}

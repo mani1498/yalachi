@@ -42,6 +42,8 @@ if (!defined('ROOT')) {
 if (!defined('APP_DIR')) {
 	define('APP_DIR', basename(dirname(dirname(__FILE__))));
 }
+if (!defined('BASE_URL')) 
+	define('BASE_URL', 'http://'.$_SERVER['HTTP_HOST'].'/');
 
 /**
  * The absolute path to the "cake" directory, WITHOUT a trailing DS.

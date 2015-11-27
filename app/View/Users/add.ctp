@@ -1,50 +1,35 @@
-<div id="page-wrapper">
-    <div class="row">
-        <div class="col-lg-12">
-            <h1 class="page-header">Add User</h1>
-        </div>
- 
-        <div class="col-lg-12">
-         <?php echo $this->Form->create('User',array('class'=>'form-horizontal','role'=>'form')); ?>
-
-          <div class="form-group">
-            <div class="col-sm-10">
-              <?php  echo $this->Form->input('username',array('class'=>'form-control','placeholder'=>'Username')); ?>
-            </div>
-          </div>
-          <div class="form-group">
-            <div class="col-sm-10">
-
-              <?php  echo $this->Form->input('password',array('class'=>'form-control','placeholder'=>'Password')); ?>
-            </div>
-          </div>
-          <div class="form-group">
-            <div class="col-sm-10">
-              <?php  echo $this->Form->input('email',array('class'=>'form-control','placeholder'=>'Email')); ?>
-            </div>
-          </div>
-          <div class="form-group">
-            <label for="inputPassword" class="col-sm-2 control-label" style="text-align:left;">Role</label>
-            <div class="col-sm-10">
-              <p class="form-control-static">admin</p>
-              <?php  echo $this->Form->input('role',array('type'=>'hidden','value'=>'admin')); ?>
-            </div>
-          </div>
-               <a href="http://jeevanfootwear.in">Jeevan</a>
-         
-         <?php echo $this->Form->submit('Submit',array('class'=>'btn btn-primary')); ?>
-         <?php echo $this->Form->end();?>
-        </div>
-    </div>
+<div class="users form">
+<?php echo $this->Form->create('User'); ?>
+	<fieldset>
+		<legend><?php echo __('Add User'); ?></legend>
+	<?php
+		echo $this->Form->input('first_name');
+		echo $this->Form->input('last_name');
+		echo $this->Form->input('address1');
+		echo $this->Form->input('address2');
+		echo $this->Form->input('city');
+		echo $this->Form->input('province');
+		echo $this->Form->input('country');
+		echo $this->Form->input('zipcode');
+		echo $this->Form->input('phone');
+		echo $this->Form->input('email');
+		echo $this->Form->input('password');
+		echo $this->Form->input('total_amount_spend');
+		echo $this->Form->input('total_orders');
+		echo $this->Form->input('photo');
+		echo $this->Form->input('privilages');
+		echo $this->Form->input('terms_and_cond');
+		echo $this->Form->input('publish');
+		echo $this->Form->input('published_at');
+		echo $this->Form->input('updated_at');
+	?>
+	</fieldset>
+<?php echo $this->Form->end(__('Submit')); ?>
 </div>
-<?php $this->start('sidebar'); ?>
+<div class="actions">
+	<h3><?php echo __('Actions'); ?></h3>
+	<ul>
 
-<li>
- <a href="#"><i class="fa fa-files-o fa-fw"></i>Users Actions</a>
-	<ul class="nav nav-second-level">
 		<li><?php echo $this->Html->link(__('List Users'), array('action' => 'index')); ?></li>
-		<li><?php echo $this->Html->link(__('List Orders'), array('controller' => 'orders', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Order'), array('controller' => 'orders', 'action' => 'add')); ?> </li>
 	</ul>
-</li>
-<?php $this->end(); ?>
+</div>
