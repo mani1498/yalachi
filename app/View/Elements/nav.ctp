@@ -35,13 +35,13 @@
                                     <?php echo $this->Html->link("Users",array('controller' => 'users')); ?>
                                 </li>
                                 <li>
-                                    <?php echo $this->Html->link("Categories",array('controller' => 'categories')); ?>
+                                    <?php echo $this->Html->link("Categories",array('controller' => 'categories','action' => 'index')); ?>
                                 </li>
                                 <li>
-                                    <?php echo $this->Html->link("Products",array('controller' => 'products')); ?>
+                                    <?php echo $this->Html->link("Products",array('controller' => 'products','action' => 'index')); ?>
                                 </li>
                                 <li>
-                                    <?php echo $this->Html->link("Place Orders",array('controller' => 'orders')); ?>
+                                    <?php echo $this->Html->link("Place Orders",array('controller' => 'orders','action' => 'index')); ?>
                                 </li>
                             </ul>
 

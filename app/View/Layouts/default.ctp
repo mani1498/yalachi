@@ -32,8 +32,11 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
 
 		echo $this->fetch('meta');
 		echo $this->fetch('css');
+		echo $this->Html->script('tinymce/tinymce.min');
 		echo $this->fetch('script');
+		
 	?>
+
 </head>
 <body>
 	<div id="container">
@@ -58,6 +61,30 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
 			</p>
 		</div>
 	</div>
-	<?php echo $this->element('sql_dump'); ?>
+	<?php //echo $this->element('sql_dump'); ?>
+    <script>
+                // Replace the <textarea id="editor1"> with a CKEditor
+                // instance, using default configuration.
+				// CKEDITOR.replace( 'CategoryDescription' );
+               // CKEDITOR.replace( 'CategoryDescription' );
+				//CKEDITOR.replace( 'CategoryImgSrc' );
+	function initMCEexact(e){
+		  tinymce.init({
+		  selector: e,
+		  theme: "modern",
+		  width: 900,
+		  height: 150,
+		  plugins: [
+			"advlist autolink link image lists charmap print preview hr anchor pagebreak spellchecker",
+			"searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking",
+			"save table contextmenu directionality emoticons template paste textcolor"
+		  ],
+		  toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image | print preview media fullpage | forecolor backcolor emoticons"
+		 });
+	}
+
+	initMCEexact("#CategoryDescription");
+
+   </script>
 </body>
 </html>

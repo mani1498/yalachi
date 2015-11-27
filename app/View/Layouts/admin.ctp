@@ -27,7 +27,6 @@
     <link href="../css/plugins/morris.css" rel="stylesheet">-->
 
     <!-- Custom Fonts -->
-   
 
     <?php 
 	echo $this->Html->script('jquery-1.11.0'); 
@@ -36,6 +35,7 @@
 	echo $this->Html->script('sb-admin-2');
 	echo $this->Html->script('plugins/metisMenu/metisMenu.min');
 	echo $this->Html->script('plugins/morris/raphael.min');
+	echo $this->Html->script('tinymce/tinymce.min');
 	//echo $this->Html->script('plugins/morris/morris.min');
 	//echo $this->Html->script('plugins/morris/morris-data');
 	?>
@@ -53,5 +53,29 @@
         <?php echo $this->fetch('content'); ?>
     </div>
     <!-- /#wrapper -->
+    <script>
+                // Replace the <textarea id="editor1"> with a CKEditor
+                // instance, using default configuration.
+				// CKEDITOR.replace( 'CategoryDescription' );
+               // CKEDITOR.replace( 'CategoryDescription' );
+				//CKEDITOR.replace( 'CategoryImgSrc' );
+	function initMCEexact(e){
+		  tinymce.init({
+		  selector: e,
+		  theme: "modern",
+		  width: 900,
+		  height: 150,
+		  plugins: [
+			"advlist autolink link image lists charmap print preview hr anchor pagebreak spellchecker",
+			"searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking",
+			"save table contextmenu directionality emoticons template paste textcolor"
+		  ],
+		  toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image | print preview media fullpage | forecolor backcolor emoticons"
+		 });
+	}
+
+	initMCEexact("#CategoryDescription");
+
+   </script>
 </body>
 </html>

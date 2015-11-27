@@ -76,5 +76,6 @@ class PagesController extends AppController {
 	
 	public function dashboard(){
 		$this->layout = 'admin';
+		echo phpinfo();
 	}
 }
