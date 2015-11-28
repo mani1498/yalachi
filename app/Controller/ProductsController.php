@@ -98,7 +98,7 @@ class ProductsController extends AppController {
 		$this->Option->unBindModel(array('belongsTo' => array('Product')));
 		$this->Option->unBindModel(array('hasMany' => array('ProductVarient')));
 
-		$options = array('conditions' => array('Product.' . $this->Product->primaryKey => $id),'fields'=> array('Product.title','Product.description','Product.vendor','Product.type','Product.tags','Product.publish','Product.price','Product.list_price','Product.sku','Product.barcode','Product.quantity','Product.weight','Product.tax','Product.shipping'));
+		$options = array('conditions' => array('Product.' . $this->Product->primaryKey => $id),'fields'=> array('Product.title','Product.description','Product.vendor','Product.type','Product.tags','Product.publish','Product.price','Product.list_price','Product.sku','Product.barcode','Product.quantity','Product.weight','Product.varients','Product.tax','Product.shipping'));
 		
 		$product = $this->Product->find('first', $options);
 		debug($product); exit;

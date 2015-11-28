@@ -9,7 +9,7 @@ App::uses('AppController', 'Controller');
  * @property SessionComponent $Session
  */
 class CategoriesController extends AppController {
-
+	public $uses = array('Category','Product','Collect','Metafield');
 /**
  * Components
  *
@@ -57,6 +57,20 @@ class CategoriesController extends AppController {
 				$this->Flash->error(__('The category could not be saved. Please, try again.'));
 			}
 		}
+	}
+	
+	
+	public function details($id = null) {
+		if (!$this->Category->exists($id)) {
+			throw new NotFoundException(__('Invalid category'));
+		}
+		
+		$this->Collect->unBindModel(array('belongsTo' => array('Category')));
+		$this->Metafield->unBindModel(array('belongsTo' => array('Product','Category')));
+		
+		$options = array('conditions' => array('Category.' .$this->Category->primaryKey => $id));
+		$category = $this->Category->find('first', $options);
+		debug($category); exit;
 	}
 
 /**

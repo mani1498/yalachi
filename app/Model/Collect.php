@@ -35,7 +35,7 @@ class Collect extends AppModel {
 			'className' => 'Product',
 			'foreignKey' => 'product_id',
 			'conditions' => '',
-			'fields' => '',
+			'fields' => array('title','type','vendor','publish'),
 			'order' => ''
 		)
 	);

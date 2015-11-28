@@ -12,35 +12,6 @@ class Category extends AppModel {
  *
  * @var string
  */
- 	 /*public $actsAs = array(
-        'Upload.Upload' => array(
-            'img_src' => array(
-				'thumbnailSizes' => array(
-                    'xvga' => '1024x768',
-                    'vga' => '640x480',
-                    'thumb' => '80x80'
-                ),
-                'fields' => array(
-                    'dir' => 'photo_dir'
-                )
-            )
-        )
-    );*/
-	
-	/*public $actsAs = array(
-        'Upload.Upload' => array(
-			'resume',
-            'img_src' => array(
-                'thumbnailSizes' => array(
-                    'xvga' => '1024x768',
-                    'vga' => '640x480',
-                    'thumb' => '80x80'
-                )
-            )
-        )
-    );*/
-
-   //public $actsAs = array('Upload.Upload' => array('img_src'));
    
     /*public $actsAs = array(
         'Upload.Upload' => array(
@@ -53,7 +24,7 @@ class Category extends AppModel {
     );*/
 	
 	public $displayField = 'title';
-
+	public $recursive = 2;
 
 	// The Associations below have been created with all possible keys, those that are not needed can be removed
 
@@ -68,7 +39,7 @@ class Category extends AppModel {
 			'foreignKey' => 'category_id',
 			'dependent' => false,
 			'conditions' => '',
-			'fields' => '',
+			'fields' => array('product_id'),
 			'order' => '',
 			'limit' => '',
 			'offset' => '',
@@ -80,12 +51,11 @@ class Category extends AppModel {
 	public $hasOne = array(
         'Metafield' => array(
             'className' => 'Metafield',
-            'foreignKey' => 'category_id',
+            'foreignKey' => 'key_id',
             'conditions' => array('Metafield.type' => 'category'),
-			'fields' =>  array('id','category_id','title', 'description', 'url_handle'),
+			'fields' =>  array('id','key_id','title', 'description', 'url_handle'),
             'order' => '',
             'limit' => '',
-			'recursive'=>'1',
             'dependent' => false
         )
 	);

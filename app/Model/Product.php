@@ -30,19 +30,6 @@ class Product extends AppModel {
  * @var array
  */
 	public $hasMany = array(
-		'ProductVarient' => array(
-			'className' => 'ProductVarient',
-			'foreignKey' => 'product_id',
-			'dependent' => false,
-			'conditions' => '',
-			'fields' => array('price','list_price','sku','barcode','quantity','weight','tax','shipping'),
-			'order' => '',
-			'limit' => '',
-			'offset' => '',
-			'exclusive' => '',
-			'finderQuery' => '',
-			'counterQuery' => ''
-		),
 		'Collect' => array(
 			'className' => 'Collect',
 			'foreignKey' => 'product_id',
