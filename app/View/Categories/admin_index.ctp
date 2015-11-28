@@ -1,10 +1,12 @@
-<div id="page-wrapper">
-    <div class="row">
-    
+<?php echo $this->element('view_header'); ?>
 
-<div class="categories index">
+ <div class="col-lg-12 addNewButton">
+            <?php echo $this->Html->link(__('New Category'), array('action' => 'add'),array('class' => 'btn btn-primary','type'=>'button')); ?>
+        </div>
+<div class="panel-body">
+        <div class="dataTable_wrapper">
 	<h2><?php echo __('Categories'); ?></h2>
-	<table cellpadding="0" cellspacing="0">
+	<table cellpadding="0" cellspacing="0" class="table table-striped table-bordered table-hover" id="dataTables-example" style="margin-top:15px;">
 	<thead>
 	<tr>
 			<th><?php echo $this->Paginator->sort('id'); ?></th>
@@ -37,8 +39,9 @@
 	</tr>
 <?php endforeach; ?>
 	</tbody>
-	</table>
-	<p>
+	</table> </div>
+    </div>
+	<?php /*?><p>
 	<?php
 	echo $this->Paginator->counter(array(
 		'format' => __('Page {:page} of {:pages}, showing {:current} records out of {:count} total, starting on record {:start}, ending on {:end}')
@@ -50,22 +53,13 @@
 		echo $this->Paginator->numbers(array('separator' => ''));
 		echo $this->Paginator->next(__('next') . ' >', array(), null, array('class' => 'next disabled'));
 	?>
-    </div>
+    </div><?php */?>
 </div>
 
 
     </div>
 </div>
 
-<?php $this->start('sidebar'); ?>
+<?php echo $this->element('view_footer'); ?>
 
-<li>
- <a href="#"><i class="fa fa-files-o fa-fw"></i>Categories Actions</a>
-	<ul class="nav nav-second-level">
-		<li><?php echo $this->Html->link(__('New Category'), array('action' => 'add')); ?></li>
-		<li><?php echo $this->Html->link(__('List Collects'), array('controller' => 'collects', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Collect'), array('controller' => 'collects', 'action' => 'add')); ?> </li>
-	</ul>
-</li>
-
-<?php $this->end(); ?>
+</div>

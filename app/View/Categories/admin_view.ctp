@@ -1,5 +1,14 @@
-<div id="page-wrapper">
-    <div class="row">
+<?php echo $this->element('view_header'); ?>
+<div class="addNewButton" style="float:none;">
+         <?php echo $this->Html->link(__('Back to Category'), array('action' => 'index'),array('class' => 'btn btn-primary','type'=>'button')); ?>
+         <?php echo $this->Html->link(__('Delete Category'), array('action' => 'delete', $this->Form->value('User.id')),array('class' => 'btn btn-primary','type'=>'button'), array('confirm' => __('Are you sure you want to delete # %s?', $this->Form->value('User.id')))); ?>
+         <?php echo $this->Html->link(__('Add Category'), array('action' => 'add'),array('class' => 'btn btn-primary','type'=>'button')); ?>
+    </div>
+<style>
+.panel{
+	overflow:auto;
+}
+</style>
     
 <div class="categories view">
 <h2><?php echo __('Category'); ?></h2>
@@ -77,11 +86,11 @@
 	</table>
 <?php endif; ?>
 
-	<div class="actions">
+	<?php /*?><div class="actions">
 		<ul>
 			<li><?php echo $this->Html->link(__('New Collect'), array('controller' => 'collects', 'action' => 'add')); ?> </li>
 		</ul>
-	</div>
+	</div><?php */?>
 </div>
 </div>
 </div>
@@ -90,18 +99,7 @@
 
 
 
-<?php $this->start('sidebar'); ?>
 
-<li>
- <a href="#"><i class="fa fa-files-o fa-fw"></i>Categories Actions</a>
-	<ul class="nav nav-second-level">
-		<li><?php echo $this->Html->link(__('Edit Category'), array('action' => 'edit', $category['Category']['id'])); ?> </li>
-		<li><?php echo $this->Form->postLink(__('Delete Category'), array('action' => 'delete', $category['Category']['id']), array('confirm' => __('Are you sure you want to delete # %s?', $category['Category']['id']))); ?> </li>
-		<li><?php echo $this->Html->link(__('List Categories'), array('action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Category'), array('action' => 'add')); ?> </li>
-		<li><?php echo $this->Html->link(__('List Collects'), array('controller' => 'collects', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Collect'), array('controller' => 'collects', 'action' => 'add')); ?> </li>
-	</ul>
-</li>
+<?php echo $this->element('view_footer'); ?>
 
-<?php $this->end(); ?>
+</div>

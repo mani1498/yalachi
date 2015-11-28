@@ -37,7 +37,7 @@ class AppController extends Controller {
  *
  * @var array
  */
-	public $components = array('ImageTool','Session');//,'Pagination'
+	public $components = array('Image','Session');//,'Pagination'
 	
 /**
  * Helpers

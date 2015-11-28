@@ -49,12 +49,7 @@
                                         echo $this->Html->link($this->Html->tag('i', '', array('class' => 'fa fa-dashboard fa-fw')) . "Files",array('controller' => 'imgfiles', 'action' => 'index'),array('class' => 'active', 'escape' => false));
                                     ?>
                                 </li>
-                                <li>
-                                    <?php echo $this->Html->link("Products",array('controller' => 'products','action' => 'index')); ?>
-                                </li>
-                                <li>
-                                    <?php echo $this->Html->link("Place Orders",array('controller' => 'orders','action' => 'index')); ?>
-                                </li>
+                               
                             </ul>
 
                         </li>
@@ -64,8 +59,15 @@
 							echo $this->Html->link($this->Html->tag('i', '', array('class' => 'fa fa-dashboard fa-fw')) . "Customers",array('controller' => 'users', 'action' => 'customers'),array('class' => 'active', 'escape' => false));
 						?>
                         </li>
-                        
-                        <?php echo $this->fetch('sidebar'); ?>
+                        <li>
+                         	<a href="#"><i class="fa fa-files-o fa-fw"></i>Categories Actions</a>
+                            <ul class="nav nav-second-level">
+                                <li><?php echo $this->Html->link(__('List Category'), array('controller' => 'categories', 'action' => 'index')); ?></li>
+                                <li><?php echo $this->Html->link(__('List Collects'), array('controller' => 'categories', 'action' => 'index')); ?> </li>
+                                <li><?php echo $this->Html->link(__('New Collect'), array('controller' => 'collects', 'action' => 'add')); ?> </li>
+                            </ul>
+                        </li>
+                        <?php //echo $this->fetch('sidebar'); ?>
                     </ul>
                 </div>
                 <!-- /.sidebar-collapse -->

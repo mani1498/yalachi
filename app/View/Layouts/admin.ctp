@@ -20,8 +20,8 @@
 	echo $this->Html->css('dataTables/dataTables.responsive.css'); 
 	echo $this->Html->css('dataTables/dataTables.responsive.css'); 
 	?>
-    <?php 
-	echo $this->Html->script('jquery-1.11.0'); 
+    <?php /*?><?php 
+	echo $this->Html->script('jquery.min'); 
 	echo $this->Html->script('yalachi');
 	echo $this->Html->script('bootstrap.min');
 	echo $this->Html->script('sb-admin-2');
@@ -30,7 +30,7 @@
 	echo $this->Html->script('tinymce/tinymce.min');
 	//echo $this->Html->script('plugins/morris/morris.min');
 	//echo $this->Html->script('plugins/morris/morris-data');
-	?>
+	?><?php */?>
     <style>
 	#page-wrapper{
 	padding-bottom:20px;
