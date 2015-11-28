@@ -24,11 +24,11 @@ class Review extends AppModel {
  * @var array
  */
 	public $belongsTo = array(
-		'Customer' => array(
-			'className' => 'Customer',
+		'User' => array(
+			'className' => 'User',
 			'foreignKey' => 'customer_id',
 			'conditions' => '',
-			'fields' => '',
+			'fields' => array('first_name','last_name'),
 			'order' => ''
 		),
 		'Product' => array(

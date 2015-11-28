@@ -28,7 +28,7 @@ class Collect extends AppModel {
 			'className' => 'Category',
 			'foreignKey' => 'category_id',
 			'conditions' => '',
-			'fields' => '',
+			'fields' => array('Category.title'),
 			'order' => ''
 		),
 		'Product' => array(

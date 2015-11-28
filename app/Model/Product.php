@@ -19,7 +19,8 @@ class Product extends AppModel {
  * @var string
  */
 	public $displayField = 'title';
-
+	public $recursive = 2;
+	//public $fields = array('id','price','list_price','sku','barcode','quantity','weight','tax','shipping');
 
 	// The Associations below have been created with all possible keys, those that are not needed can be removed
 
@@ -29,12 +30,25 @@ class Product extends AppModel {
  * @var array
  */
 	public $hasMany = array(
+		'ProductVarient' => array(
+			'className' => 'ProductVarient',
+			'foreignKey' => 'product_id',
+			'dependent' => false,
+			'conditions' => '',
+			'fields' => array('price','list_price','sku','barcode','quantity','weight','tax','shipping'),
+			'order' => '',
+			'limit' => '',
+			'offset' => '',
+			'exclusive' => '',
+			'finderQuery' => '',
+			'counterQuery' => ''
+		),
 		'Collect' => array(
 			'className' => 'Collect',
 			'foreignKey' => 'product_id',
 			'dependent' => false,
 			'conditions' => '',
-			'fields' => '',
+			'fields' => array('category_id'),
 			'order' => '',
 			'limit' => '',
 			'offset' => '',
@@ -47,33 +61,7 @@ class Product extends AppModel {
 			'foreignKey' => 'product_id',
 			'dependent' => false,
 			'conditions' => '',
-			'fields' => '',
-			'order' => '',
-			'limit' => '',
-			'offset' => '',
-			'exclusive' => '',
-			'finderQuery' => '',
-			'counterQuery' => ''
-		),
-		'Option' => array(
-			'className' => 'Option',
-			'foreignKey' => 'product_id',
-			'dependent' => false,
-			'conditions' => '',
-			'fields' => '',
-			'order' => '',
-			'limit' => '',
-			'offset' => '',
-			'exclusive' => '',
-			'finderQuery' => '',
-			'counterQuery' => ''
-		),
-		'ProductVarient' => array(
-			'className' => 'ProductVarient',
-			'foreignKey' => 'product_id',
-			'dependent' => false,
-			'conditions' => '',
-			'fields' => '',
+			'fields' => array('img_src', 'img_alt'),
 			'order' => '',
 			'limit' => '',
 			'offset' => '',
@@ -121,5 +109,33 @@ class Product extends AppModel {
 			'counterQuery' => ''
 		)
 	);
+	
+	public $hasOne = array(
+        'Metafield' => array(
+            'className' => 'Metafield',
+            'foreignKey' => 'key_id',
+            'conditions' => array('Metafield.type' => 'product'),
+			'fields' =>  array('title', 'description', 'url_handle'),
+            'order' => '',
+            'limit' => '',
+			'recursive'=>'1',
+            'dependent' => false
+        ),
+		'Option' => array(
+			'className' => 'Option',
+			'foreignKey' => 'product_id',
+			'dependent' => false,
+			'conditions' => '',
+			'fields' => array('options_name', 'options_values', 'img_src'),
+			'order' => '',
+			'limit' => '',
+			'offset' => '',
+			'exclusive' => '',
+			'finderQuery' => '',
+			'counterQuery' => ''
+		)
+    );
+	
+	
 
 }

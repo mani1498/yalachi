@@ -77,5 +77,17 @@ class Category extends AppModel {
 			'counterQuery' => ''
 		)
 	);
+	public $hasOne = array(
+        'Metafield' => array(
+            'className' => 'Metafield',
+            'foreignKey' => 'category_id',
+            'conditions' => array('Metafield.type' => 'category'),
+			'fields' =>  array('id','category_id','title', 'description', 'url_handle'),
+            'order' => '',
+            'limit' => '',
+			'recursive'=>'1',
+            'dependent' => false
+        )
+	);
 
 }

@@ -9,7 +9,7 @@ App::uses('AppController', 'Controller');
  * @property SessionComponent $Session
  */
 class ProductsController extends AppController {
-	public $uses = array('Product','Collect','Option','ProductImage','ProductVarient');
+	public $uses = array('Product','Category','Collect','Option','ProductImage','ProductVarient','Metafield','Review');
 /**
  * Components
  *
@@ -84,12 +84,22 @@ class ProductsController extends AppController {
 
 
 	public function details($id = null) {
+		
 		if (!$this->Product->exists($id)) {
 			throw new NotFoundException(__('Invalid product'));
 		}
-		$options = array('conditions' => array('Product.' . $this->Product->primaryKey => $id));
-		$this->Product->recursive = 2;
-		$this->Product->unBindModel(array('hasMany' => array('Collect')));
+
+		$this->Product->unBindModel(array('hasMany' => array('Order','Wishlist')));
+		$this->Collect->unBindModel(array('belongsTo' => array('Product')));
+		$this->ProductImage->unBindModel(array('belongsTo' => array('Product')));
+		$this->ProductVarient->unBindModel(array('belongsTo' => array('Product','Option')));
+		$this->Metafield->unBindModel(array('belongsTo' => array('Product','Category')));
+		$this->Review->unBindModel(array('belongsTo' => array('Product')));
+		$this->Option->unBindModel(array('belongsTo' => array('Product')));
+		$this->Option->unBindModel(array('hasMany' => array('ProductVarient')));
+
+		$options = array('conditions' => array('Product.' . $this->Product->primaryKey => $id),'fields'=> array('Product.title','Product.description','Product.vendor','Product.type','Product.tags','Product.publish','Product.price','Product.list_price','Product.sku','Product.barcode','Product.quantity','Product.weight','Product.tax','Product.shipping'));
+		
 		$product = $this->Product->find('first', $options);
 		debug($product); exit;
 		//$this->set('product', );
