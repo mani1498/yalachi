@@ -349,3 +349,39 @@ table.dataTable thead .sorting:after {
     padding-bottom: 10px;
     text-align: center;
 }
+/**************  Our changes  **********/
+.addNewButton{
+	float: left;
+    padding: 20px;
+    text-align: right;
+}
+.form-group input[type="text"],.form-group textarea,.form-group input[type="tel"],.form-group input[type="email"],.form-group input[type="password"],.form-group input[type="file"]{
+	width:35%;
+	margin-left:15px;
+}
+.form-group input[type="checkbox"]{
+	width:5%;
+	margin-left:15px;
+}
+.form input[type="submit"]{
+	width:35%;
+	margin-left:60px;
+}
+.form-group label{
+	width:35%;
+	margin-left:15px;
+}
+.form fieldset{
+	margin:20px 0px 0px 50px;
+}
+.form legend{
+	width:70%;
+}
+.col-lg-12,col-lg-6{
+	margin-top:20px;
+}
+.panel{
+	padding-bottom:25px;
+}
+.view dt, .view dd {     float: left;  width: 30%;  margin-right: 50px; }
+.view dt { clear: both; width: 40%; text-align: right; line-height: 30px; }

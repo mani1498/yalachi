@@ -1,12 +1,12 @@
 <?php echo $this->element('view_header'); ?>
-    <div class="col-lg-12">
-            <?php echo $this->Html->link(__('New User'), array('action' => 'add')); ?>
+    <div class="col-lg-12 addNewButton">
+            <?php echo $this->Html->link(__('New User'), array('action' => 'add'),array('class' => 'btn btn-primary','type'=>'button')); ?>
         </div>
         
         
     <div class="panel-body">
         <div class="dataTable_wrapper">
-            <table cellpadding="0" cellspacing="0" class="table table-striped table-bordered table-hover" id="dataTables-example">
+            <table cellpadding="0" cellspacing="0" class="table table-striped table-bordered table-hover" id="dataTables-example" style="margin-top:15px;">
     <thead>
     <tr>
             <?php /*?><th><?php //echo $this->Paginator->sort('id'); ?></th><?php */?>
@@ -24,8 +24,8 @@
             <th><?php //echo $this->Paginator->sort('total_amount_spend'); ?></th>
             <th><?php //echo $this->Paginator->sort('total_orders'); ?></th><?php */?>
             <th><?php echo $this->Paginator->sort('photo'); ?></th>
-            <th><?php echo $this->Paginator->sort('privilages'); ?></th>
-           <?php /*?> <th><?php //echo $this->Paginator->sort('terms_and_cond'); ?></th>
+            <?php /*?> <th><?php echo $this->Paginator->sort('privilages'); ?></th>
+           <th><?php //echo $this->Paginator->sort('terms_and_cond'); ?></th>
             <th><?php //echo $this->Paginator->sort('publish'); ?></th>
             <th><?php //echo $this->Paginator->sort('published_at'); ?></th>
             <th><?php //echo $this->Paginator->sort('updated_at'); ?></th><?php */?>
@@ -49,9 +49,9 @@
         <?php /*?><td><?php //echo h($user['User']['password']); ?>&nbsp;</td>
         <td><?php //echo h($user['User']['total_amount_spend']); ?>&nbsp;</td>
         <td><?php //echo h($user['User']['total_orders']); ?>&nbsp;</td><?php */?>
-        <td><?php echo h($user['User']['photo']); ?>&nbsp;</td>
-        <td><?php echo h($user['User']['privilages']); ?>&nbsp;</td>
-        <?php /*?><td><?php //echo h($user['User']['terms_and_cond']); ?>&nbsp;</td>
+        <td><?php echo $this->Html->image('admin/small/'.$user['User']['photo'], array('alt' => 'CakePHP')); ?>&nbsp;</td>
+        <?php /*?><td><?php echo h($user['User']['privilages']); ?>&nbsp;</td>
+       <td><?php //echo h($user['User']['terms_and_cond']); ?>&nbsp;</td>
         <td><?php //echo h($user['User']['publish']); ?>&nbsp;</td>
         <td><?php //echo h($user['User']['published_at']); ?>&nbsp;</td>
         <td><?php //echo h($user['User']['updated_at']); ?>&nbsp;</td><?php */?>
@@ -82,14 +82,14 @@
 		echo $this->Paginator->numbers(array('separator' => ''));
 		echo $this->Paginator->next(__('next') . ' >', array(), null, array('class' => 'next disabled'));
 	?>
-	</div><?php */?>
+	</div>
     
 <div class="actions">
 	<h3><?php echo __('Actions'); ?></h3>
 	<ul>
 		<li><?php echo $this->Html->link(__('New User'), array('action' => 'add')); ?></li>
 	</ul>
-</div>
+</div><?php */?>
 
 <?php echo $this->element('view_footer'); ?>
 

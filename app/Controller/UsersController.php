@@ -112,14 +112,14 @@ class UsersController extends AppController {
 	public function admin_index() {
 		$this->checkadmin();
 		$this->User->recursive = 0;
-		$this->set('users', $this->Paginator->paginate());
+		$this->set('users', $this->Paginator->paginate('User',array('User.privilages' => 'subadmin')));
 	}
 	
 	
 	public function admin_customers() {
 		$this->checkadmin();
 		$this->User->recursive = 0;
-		$this->set('users', $this->Paginator->paginate('User',array('User.privilages' => 'admin')));
+		$this->set('users', $this->Paginator->paginate('User',array('User.privilages' => 'cutomers')));
 	}
 
 /**
@@ -151,17 +151,14 @@ class UsersController extends AppController {
  * @return void
  */
 	public function admin_add() {
+		$photo='';
+		$photo1=array('');
 		if ($this->request->is('post')) {
-			if(isset($this->request->data['User']['photo']['name'])){
-		$status = $this->ImageTool->resize(array(
-            'input' => $this->request->data['User']['photo']['name'],
-            'output' => 'sdfsdf.jpg',
-            'width' => 100,
-            'height' => 100,
-            'keepRatio' => true,
-            'paddings' => false
-        ));
-			$this->request->data['User']['photo'] = $this->request->data['User']['photo']['name'];
+			if(isset($this->request->data['User']['photo'])){
+				foreach($this->request->data['User']['photo'] as $photo){
+					$photo1[] = $photo!='' ? $this->Image->upload_image_and_thumbnail($photo,573,380,180,110, "admin") : '';
+				}
+		        $this->request->data['User']['photo']=implode(',',$photo1);
 			}
 			$this->User->create($this->request->data);
 			if ($this->User->save($this->request->data)) {
@@ -265,6 +262,10 @@ class UsersController extends AppController {
 	public function admin_logout() {
 		$this->Session->delete('User');
 		$this->redirect(array('controller'=>'users','action'=>'login'));
+	}
+	
+	public function admin_dashboard() {
+		$this->layout = 'admin';
 	}
 
 }

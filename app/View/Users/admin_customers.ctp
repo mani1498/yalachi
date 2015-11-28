@@ -1,6 +1,6 @@
 <?php echo $this->element('view_header'); ?>
     <div class="col-lg-12">
-            <?php echo $this->Html->link(__('New User'), array('action' => 'add')); ?>
+            <?php //echo $this->Html->link(__('New User'), array('action' => 'add')); ?>
         </div>
         
         
@@ -82,7 +82,7 @@
 		echo $this->Paginator->numbers(array('separator' => ''));
 		echo $this->Paginator->next(__('next') . ' >', array(), null, array('class' => 'next disabled'));
 	?>
-	</div><?php */?>
+	</div>
     
 <div class="actions">
 	<h3><?php echo __('Actions'); ?></h3>
@@ -90,7 +90,7 @@
 		<li><?php echo $this->Html->link(__('New User'), array('action' => 'add')); ?></li>
 	</ul>
 </div>
-
+<?php */?>
 <?php echo $this->element('view_footer'); ?>
 
 </div>

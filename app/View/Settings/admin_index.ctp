@@ -17,9 +17,9 @@
             </div>
             <div class="settings form">
                 <?php  echo $this->Form->input('id');
-                    echo $this->Form->input('store_name');
-                    echo $this->Form->input('email');
-                    echo $this->Form->input('enquiry_email');
+                    echo $this->Form->input('store_name',array('div'=>false,'error'=>false, 'before' => '<div class="form-group">', 'after' => '</div>', 'class'=>'validate[required] form-control'));
+                    echo $this->Form->input('email',array('div'=>false,'error'=>false, 'before' => '<div class="form-group">', 'after' => '</div>', 'class'=>'validate[required] form-control'));
+                    echo $this->Form->input('enquiry_email',array('div'=>false,'error'=>false, 'before' => '<div class="form-group">', 'after' => '</div>', 'class'=>'validate[required] form-control'));
                 ?>
             </div>
  		</div>
@@ -33,9 +33,9 @@
             </div>
             <div class="settings form">
                 <?php
-                     echo $this->Form->input('company_name');
-            		 echo $this->Form->input('phone');
-             		 echo $this->Form->input('address');
+                     echo $this->Form->input('company_name',array('div'=>false,'error'=>false, 'before' => '<div class="form-group">', 'after' => '</div>', 'class'=>'validate[required] form-control'));
+            		 echo $this->Form->input('phone',array('div'=>false,'error'=>false, 'before' => '<div class="form-group">', 'after' => '</div>', 'class'=>'validate[required] form-control'));
+             		 echo $this->Form->input('address',array('div'=>false,'error'=>false, 'before' => '<div class="form-group">', 'after' => '</div>', 'class'=>'validate[required] form-control'));
                 ?>
             </div>
  		</div>
@@ -48,10 +48,10 @@
             </div>
             <div class="settings form">
                 <?php
-                    echo $this->Form->input('time_zone');
-					echo $this->Form->input('currency');
-					echo $this->Form->input('unit_system');
-					echo $this->Form->input('weight');
+                    echo $this->Form->input('time_zone',array('div'=>false,'error'=>false, 'before' => '<div class="form-group">', 'after' => '</div>', 'class'=>'validate[required] form-control'));
+					echo $this->Form->input('currency',array('div'=>false,'error'=>false, 'before' => '<div class="form-group">', 'after' => '</div>', 'class'=>'validate[required] form-control'));
+					echo $this->Form->input('unit_system',array('div'=>false,'error'=>false, 'before' => '<div class="form-group">', 'after' => '</div>', 'class'=>'validate[required] form-control'));
+					echo $this->Form->input('weight',array('div'=>false,'error'=>false, 'before' => '<div class="form-group">', 'after' => '</div>', 'class'=>'validate[required] form-control'));
                 ?>
             </div>
  		</div>
@@ -59,20 +59,20 @@
     
 	<div class="col-lg-12">
     
-    	<div class="panel panel-default">
+    	<div class="panel panel-default" style="overflow:hidden">
             <div class="panel-heading">
                 <?php echo __('Standards and formats'); ?>
             </div>
             <div class="settings form">
                 <?php
-                    echo $this->Form->input('logo_name');
-					echo $this->Form->input('logo_image');
-					echo $this->Form->input('logo_url');
-					echo $this->Form->input('copy_rights_text');
-					echo $this->Form->input('ship_from');
-					echo $this->Form->input('ship_zone');
-					echo $this->Form->input('ship_label');
-					echo $this->Form->input('ship_package_dimension');
+                    echo $this->Form->input('logo_name',array('div'=>false,'error'=>false, 'before' => '<div style="float:left;width:40%"><div class="form-group">', 'after' => '</div>', 'class'=>'validate[required] form-control'));
+					echo $this->Form->input('logo_image',array('div'=>false,'error'=>false, 'before' => '<div class="form-group">', 'after' => '</div>', 'class'=>'validate[required] form-control'));
+					echo $this->Form->input('logo_url',array('div'=>false,'error'=>false, 'type'=>'text', 'before' => '<div class="form-group">', 'after' => '</div>', 'class'=>'validate[required] form-control'));
+					echo $this->Form->input('copy_rights_text',array('div'=>false,'error'=>false, 'before' => '<div class="form-group">', 'after' => '</div></div>', 'class'=>'validate[required] form-control'));
+					echo $this->Form->input('ship_from',array('div'=>false,'error'=>false, 'before' => '<div style="float:left;width:40%"><div class="form-group">', 'after' => '</div>', 'class'=>'validate[required] form-control'));
+					echo $this->Form->input('ship_zone',array('div'=>false,'error'=>false, 'before' => '<div class="form-group">', 'after' => '</div>', 'class'=>'validate[required] form-control'));
+					echo $this->Form->input('ship_label',array('div'=>false,'error'=>false, 'before' => '<div class="form-group">', 'after' => '</div>', 'class'=>'validate[required] form-control'));
+					echo $this->Form->input('ship_package_dimension',array('div'=>false,'error'=>false, 'before' => '<div class="form-group">', 'after' => '</div></div>', 'class'=>'validate[required] form-control'));
                 ?>
             </div>
  		</div>

@@ -1,16 +1,16 @@
 <?php echo $this->element('view_header'); ?>
-    <div class="col-lg-12">
-            <?php echo $this->Html->link(__('New User'), array('action' => 'add')); ?>
-        </div>
-
+<div class="addNewButton" style="float:none;">
+         <?php echo $this->Html->link(__('Back to User'), array('action' => 'index'),array('class' => 'btn btn-primary','type'=>'button')); ?>
+         <?php echo $this->Html->link(__('Delete User'), array('action' => 'delete', $this->Form->value('User.id')),array('class' => 'btn btn-primary','type'=>'button'), array('confirm' => __('Are you sure you want to delete # %s?', $this->Form->value('User.id')))); ?>
+         <?php echo $this->Html->link(__('Add to User'), array('action' => 'add'),array('class' => 'btn btn-primary','type'=>'button')); ?>
+    </div>
+<style>
+.panel{
+	overflow:auto;
+}
+</style>
 <div class="users view">
-<h2><?php echo __('User'); ?></h2>
 	<dl>
-		<dt><?php echo __('Id'); ?></dt>
-		<dd>
-			<?php echo h($user['User']['id']); ?>
-			&nbsp;
-		</dd>
 		<dt><?php echo __('First Name'); ?></dt>
 		<dd>
 			<?php echo h($user['User']['first_name']); ?>
@@ -108,7 +108,7 @@
 		</dd>
 	</dl>
 </div>
-<div class="actions">
+<?php /*?><div class="actions">
 	<h3><?php echo __('Actions'); ?></h3>
 	<ul>
 		<li><?php echo $this->Html->link(__('Edit User'), array('action' => 'edit', $user['User']['id'])); ?> </li>
@@ -116,7 +116,7 @@
 		<li><?php echo $this->Html->link(__('List Users'), array('action' => 'index')); ?> </li>
 		<li><?php echo $this->Html->link(__('New User'), array('action' => 'add')); ?> </li>
 	</ul>
-</div>
+</div><?php */?>
 <?php echo $this->element('view_footer'); ?>
 
 </div>

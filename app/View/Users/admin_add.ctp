@@ -1,17 +1,4 @@
-<div id="page-wrapper">
-    <div class="row">
-        <div class="col-lg-12">
-            <?php //echo $this->Html->link(__('New User'), array('action' => 'add','type'=>'button','class'=>'btn btn-primary')); ?>
-        </div>
-        <!-- /.col-lg-12 -->
-    </div>
-
-    <div class="row">
-    <div class="col-lg-12">
-    <div class="panel panel-default">
-        <div class="panel-heading">
-            <?php echo __('Users'); ?>
-        </div>
+<?php echo $this->element('view_header'); ?>
 
 
 <div class="users form">
@@ -32,8 +19,8 @@
 		echo $this->Form->input('password',array('div'=>false,'error'=>false, 'before' => '<div class="form-group">', 'after' => '</div>', 'class'=>'validate[required] form-control','placeholder'=>'Password'));
 		echo $this->Form->input('total_amount_spend',array('type'=>'hidden','value'=>0));
 		echo $this->Form->input('total_orders',array('type'=>'hidden','value'=>0));
-		echo $this->Form->input('photo',array('div'=>false,'error'=>false, 'before' => '<div class="form-group">', 'after' => '</div>', 'class'=>'validate[required] form-control','type'=>'file'));
-		//echo $this->Form->input('privilages'); class="checkbox-inline"
+		echo $this->Form->input('photo.',array('div'=>false,'error'=>false, 'before' => '<div class="form-group">', 'after' => '</div>', 'class'=>'validate[required] form-control','type'=>'file','multiple'));
+		echo $this->Form->input('privilages',array('type'=>'hidden','value'=>'subadmin')); 
 		echo $this->Form->input('terms_and_cond',array('div'=>false,'error'=>false, 'before' => '<div class="form-group">', 'after' => '</div>'));
 		//echo $this->Form->input('publish');
 		//echo $this->Form->input('published_at');
@@ -42,15 +29,12 @@
 	</fieldset>
  <?php echo $this->Form->submit(__('Submit'),array('div'=>false, 'class'=>'btn btn-lg btn-success btn-block')); echo $this->Form->end();	?>
 </div>
-<div class="actions">
+<?php /*?><div class="actions">
 	<h3><?php echo __('Actions'); ?></h3>
 	<ul>
 
 		<li><?php echo $this->Html->link(__('List Users'), array('action' => 'index')); ?></li>
 	</ul>
-</div>
+</div><?php */?>
 
-
- </div>
-    </div>
-    </div>
+<?php echo $this->element('view_footer'); ?>

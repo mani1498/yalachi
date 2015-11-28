@@ -1,18 +1,10 @@
-<div id="page-wrapper">
-    <div class="row">
-        <div class="col-lg-12">
-            <?php //echo $this->Html->link(__('New User'), array('action' => 'add','type'=>'button','class'=>'btn btn-primary')); ?>
-        </div>
-        <!-- /.col-lg-12 -->
+<?php echo $this->element('view_header'); ?>
+<div class="addNewButton" style="float:none;">
+         <?php echo $this->Html->link(__('Back to User'), array('action' => 'index'),array('class' => 'btn btn-primary','type'=>'button')); ?>
+         <?php echo $this->Html->link(__('Delete User'), array('action' => 'delete', $this->Form->value('User.id')),array('class' => 'btn btn-primary','type'=>'button'), array('confirm' => __('Are you sure you want to delete # %s?', $this->Form->value('User.id')))); ?>
+         <?php echo $this->Html->link(__('Add to User'), array('action' => 'add'),array('class' => 'btn btn-primary','type'=>'button')); ?>
     </div>
-
-    <div class="row">
-    <div class="col-lg-12">
-    <div class="panel panel-default">
-        <div class="panel-heading">
-            <?php echo __('Users'); ?>
-        </div>
-
+ 
 <div class="users form">
 <?php echo $this->Form->create('User'); ?>
 	<fieldset>
@@ -28,6 +20,12 @@
 		//echo $this->Form->input('country');
 		//echo $this->Form->input('zipcode');
 		echo $this->Form->input('phone',array('div'=>false,'error'=>false, 'before' => '<div class="form-group">', 'after' => '</div>', 'class'=>'validate[required] form-control','placeholder'=>'Phone'));
+		
+		$allPhoto=explode(',',strip_tags($this->Form->input('photo',array('name'=>false,'div'=>false,'label'=>false))));
+		foreach($allPhoto as $photo){
+			if(!empty($photo))	echo $this->Html->image('admin/small/'.$photo, array('name'=>false,'div'=>false,'label'=>false,'alt' => 'CakePHP'));
+		}
+		
 		echo $this->Form->input('email',array('div'=>false,'error'=>false, 'before' => '<div class="form-group">', 'after' => '</div>', 'class'=>'validate[required] form-control','placeholder'=>'E-mail'));
 		echo $this->Form->input('password',array('div'=>false,'error'=>false, 'before' => '<div class="form-group">', 'after' => '</div>', 'class'=>'validate[required] form-control','placeholder'=>'Password'));
 		///echo $this->Form->input('total_amount_spend',array('type'=>'hidden','value'=>0));
@@ -43,15 +41,13 @@
      <?php echo $this->Form->submit(__('Submit'),array('div'=>false, 'class'=>'btn btn-lg btn-success btn-block')); echo $this->Form->end();	?>
 
 </div>
-<div class="actions">
+<?php /*?><div class="actions">
 	<h3><?php echo __('Actions'); ?></h3>
 	<ul>
 
 		<li><?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $this->Form->value('User.id')), array('confirm' => __('Are you sure you want to delete # %s?', $this->Form->value('User.id')))); ?></li>
 		<li><?php echo $this->Html->link(__('List Users'), array('action' => 'index')); ?></li>
 	</ul>
-</div>
+</div><?php */?>
 
- </div>
-    </div>
-    </div>
+<?php echo $this->element('view_footer'); ?>
