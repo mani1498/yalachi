@@ -1,6 +1,1 @@
-<?php
-
-debug($Product);
- 
- 
-  ?>
+<?php debug($Product); ?>

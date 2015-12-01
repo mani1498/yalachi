@@ -34,7 +34,7 @@ class ProductsController extends AppController {
  * @param string $id
  * @return void
  */
-	public function view($id = null) {
+	public function admin_view($id = null) {
 		if (!$this->Product->exists($id)) {
 			throw new NotFoundException(__('Invalid product'));
 		}
@@ -47,15 +47,12 @@ class ProductsController extends AppController {
  *
  * @return void
  */
-	public function admin_add() {
+
+	public function admin_dbadd() {
 		if ($this->request->is('post')) {
 			$this->request->data['Product']=array('');
-			
-			if($_SERVER['HTTP_HOST']=='localhost' || $_SERVER['HTTP_HOST']=='shopping.com'){
-				$config = mysqli_connect('localhost','root','','health');
-			}
+			$config = mysqli_connect('localhost','root','','health');
 			$query = mysqli_query($config,"SELECT * FROM `product_details` WHERE  `amazon_rank` <= 1500 and `competitorcount` <= 3 and `id` BETWEEN 61 AND 300");
-			//echo '<pre>';print_r($query);exit;
 			$n=0;
 			while($row = mysqli_fetch_assoc($query)) {
 				$this->request->data['Product']['title']=$row['title'];
@@ -125,7 +122,62 @@ class ProductsController extends AppController {
 			 else {
 				$this->Flash->error(__('The product could not be saved. Please, try again.'));
 			}
+		  }
 		}
+	}
+	
+	/**
+ * add method
+ *
+ * @return void
+ */
+	public function admin_add() {
+		if ($this->request->is('post')) {
+			$this->Product->create();
+			echo '<pre>';print_r($this->request->data);exit;
+			if ($this->Product->save($this->request->data)) {
+				
+				$product_id = $this->Product->getLastInsertId();
+				//debug($product_id); exit;
+				
+				$cids[] = explode(',',$this->request->data['Collect']['name']);
+				
+				$this->request->data['Option']['product_id'] = $product_id;
+				  foreach($cids as $cid){
+					$this->request->data['Collect']['product_id'] = $product_id;
+					$this->request->data['Collect']['collect_id'] = $cid;
+					$this->Collect->create();
+					$this->Collect->save($this->request->data);
+				  }
+				
+				$this->request->data['ProductVarient']['product_id'] = $product_id;
+				$this->Option->create();
+				$this->Option->save($this->request->data);
+				
+				if(isset($this->request->data['ProductImage']['img_src'][0]['name'])){
+				  foreach($this->request->data['ProductImage']['img_src'] as $photo){
+					$this->request->data['ProductImage']['img_src'] = $photo!='' ? $this->Image->upload_image_and_thumbnail($photo,573,380,180,110, "product") : '';
+					$this->request->data['ProductImage']['product_id'] = $product_id;
+					$this->ProductImage->create();
+					$this->ProductImage->save($this->request->data);
+				  }
+				}
+				$this->ProductVarient->create();
+				$this->ProductVarient->save($this->request->data);
+				$this->Flash->success(__('The product has been saved.'));
+				//return $this->redirect(array('action' => 'index'));
+			} else {
+				$this->Flash->error(__('The product could not be saved. Please, try again.'));
+			}
+		}
+		else{
+			$this->Category->unBindModel(array('hasOne' => array('Metafield'),'hasMany' => array('Collect')));
+			$options = array('conditions' => array('Category.publish' => 1),'fields'=> array('Category.id','Category.title'));
+			$category= $this->Category->find('all', $options);
+			foreach($category as $key => $values) {
+				$value[$values['Category']['id']]= $values['Category']['title'];
+			}
+			$this->set('category', $value);
 		}
 	}
 
@@ -158,7 +210,7 @@ class ProductsController extends AppController {
  * @param string $id
  * @return void
  */
-	public function edit($id = null) {
+	public function admin_edit($id = null) {
 		if (!$this->Product->exists($id)) {
 			throw new NotFoundException(__('Invalid product'));
 		}
@@ -182,7 +234,7 @@ class ProductsController extends AppController {
  * @param string $id
  * @return void
  */
-	public function delete($id = null) {
+	public function admin_delete($id = null) {
 		$this->Product->id = $id;
 		if (!$this->Product->exists()) {
 			throw new NotFoundException(__('Invalid product'));

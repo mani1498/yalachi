@@ -49,12 +49,16 @@ class ImgfilesController extends AppController {
  */
 	public function admin_add() {
 		if ($this->request->is('post')) {
+			if(isset($this->request->data['Imgfile']['image']['name'])){
+			$this->request->data['Imgfile']['image'] = $this->request->data['Imgfile']['image']['name']!='' ? $this->Image->upload_image_and_thumbnail($this->request->data['Imgfile']['image'],573,380,180,110, "Imgfile") : '';
+			$this->request->data['Imgfile']['image_url']=BASE_URL.'/Imgfile/'.$this->request->data['Imgfile']['image'];
 			$this->Imgfile->create();
 			if ($this->Imgfile->save($this->request->data)) {
 				$this->Flash->success(__('The imgfile has been saved.'));
 				return $this->redirect(array('action' => 'index'));
 			} else {
 				$this->Flash->error(__('The imgfile could not be saved. Please, try again.'));
+			}
 			}
 		}
 	}
@@ -71,6 +75,10 @@ class ImgfilesController extends AppController {
 			throw new NotFoundException(__('Invalid imgfile'));
 		}
 		if ($this->request->is(array('post', 'put'))) {
+			$change = $this->Imgfile->read(null, $id);
+			$this->request->data['Imgfile']['image']['name']!='' && $change['Imgfile']['image']!='' ? $this->Image->delete_image($change['Imgfile']['image'],"Imgfile") : '';
+			$this->request->data['Imgfile']['image'] = $this->request->data['Imgfile']['image']['name']!='' ? $this->Image->upload_image_and_thumbnail($this->request->data['Imgfile']['image'],573,380,180,110, "Imgfile") : $change['Imgfile']['image'];
+			
 			if ($this->Imgfile->save($this->request->data)) {
 				$this->Flash->success(__('The imgfile has been saved.'));
 				return $this->redirect(array('action' => 'index'));

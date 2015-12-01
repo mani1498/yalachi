@@ -15,7 +15,7 @@ class CategoriesController extends AppController {
  *
  * @var array
  */
-	public $components = array('Paginator', 'Flash', 'Session');
+	public $components = array('RequestHandler','Paginator', 'Flash', 'Session');
 	public $layout = 'admin';
 /**
  * index method
@@ -68,19 +68,21 @@ class CategoriesController extends AppController {
 	}
 	
 
-	public function all() {
+	public function admin_all() {
 		
+		$this->layout = '';
  		$this->Collect->Product->unBindModel(array('hasMany' => array('Order','Wishlist','ProductVarient','Collect','Review')));
 		$this->Collect->Product->unBindModel(array('hasOne' => array('Option','Metafield')));
 		$this->Collect->Category->unBindModel(array('hasMany' => array('Collect')));
 		$this->Collect->Category->unBindModel(array('hasOne' => array('Metafield')));
 		$category = $this->Collect->find('all');
-		debug($category); exit;
+		$this->set(array('Category' => $category,'_serialize' => array('Category')));
 		
 	}
 	
-	public function product($title = null) {
-
+	public function admin_product($title = null) {
+		
+		$this->layout = '';
 		$this->Collect->Product->unBindModel(array('hasMany' => array('Order','Wishlist','ProductVarient','Collect','Review')));
 		$this->Collect->Product->unBindModel(array('hasOne' => array('Option','Metafield')));
 		$this->Collect->Category->unBindModel(array('hasMany' => array('Collect')));
@@ -88,13 +90,15 @@ class CategoriesController extends AppController {
 		
 		$categories = $this->Collect->find('all',array('conditions' => array('Category.title'=> $title)));
 		foreach($categories as $category){
-			$category1[$category['Category']['title']][] = $category;
+			$categorygroup[$category['Category']['title']][] = $category;
 		}
-		debug($category1); exit;
+		$this->set(array('Category' => $categorygroup,'_serialize' => array('Category')));
 		
 	}
 	
-	public function details($id = null) {
+	public function admin_details($id = null) {
+		
+		$this->layout = '';
 		if (!$this->Category->exists($id)) {
 			throw new NotFoundException(__('Invalid category'));
 		}
@@ -104,7 +108,7 @@ class CategoriesController extends AppController {
 		
 		$options = array('conditions' => array('Category.' .$this->Category->primaryKey => $id));
 		$category = $this->Category->find('first', $options);
-		debug($category); exit;
+		$this->set(array('Category' => $category,'_serialize' => array('Category')));		
 		
 	}
 
