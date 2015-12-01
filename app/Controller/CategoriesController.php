@@ -9,7 +9,7 @@ App::uses('AppController', 'Controller');
  * @property SessionComponent $Session
  */
 class CategoriesController extends AppController {
-	public $uses = array('Category','Product','Collect','Metafield');
+	public $uses = array('Product','Category','Collect','Option','ProductImage','ProductVarient','Metafield','Review');
 /**
  * Components
  *
@@ -68,6 +68,31 @@ class CategoriesController extends AppController {
 	}
 	
 
+	public function all() {
+		
+ 		$this->Collect->Product->unBindModel(array('hasMany' => array('Order','Wishlist','ProductVarient','Collect','Review')));
+		$this->Collect->Product->unBindModel(array('hasOne' => array('Option','Metafield')));
+		$this->Collect->Category->unBindModel(array('hasMany' => array('Collect')));
+		$this->Collect->Category->unBindModel(array('hasOne' => array('Metafield')));
+		$category = $this->Collect->find('all');
+		debug($category); exit;
+		
+	}
+	
+	public function product($title = null) {
+
+		$this->Collect->Product->unBindModel(array('hasMany' => array('Order','Wishlist','ProductVarient','Collect','Review')));
+		$this->Collect->Product->unBindModel(array('hasOne' => array('Option','Metafield')));
+		$this->Collect->Category->unBindModel(array('hasMany' => array('Collect')));
+		$this->Collect->Category->unBindModel(array('hasOne' => array('Metafield')));
+		
+		$categories = $this->Collect->find('all',array('conditions' => array('Category.title'=> $title)));
+		foreach($categories as $category){
+			$category1[$category['Category']['title']][] = $category;
+		}
+		debug($category1); exit;
+		
+	}
 	
 	public function details($id = null) {
 		if (!$this->Category->exists($id)) {

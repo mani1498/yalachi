@@ -14,7 +14,7 @@ class Collect extends AppModel {
  * @var string
  */
 	public $displayField = 'category_id';
-
+	public $recursive = 2;
 
 	// The Associations below have been created with all possible keys, those that are not needed can be removed
 
@@ -28,14 +28,14 @@ class Collect extends AppModel {
 			'className' => 'Category',
 			'foreignKey' => 'category_id',
 			'conditions' => '',
-			'fields' => array('Category.title'),
+			'fields' => array('Category.id','Category.title'),
 			'order' => ''
 		),
 		'Product' => array(
 			'className' => 'Product',
 			'foreignKey' => 'product_id',
 			'conditions' => '',
-			'fields' => array('title','type','vendor','publish'),
+			'fields' => array('Product.id','Product.title','Product.description','Product.vendor','Product.type','Product.tags','Product.publish','Product.price','Product.list_price','Product.sku','Product.barcode','Product.quantity','Product.weight','Product.varients','Product.tax','Product.shipping'),
 			'order' => ''
 		)
 	);
