@@ -385,3 +385,12 @@ table.dataTable thead .sorting:after {
 }
 .view dt, .view dd {     float: left;  width: 30%;  margin-right: 50px; }
 .view dt { clear: both; width: 40%; text-align: right; line-height: 30px; }
+
+.col-lg-6 .form-group input[type="text"],.col-lg-6 .form-group textarea,.col-lg-6 .form-group input[type="tel"],.col-lg-6 .form-group input[type="email"],.col-lg-6 .form-group input[type="password"],.col-lg-6 .form-group input[type="file"],.col-lg-6 .form-group input[type="number"]{
+	width:80%;
+	margin-left:15px;
+}
+.col-lg-6 .form-group label{
+	width:35%;
+	margin-left:15px;
+}

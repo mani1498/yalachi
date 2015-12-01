@@ -1,12 +1,11 @@
 <?php echo $this->element('view_header'); ?>
 
-<div class="col-lg-12">
-   <?php echo $this->Html->link(__('New File'), array('action' => 'add')); ?>
+<div class="col-lg-12 addNewButton">
+   <?php echo $this->Html->link(__('New File'), array('action' => 'add'),array('class' => 'btn btn-primary','type'=>'button')); ?>
 </div>
 <div class="panel-body">
         <div class="dataTable_wrapper">
 <div class="imgfiles index">
-	<h2><?php echo __('Imgfiles'); ?></h2>
 	<table cellpadding="0" cellspacing="0" class="table table-striped table-bordered table-hover" id="dataTables-example">
 	<thead>
 	<tr>
@@ -49,13 +48,13 @@
 		echo $this->Paginator->numbers(array('separator' => ''));
 		echo $this->Paginator->next(__('next') . ' >', array(), null, array('class' => 'next disabled'));
 	?>
-	</div><?php */?>
+	</div>
 </div>
 <div class="actions">
 	<h3><?php echo __('Actions'); ?></h3>
 	<ul>
 		<li><?php echo $this->Html->link(__('New Imgfile'), array('action' => 'add')); ?></li>
 	</ul>
-</div>
+</div><?php */?>
 </div></div>
 <?php echo $this->element('view_footer'); ?>
