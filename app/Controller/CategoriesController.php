@@ -23,8 +23,10 @@ class CategoriesController extends AppController {
  * @return void
  */
 	public function admin_index() {
+		
+		$this->Category->unBindModel(array('hasOne' => array('Metafield'),'hasMany' => array('Collect')));
 		$this->Category->recursive = 0;
-		$this->set('categories', $this->Paginator->paginate());
+		$this->set('categories', $this->Paginator->paginate('Category',array('Category.publish' => 1)));
 	}
 
 /**

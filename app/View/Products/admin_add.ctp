@@ -1,6 +1,7 @@
 <div id="page-wrapper">
 
-<?php echo $this->Form->create('Product',array('id'=>'userAdd','type' => 'file','role'=>'form')); ?>
+<?php echo $this->Html->css('selectivity-full.css');
+ echo $this->Form->create('Product',array('id'=>'userAdd','type' => 'file','role'=>'form')); ?>
     <legend><?php echo __('Add Product'); ?></legend>
     
     <div class="row">
@@ -54,7 +55,7 @@
 					echo $this->Form->input('vendor',array('div'=>false,'error'=>false, 'before' => '<div class="form-group">', 'after' => '</div>', 'class'=>'validate[required] form-control'));
 					echo $this->Form->input('type',array('div'=>false,'error'=>false,'before' => '<div class="form-group">', 'after' => '</div>' ,'multiple'=>'', 'class'=>'validate[required] form-control'));
 					echo $this->Form->input('tags',array('div'=>false,'error'=>false, 'before' => '<div class="form-group">', 'after' => '</div>', 'class'=>'validate[required] form-control'));
-					echo $this->Form->input('Collect.category_id',array('div'=>false,'error'=>false, 'type'=>'select','multiple', 'options'=>$category, 'before' => '<div class="form-group">', 'after' => '</div>' , 'class'=>'validate[required] form-control'));
+					echo $this->Form->input('Collect.category_id',array('div'=>false,'error'=>false, 'name'=>'Collect[category_id][]', 'type'=>'select','multiple', 'options'=>$category, 'before' => '<div class="form-group">', 'after' => '</div>' , 'class'=>'validate[required]' ,'id'=>'multiple-select-box'));
 				?>
                 </div>
             </div>
@@ -62,21 +63,18 @@
     </div>
     
      <div class="row">
-        <div class="col-lg-6">
+     	<div class="col-lg-6">
             <div class="panel panel-default">
-            	<div class="panel-heading">varients</div>              
+            	<div class="panel-heading">Images</div>              
                 <div class="panel-body">           
                  <?php
-						echo $this->Form->input('varients',array('div'=>false,'error'=>false, 'before' => '<div class="form-group">', 'after' => '</div>'));
-						echo $this->Form->input('Option.options_name',array('div'=>false,'error'=>false, 'before' => '<div class="form-group">', 'after' => '</div>', 'class'=>'validate[required] form-control'));
-						echo $this->Form->input('Option.options_values',array('div'=>false,'error'=>false, 'before' => '<div class="form-group">', 'after' => '</div>', 'class'=>'validate[required] form-control'));
-						echo $this->Form->input('ProductVarient.price',array('div'=>false,'error'=>false, 'before' => '<div class="form-group">', 'after' => '</div>', 'class'=>'validate[required] form-control'));
-						echo $this->Form->input('ProductVarient.sku',array('div'=>false,'error'=>false, 'before' => '<div class="form-group">', 'after' => '</div>', 'class'=>'validate[required] form-control'));
-						echo $this->Form->input('ProductVarient.barcode',array('div'=>false,'error'=>false, 'before' => '<div class="form-group">', 'after' => '</div>', 'class'=>'validate[required] form-control'));
+						echo $this->Form->input('ProductImage.img_src.',array('div'=>false,'error'=>false, 'before' => '<div class="form-group">', 'after' => '</div>', 'class'=>'validate[required] form-control','type'=>'file','multiple'));
+						echo $this->Form->input('ProductImage.img_alt',array('div'=>false,'error'=>false, 'before' => '<div class="form-group">', 'after' => '</div>', 'class'=>'validate[required] form-control'));
 				 ?>
                 </div>
             </div>
         </div>
+        
         <div class="col-lg-6">
             <div class="panel panel-default">
                 <div class="panel-heading">Meta</div>              
@@ -98,26 +96,25 @@
      <div class="row">
         <div class="col-lg-10">
             <div class="panel panel-default">
-            	<div class="panel-heading">Images</div>              
-                <div class="panel-body">           
+            	<div class="panel-heading">Add Varients <span class="varient-enable">+</span></div>              
+                <div class="panel-body" id="varient_body">           
                  <?php
-						echo $this->Form->input('ProductImage.img_src.',array('div'=>false,'error'=>false, 'before' => '<div class="form-group">', 'after' => '</div>', 'class'=>'validate[required] form-control','type'=>'file','multiple'));
-						echo $this->Form->input('ProductImage.img_alt',array('div'=>false,'error'=>false, 'before' => '<div class="form-group">', 'after' => '</div>', 'class'=>'validate[required] form-control'));
+						echo $this->Form->input('Option.options_name',array('div'=>false,'error'=>false, 'before' => '<div class="form-group">', 'after' => '</div>', 'class'=>'validate[required] form-control'));
+					    echo $this->Html->tag('span', '', array('class' => 'selectivity-input','id'=>'emails-input' ,'name'=>'Option[options_values][]'));
 				 ?>
+                 <div id='TextBoxesGroup'>
+	
+</div>
                 </div>
             </div>
         </div>
     </div>
+    <div id="varient-wrapper"></div>
     
-    
-    <?php echo $this->Form->submit(__('Submit'),array('div'=>false, 'class'=>'btn btn-lg btn-success btn-block')); echo $this->Form->end();	?>
+    <?php echo $this->Form->submit(__('Submit'),array('div'=>false, 'class'=>'btn btn-lg btn-success btn-block' ,'id' => 'getVarientValue')); echo $this->Form->end();	?>
 </div>
 <script type="text/javascript">
 function toggle(element) {
         document.getElementById('urlHandleProduct').value = element;
 }
 </script>
-
-<?php //$this->start('sidebar'); ?>
-
-<?php //$this->end(); ?>

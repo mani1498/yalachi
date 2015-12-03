@@ -17,14 +17,20 @@ class UsersController extends AppController {
  */
 	public $components = array('Paginator', 'Flash', 'Session');
 	public $layout = 'admin';
+	public $uses = array('Product','Category','Collect','Option','ProductImage','ProductVarient','Metafield','Review');
 /**
  * index method
  *
  * @return void
  */
 	public function index() {
-		$this->User->recursive = 0;
-		$this->set('users', $this->Paginator->paginate());
+		$this->layout = 'site';
+		/*$this->Collect->Product->unBindModel(array('hasMany' => array('Order','Wishlist','ProductVarient','Collect','Review')));
+		$this->Collect->Product->unBindModel(array('hasOne' => array('Option','Metafield')));
+		$this->Collect->Category->unBindModel(array('hasMany' => array('Collect')));
+		$this->Collect->Category->unBindModel(array('hasOne' => array('Metafield')));
+		$category = $this->Collect->find('all');
+		$this->set(array('Category' => $category,'_serialize' => array('Category')));*/
 	}
 
 /**
@@ -225,6 +231,7 @@ class UsersController extends AppController {
 	public function admin_login() {
 		
 		$this->layout = 'adminlogin';
+		//
 		if($this->request->is('post')){
 			if(!empty($this->request->data['User']['email'])){
 				
@@ -237,7 +244,8 @@ class UsersController extends AppController {
 					if($check['User']['password'] == $this->request->data['User']['password']){
 						if($check['User']['privilages'] == 'admin'){
 							$this->Session->write($check);
-							$this->redirect(array('controller'=>'users','action'=>'index'));
+							
+							$this->redirect(array('controller'=>'users','action'=>'index','admin'=>true));
 						}
 						else
 							$this->Session->setFlash("<div class='error msg'>Account suspended.</div>,Sorry. Your account has been suspended by site admin.",'');

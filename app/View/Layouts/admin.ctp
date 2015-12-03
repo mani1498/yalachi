@@ -45,7 +45,8 @@
     </div>
     <!-- /#wrapper -->
 	<?php 
-	echo $this->Html->script('jquery.min'); 
+	echo $this->Html->script('jquery.min');
+	echo $this->Html->script('selectivity-full.js');
 	echo $this->Html->script('yalachi');
 	echo $this->Html->script('bootstrap.min');
 	
@@ -60,6 +61,74 @@
 	
 	 <script>
 		$(document).ready(function() {
+			 $('#varient_body').hide();
+			$('#multiple-select-box').selectivity();
+			$('#multiple-select-box-edit').selectivity();
+			$('#emails-input').selectivity({
+					inputType: 'Email',
+                    placeholder: 'Enter option',
+             }); 
+			 var counter = 1;
+			 $('#emails-input').on('keyup',function(e){
+				 //console.log(e.keyCode);
+				 if(e.keyCode == 8){
+					counter--;
+					console.log(counter);
+        			$("#TextBoxDiv" + counter).remove();
+					 console.log('backspace trapped');
+				 }
+				 
+				  if(e.keyCode == 188){
+					if(counter>10){
+							alert("Only 10 textboxes allow");
+							return false;
+					}   
+						
+					var newTextBoxDiv = $(document.createElement('div'))
+						 .attr("id", 'TextBoxDiv' + counter);
+								
+					newTextBoxDiv.after().html('<div class="varient-group"><label>price</label><input type="text" id="price' + counter + '" value=""  ></div><div class="varient-group"><label>SKU</label><input type="text" id="sku' + counter + '" value=""  ></div><div class="varient-group"><label>BarCode</label><input type="text" id="barcode' + counter + '" value=""  ></div>');
+							
+					newTextBoxDiv.appendTo("#TextBoxesGroup");
+					counter++;
+				  }
+					
+					//console.log(counter);
+             });
+			 var varenb;
+			 $(".varient-enable").click(function () {
+				 if(!varenb){
+				  $('#varient_body').show();
+				  varenb=1;
+				 }
+				 else{
+					 varenb=0;
+				 $('#varient_body').hide();
+				 }
+			 });
+			 
+			  $("#getVarientValue").click(function () {
+				 var arr = [];
+					var price,sku,barcode,Varoptions,newDiv;
+					for(i=1; i<counter; i++){
+						arr.push({
+							price: $('#price' + i).val(),
+							sku:  $('#sku' + i).val(),
+							barcode:  $('#barcode' + i).val(),
+							Varoptions: $('span[class="selectivity-multiple-selected-item"]').eq(i-1).attr('data-item-id')
+						});
+					}
+					console.log(arr);
+					$.each(arr, function (index, value) {
+						console.log(index);
+							newDiv = $(document.createElement('div')).attr("id", 'ProductVarientPrice' + index);
+							newDiv.after().html('<input type="hidden" name="data[ProductVarient][val]['+index+'][price]" value="'+value.price+'"><input type="hidden" name="data[ProductVarient][val]['+index+'][sku]" value="'+value.sku+'"><input type="hidden" name="data[ProductVarient][val]['+index+'][barcode]" value="'+value.barcode+'"><input type="hidden" name="data[Option][val]['+index+'][options_values]" value="'+value.Varoptions+'">');
+							newDiv.appendTo("#varient-wrapper");
+					});
+					//return false;
+			});
+			 
+			 
 			$('#dataTables-example').DataTable({
 					responsive: true
 			});

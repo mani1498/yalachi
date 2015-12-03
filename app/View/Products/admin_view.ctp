@@ -1,3 +1,14 @@
+<?php echo $this->element('view_header'); ?>
+<div class="addNewButton" style="float:none;">
+         <?php echo $this->Html->link(__('Back to Category'), array('action' => 'index'),array('class' => 'btn btn-primary','type'=>'button')); ?>
+         <?php echo $this->Html->link(__('Delete Category'), array('action' => 'delete', $this->Form->value('User.id')),array('class' => 'btn btn-primary','type'=>'button'), array('confirm' => __('Are you sure you want to delete # %s?', $this->Form->value('User.id')))); ?>
+         <?php echo $this->Html->link(__('Add Category'), array('action' => 'add'),array('class' => 'btn btn-primary','type'=>'button')); ?>
+    </div>
+<style>
+.panel{
+	overflow:auto;
+}
+</style>
 <div class="products view">
 <h2><?php echo __('Product'); ?></h2>
 	<dl>
@@ -416,4 +427,16 @@
 			<li><?php echo $this->Html->link(__('New Wishlist'), array('controller' => 'wishlists', 'action' => 'add')); ?> </li>
 		</ul>
 	</div>
+</div>
+</div>
+</div>
+</div>
+
+
+
+
+
+
+<?php echo $this->element('view_footer'); ?>
+
 </div>
