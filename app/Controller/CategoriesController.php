@@ -71,7 +71,8 @@ class CategoriesController extends AppController {
 	
 
 	public function admin_all() {
-		
+	    header("Access-Control-Allow-Origin: *");
+		header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept");
 		$this->layout = '';
  		$this->Collect->Product->unBindModel(array('hasMany' => array('Order','Wishlist','ProductVarient','Collect','Review')));
 		$this->Collect->Product->unBindModel(array('hasOne' => array('Option','Metafield')));
@@ -83,7 +84,8 @@ class CategoriesController extends AppController {
 	}
 	
 	public function admin_product($title = null) {
-		
+		header("Access-Control-Allow-Origin: *");
+		header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept");
 		$this->layout = '';
 		$this->Collect->Product->unBindModel(array('hasMany' => array('Order','Wishlist','ProductVarient','Collect','Review')));
 		$this->Collect->Product->unBindModel(array('hasOne' => array('Option','Metafield')));
@@ -99,7 +101,8 @@ class CategoriesController extends AppController {
 	}
 	
 	public function admin_details($id = null) {
-		
+		header("Access-Control-Allow-Origin: *");
+		header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept");
 		$this->layout = '';
 		if (!$this->Category->exists($id)) {
 			throw new NotFoundException(__('Invalid category'));
