@@ -1,4 +1,5 @@
-<?php echo $this->element('view_header');?>
+<?php echo $this->element('view_header');
+echo $this->Html->css('selectivity-full.css'); ?>
 <div class="addNewButton" style="float:none;">
          <?php echo $this->Html->link(__('Back to User'), array('action' => 'index'),array('class' => 'btn btn-primary','type'=>'button')); ?>
          <?php echo $this->Html->link(__('Delete User'), array('action' => 'delete', $this->Form->value('User.id')),array('class' => 'btn btn-primary','type'=>'button'), array('confirm' => __('Are you sure you want to delete # %s?', $this->Form->value('User.id')))); ?>

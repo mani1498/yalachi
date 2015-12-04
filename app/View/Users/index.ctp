@@ -1,8 +1,6 @@
-<div id="id01">
-<?php //debug(json_encode($Category));
-	  //debug($Category);
-	  //echo '<pre>';print_r($Category);
- ?>
+ <div class="jumbotron" id="id01">
+        <h1>List of products</h1>
+       
  </div>
 <script>
 var xmlhttp = new XMLHttpRequest();
@@ -26,7 +24,7 @@ function myFunction(response) {
         arr[i].Product.title +
         "</td><td>" +
         arr[i].Product.sku +
-		"</td><td><img src='<?php echo BASE_URL.'img/Category/small/'; ?>" + arr[i].Product.ProductImage[0].img_src +
+		"</td><td><img src='<?php echo BASE_URL.'img/product/small/'; ?>" + arr[i].Product.ProductImage[0].img_src +
         "'></td><td>" +
         arr[i].Product.price +
         "</td></tr>";

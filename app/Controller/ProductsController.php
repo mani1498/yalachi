@@ -136,26 +136,21 @@ class ProductsController extends AppController {
 		if ($this->request->is('post')) {
 				
 			if(isset($this->request->data['ProductVarient']))
-				$this->request->data['Product']['varients'] = true;
+			$this->request->data['Product']['varients'] = true;
+			//echo '<pre>';print_r($this->request->data);exit;
 			$this->Product->create();
-			//echo '<pre>';print_r($this->request->data);
 			if ($this->Product->save($this->request->data)) {
-				
 				$product_id = $this->Product->getLastInsertId();
-				//debug($product_id); exit;
-				
-				//$cids[] = explode(',',$this->request->data['Collect']['name']);
-				
 				$this->request->data['Option']['product_id'] = $product_id;
 				$this->request->data['ProductVarient']['product_id'] = $product_id;
-				
+				if(!empty($this->request->data['Collect']['category_id'])){	
 				  foreach($this->request->data['Collect']['category_id'] as $cid){
 					$this->request->data['Collect']['product_id'] = $product_id;
 					$this->request->data['Collect']['category_id'] = $cid;
 					$this->Collect->create();
 					$this->Collect->save($this->request->data);
 				  }
-				
+				}
 				
 				
 				if($this->request->data['ProductImage']['img_src'][0]['name'] != ''){
@@ -194,7 +189,7 @@ class ProductsController extends AppController {
 				  }
 				  
 				}
-				
+				$this->request->data['Metafield']['key_id'] = $product_id;
 				$this->Metafield->create();
 				$this->Metafield->save($this->request->data);
 				
