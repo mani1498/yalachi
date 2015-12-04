@@ -13,7 +13,7 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title ng-cloak>Angular - {{title}}</title>
+        <title ng-cloak>Shopping Cart</title>
         <style>
 		/* Sticky footer styles
 		-------------------------------------------------- */
@@ -78,7 +78,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="#">YALACHI</a>
+          <a class="navbar-brand" href="#/">Shopping</a>
         </div>
         <div id="navbar" class="collapse navbar-collapse">
           <ul class="nav navbar-nav">

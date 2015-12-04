@@ -28,6 +28,7 @@
 	Router::mapResources('categories');
 	Router::mapResources('products');
 	Router::parseExtensions();
+	
 	Router::connect('/', array('controller' => 'products', 'action' => 'index'));
 	Router::connect('/home', array('controller' => 'pages', 'action' => 'display', 'home'));
 /**

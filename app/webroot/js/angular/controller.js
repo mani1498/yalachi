@@ -4,24 +4,6 @@ shopping.controller("homeController", ["$scope","$log","$timeout","$http", funct
 }]);
 
 
-//productdetailController
-shopping.controller('productdetailController',['$scope','$routeParams','$http',function($scope, $routeParams, $http){
-	
-	$scope.title = "Product Detail";
-    $scope.id = $routeParams.id;
-    console.log($scope.id);
-    $scope.details = {};
-	var req =  { method: 'GET',url: '/products/details/'+ $scope.id+'.json'}
-	$http(req).success(function (result, status, headers, config) {
-		$scope.details = result.Product;
-		console.log($scope.details);
-	})
-	.error(function (result, status, headers, config) {
-		console.log("Data: " + result);
-		console.log("Status: " + status);
-	})
-        
-}]);
 
 //aboutController
 shopping.controller('aboutController',['$scope',function($scope){
@@ -38,20 +20,22 @@ shopping.controller('contactController',['$scope',function($scope){
 
 
 //catalogController
-shopping.controller('catalogController',['$scope','$http','Pagination','titleService',function($scope,$http,Pagination,titleService){
+shopping.controller('catalogController',['$scope','$http','Pagination',function($scope,$http,Pagination){
 	
-	$scope.title = titleService.getTitle();
-	console.log($scope.title);
+	$scope.title = "Product Page";
 	$scope.allProducts = '{}';
+	$scope.loader = true;
 	$http({method: 'GET',url: '/admin/categories/all.json',cache: false
 	 }).success(function (data, status, headers, config) {
       console.log('successful');
 	  console.log(data.Category);
 	  $scope.allProducts = data.Category;
+	  $scope.loader = false;
 	 }).error(function (data, status, headers, config) {
 	  console.log('failure');
 	  console.log("Data: " + data);
 	  console.log("Status: " + status);
+	   $scope.loader = false;
 	}); 
 	
 	 $scope.currentPage = 0;
@@ -63,11 +47,28 @@ shopping.controller('catalogController',['$scope','$http','Pagination','titleSer
 	
 }]);
 
-shopping.service('titleService',function($location){
-	this.getTitle = function(){
-		return $location.url();
-	}
-});
+
+//productdetailController
+shopping.controller('productdetailController',['$scope','$routeParams','$http',function($scope, $routeParams, $http){
+	
+	$scope.title = "Product Detail";
+	$scope.loader = true;
+    $scope.id = $routeParams.id;
+    console.log($scope.id);
+    $scope.details = {};
+	var req =  { method: 'GET',url: '/products/details/'+ $scope.id+'.json'}
+	$http(req).success(function (result, status, headers, config) {
+		$scope.details = result.Product;
+		console.log($scope.details);
+		$scope.loader = false;
+	})
+	.error(function (result, status, headers, config) {
+		console.log("Data: " + result);
+		console.log("Status: " + status);
+		$scope.loader = false;
+	})
+        
+}]);
 
 shopping.filter('startFrom', function() {
     return function(input, start) {
