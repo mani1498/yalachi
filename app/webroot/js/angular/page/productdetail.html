@@ -1,0 +1,39 @@
+
+
+<div class="row">
+   <br/>
+   <br/>
+   <br/>
+   <h3>{{details.Product.title}}</h3>
+   <!--  ng-repeat="(key, value) in details.ProductImage" -->
+    <div class="col-xs-12 col-md-12">
+    <!--<img ng-repeat="(k,v) in details.ProductImage" ng-show="v.hasOwnProperty('0')" src="{{details.ProductImage.[0].title)}}" title="{{details.Product.title}}"  style="width:250px; height:250px" />-->
+    <img  ng-repeat="(k,v) in details.ProductImage" ng-if="k === 0" src="{{ v.img_src }}"  title="{{details.Product.title}}"  style="width:250px; height:250px" />
+    </div>
+   <br/>  <br/>  <br/>
+    <div class="col-xs-6 col-md-4">Asin:</div>  
+   <div class="col-xs-12 col-md-8"> {{details.Product.sku}}</div>
+        
+    <div class="col-xs-6 col-md-4">Category:</div>  
+   <div class="col-xs-12 col-md-8"> {{details.Product.quantity}}</div>
+    
+   <div class="col-xs-6 col-md-4">Brand</div>
+   <div class="col-xs-12 col-md-8"> {{details.Product.vendor}}</div>
+    
+   <div class="col-xs-6 col-md-4">Manufacture</div>
+   <div class="col-xs-12 col-md-8"> {{details.Product.description}}</div>
+    
+   <div class="col-xs-6 col-md-4">Competitor Count:</div>
+   <div class="col-xs-12 col-md-8"> {{details.Product.type}}</div>
+    
+    <div class="col-xs-6 col-md-4">Merchant</div>
+   <div class="col-xs-12 col-md-8"> {{details.Product.barcode}}</div>
+    
+    <div class="col-xs-6 col-md-4">Offer Price</div>
+   <div class="col-xs-12 col-md-8"> ${{details.Product.list_price}}</div>
+    
+    <div class="col-xs-6 col-md-4">Offer Amount Saved</div>
+   <div class="col-xs-12 col-md-8"> ${{details.Product.price}}</div>
+
+
+</div>

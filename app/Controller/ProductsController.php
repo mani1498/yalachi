@@ -203,6 +203,11 @@ class ProductsController extends AppController {
 		$product = $this->Product->find('first', $options);
 		$this->set(array('Product' => $product,'_serialize' => array('Product')));
 	}
+	
+	public function index(){
+		$this->layout='angular';
+	}
+	
 /**
  * edit method
  *

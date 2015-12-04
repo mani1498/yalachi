@@ -28,7 +28,8 @@
 	Router::mapResources('categories');
 	Router::mapResources('products');
 	Router::parseExtensions();
-	Router::connect('/', array('controller' => 'pages', 'action' => 'display', 'home'));
+	Router::connect('/', array('controller' => 'products', 'action' => 'index'));
+	Router::connect('/home', array('controller' => 'pages', 'action' => 'display', 'home'));
 /**
  * ...and connect the rest of 'Pages' controller's URLs.
  */

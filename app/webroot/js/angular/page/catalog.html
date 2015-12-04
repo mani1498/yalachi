@@ -1,0 +1,27 @@
+<div class="page-header" style="padding-bottom: 0px; margin: 0 0 20px;">
+        <h1 style="margin: 0 0 10px 0;">Product Catalog</h1>
+</div>
+
+<div class="row cataglog"> 
+  <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2" ng-repeat="result in allProducts | startFrom: currentPage*pageSize | limitTo: pageSize">
+   	  <h3 style="margin:0;">{{ result.Product.vendor }}</h3>
+       <a ng-href="/#productdetail/{{result.Product.id}}"> <img class="img-thumbnail" src="/app/webroot/img/product/default.png" alt="default" /> </a>
+	  <p>{{ result.Product.price | currency : $ : 2}}</p>
+      <button type="button" class="btn btn-primary btn-xs">ADD TO CART</button>
+  </div>
+</div>
+
+<div class="row cataglog">
+	<!--<p>
+	<button type="button" class="btn btn-info active btn-xs" ng-disabled="currentPage == 0" ng-click="currentPage=currentPage-1">Previous</button>
+    {{currentPage+1}}/{{numberOfPages()}}
+    <button type="button" class="btn btn-info active btn-xs" ng-disabled="currentPage >= allProducts.length/pageSize - 1" ng-click="currentPage=currentPage+1">Next</button>
+    </p>-->
+   
+    <ul class="pager">
+      <li><a href="javascript:void(0)" ng-hide="currentPage == 0" ng-click="currentPage=currentPage-1">Previous</a></li>
+      <li> <span ng-cloak>{{currentPage+1}}/{{numberOfPages()}}</span></li>
+      <li><a href="javascript:void(0)" ng-hide="currentPage >= allProducts.length/pageSize - 1" ng-click="currentPage=currentPage+1">Next</a></li>
+    </ul>
+    
+</div>
