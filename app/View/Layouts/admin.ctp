@@ -119,8 +119,10 @@
 						});
 					}
 					console.log(arr);
+					//return false;
 					$.each(arr, function (index, value) {
 						console.log(index);
+						//return false;
 							newDiv = $(document.createElement('div')).attr("id", 'ProductVarientPrice' + index);
 							newDiv.after().html('<input type="hidden" name="data[ProductVarient][val]['+index+'][price]" value="'+value.price+'"><input type="hidden" name="data[ProductVarient][val]['+index+'][sku]" value="'+value.sku+'"><input type="hidden" name="data[ProductVarient][val]['+index+'][barcode]" value="'+value.barcode+'"><input type="hidden" name="data[Option][val]['+index+'][options_values]" value="'+value.Varoptions+'">');
 							newDiv.appendTo("#varient-wrapper");
