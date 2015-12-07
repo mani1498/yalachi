@@ -2,7 +2,6 @@ var shopping = angular.module('shopping', ['ngRoute','ngResource','angular.filte
 
 shopping.config(function($routeProvider){
     $routeProvider
-		.when('#',{templateUrl: '/app/webroot/js/angular/page/home.html',controller:'homeController'})
         .when('/',{templateUrl: '/app/webroot/js/angular/page/home.html',controller:'homeController'})
         .when('/about',{templateUrl: '/app/webroot/js/angular/page/pages.html',controller:'aboutController'})
         .when('/contact',{templateUrl: '/app/webroot/js/angular/page/pages.html',controller:'contactController'})

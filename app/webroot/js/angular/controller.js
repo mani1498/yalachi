@@ -1,19 +1,19 @@
 //homeController 
 shopping.controller("homeController", ["$scope","$log","$timeout","$http", function ($scope, $log, $timeout, $http) {
-    $scope.title = "Home Page";
+    //$scope.title = "Home Page";
 }]);
 
 
 
 //aboutController
 shopping.controller('aboutController',['$scope',function($scope){
-    $scope.title = "About US";
+    //$scope.title = "About US";
     $scope.description = "This is Testing content";
 }]);
 
 //contactController
 shopping.controller('contactController',['$scope',function($scope){
-    $scope.title = "Contact";
+    //$scope.title = "Contact";
     $scope.description = "This is Testing content";
     $scope.phone = "+1 23-234-2135";
 }]);
@@ -22,7 +22,7 @@ shopping.controller('contactController',['$scope',function($scope){
 //catalogController
 shopping.controller('catalogController',['$scope','$http','Pagination',function($scope,$http,Pagination){
 	
-	$scope.title = "Product Page";
+	//$scope.title = "Product Page";
 	$scope.allProducts = '{}';
 	$scope.loader = true;
 	$http({method: 'GET',url: '/admin/categories/all.json',cache: false
@@ -39,7 +39,7 @@ shopping.controller('catalogController',['$scope','$http','Pagination',function(
 	}); 
 	
 	 $scope.currentPage = 0;
-     $scope.pageSize = 6;
+     $scope.pageSize = 20;
 	 $scope.numberOfPages = function(){
 		//console.log(Object.keys($scope.allProducts).length);
         return Math.ceil(Object.keys($scope.allProducts).length/$scope.pageSize);                
@@ -51,7 +51,7 @@ shopping.controller('catalogController',['$scope','$http','Pagination',function(
 //productdetailController
 shopping.controller('productdetailController',['$scope','$routeParams','$http',function($scope, $routeParams, $http){
 	
-	$scope.title = "Product Detail";
+	//$scope.title = "Product Detail";
 	$scope.loader = true;
     $scope.id = $routeParams.id;
     console.log($scope.id);

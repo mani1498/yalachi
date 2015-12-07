@@ -7,7 +7,7 @@
     <div class="row cataglog"> 
       <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2" ng-repeat="result in allProducts | startFrom: currentPage*pageSize | limitTo: pageSize">
           <h3 style="margin:0;">{{ result.Product.vendor }}</h3>
-           <a ng-href="/#productdetail/{{result.Product.id}}"> <img class="img-thumbnail" src="/app/webroot/img/product/default.png" alt="default" /> </a>
+           <a ng-href="/#productdetail/{{result.Product.id}}"> <img class="img-thumbnail" ng-src="/app/webroot/img/small/{{ result.Product.ProductImage[0].img_src }}" alt="default" /> </a>
           <p>{{ result.Product.price | currency : $ : 2}}</p>
           <button type="button" class="btn btn-primary btn-xs">ADD TO CART</button>
       </div>
@@ -27,3 +27,7 @@
     </div>
     
 </div>
+
+<script>
+document.title = "Catalog Page";
+</script>

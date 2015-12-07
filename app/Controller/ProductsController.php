@@ -15,7 +15,7 @@ class ProductsController extends AppController {
  *
  * @var array
  */
-	public $components = array('RequestHandler','Paginator', 'Flash', 'Session');
+	public $components = array('RequestHandler','Paginator', 'Flash', 'Session','ImageResize');
 	public $layout = 'admin';
 /**
  * index method
@@ -50,12 +50,13 @@ class ProductsController extends AppController {
  */
 
 	public function admin_dbadd() {
-		if ($this->request->is('post')) {
+		
 			$this->request->data['Product']=array('');
-			$config = mysqli_connect('localhost','root','','health');
-			$query = mysqli_query($config,"SELECT * FROM `product_details` WHERE  `amazon_rank` <= 1500 and `competitorcount` <= 3 and `id` BETWEEN 61 AND 300");
+			$config = mysqli_connect('localhost','root','','health_oct17');
+			$query = mysqli_query($config,"SELECT * FROM `product_details` WHERE  `id` BETWEEN 1 AND 100");
 			$n=0;
 			while($row = mysqli_fetch_assoc($query)) {
+				//debug($row); exit;
 				$this->request->data['Product']['title']=$row['title'];
 				$this->request->data['Product']['description']=$row['category_name'];
 				$this->request->data['Product']['publish']=1;
@@ -74,46 +75,37 @@ class ProductsController extends AppController {
 			
 			$this->Product->create();
 			if ($this->Product->save($this->request->data)) {
-				
 				$product_id = $this->Product->getLastInsertId();
-				//debug($product_id); exit;
 				
-				$this->request->data['Collect']['category_id'] = $this->request->data['Collect']['name'];
+				$this->request->data['Collect']['category_id'] = ($n == 0)? 1 : ($n == 1)? 2 :  ($n == 2)? 3 :  ($n == 3)? 4 :  ($n == 4)? 5 :  ($n == 5)? 6 :  ($n == 6)? 7 :  ($n == 7)? 8 :  ($n == 8)? 9 : 10;
 				$this->request->data['Collect']['product_id'] = $product_id;
-				$this->request->data['Option']['product_id'] = $product_id;
-				$this->request->data['ProductImage']['product_id'] = $product_id;
-				$this->request->data['ProductVarient']['product_id'] = $product_id;
-				
-				$this->request->data['Option']['options_name'] = $row['category_name'];
-				$this->request->data['Option']['options_values'] = $row['title'];
-				
-				$this->request->data['ProductVarient']['price'] = $row['listprice'];
-				$this->request->data['ProductVarient']['sku'] = $row['asin'];
-				$this->request->data['ProductVarient']['barcode'] = $row['asin'].time();
-				
-				$this->request->data['Metafield']['title'] = $row['title'];
-				$this->request->data['Metafield']['description'] = $row['category_name'];
-				$this->request->data['Metafield']['url_handle'] = $row['asin'].time();
-				$this->request->data['Metafield']['type'] = $row['asin'].time();
-				
-				$this->request->data['ProductImage']['img_alt'] = $row['title'];
-				$this->request->data['ProductImage']['img_src'] = $row['title'];
-				
 				$this->Collect->create();
 				$this->Collect->save($this->request->data);
 				
+				$this->request->data['Option']['product_id'] = $product_id;
+				$this->request->data['Option']['options_name'] = $row['category_name'];
+				$this->request->data['Option']['options_values'] = $row['title'];
 				$this->Option->create();
 				$this->Option->save($this->request->data);
-				
-				$this->ProductImage->create();
-				$this->ProductImage->save($this->request->data);
-				
+							
+				$this->request->data['ProductVarient']['product_id'] = $product_id;
+				$this->request->data['ProductVarient']['price'] = $row['listprice'];
+				$this->request->data['ProductVarient']['sku'] = $row['asin'];
+				$this->request->data['ProductVarient']['barcode'] = $row['asin'].time();
 				$this->ProductVarient->create();
 				$this->ProductVarient->save($this->request->data);
 				
+				$this->request->data['Metafield']['key_id'] = $product_id;
+				$this->request->data['Metafield']['title'] = $row['title'];
+				$this->request->data['Metafield']['description'] = $row['title'];
+				$this->request->data['Metafield']['url_handle'] = $row['asin'].time();
+				$this->request->data['Metafield']['type'] = $row['asin'].time();
 				$this->Metafield->create();
 				$this->Metafield->save($this->request->data);
 				
+				$this->request->data['ProductImage']['product_id'] = $product_id;
+				$this->request->data['ProductImage']['img_alt'] = $row['image_url'];
+				$this->request->data['ProductImage']['img_src'] = $row['title'];
 				$this->ProductImage->create();
 				$this->ProductImage->save($this->request->data);
 
@@ -123,8 +115,97 @@ class ProductsController extends AppController {
 			 else {
 				$this->Flash->error(__('The product could not be saved. Please, try again.'));
 			}
+			$n++;
 		  }
+	}
+	
+	public function imagestore(){
+
+		$ProductImages = $this->ProductImage->find('all');
+		//debug($ProductImages); exit;
+		foreach($ProductImages as $ProductImage){
+			
+			$path_parts = pathinfo($ProductImage['ProductImage']['img_alt']);
+			
+			$ProductImage_id = $ProductImage['ProductImage']['id'];
+			$product_id = $ProductImage['ProductImage']['product_id'];
+			
+			$filename = $path_parts['filename'].'.'.$path_parts['extension'];
+			
+			$image = file_get_contents($ProductImage['ProductImage']['img_alt']);
+			file_put_contents(WWW_ROOT.'/img/server/'.$filename, $image); //Where to save the image on your server
+			
+			$this->ProductImage->id = $ProductImage_id;
+			if(file_exists('WWW_ROOT."img/server/')){
+				$ProductImage['ProductImage']['img_src'] = $filename;
+			}else{
+				$ProductImage['ProductImage']['img_src'] = 'empty';
+			}
+			$this->ProductImage->save($ProductImage);
+
+			$this->ImageResize->prepare(WWW_ROOT."img/server/".$filename);
+			$this->ImageResize->resize(160,120);
+			$this->ImageResize->save(WWW_ROOT."img/small/".$filename);
+			
+			$this->ImageResize->prepare(WWW_ROOT."img/server/".$filename);
+			$this->ImageResize->resize(300,200);
+			$this->ImageResize->save(WWW_ROOT."img/medium/".$filename);
+			
+			$this->ImageResize->prepare(WWW_ROOT."img/server/".$filename);
+			$this->ImageResize->resize(600,400);
+			$this->ImageResize->save(WWW_ROOT."img/large/".$filename);
 		}
+		exit;
+	}
+	
+	public function imagestoredb(){
+
+		$ProductImages = $this->ProductImage->find('all');
+		foreach($ProductImages as $ProductImage){
+			$path_parts = pathinfo($ProductImage['ProductImage']['img_alt']);
+			$filterfilename =  str_replace('%','',$path_parts['filename']);
+			if(isset($path_parts['extension'])){
+			  $filename = $filterfilename.'.'.$path_parts['extension']; 
+			  $ProductImage['ProductImage']['img_src'] = $filename;
+			}else{
+			  $ProductImage['ProductImage']['img_src'] = 'NA';
+			}
+		}
+		$this->ProductImage->id = $ProductImage['ProductImage']['id'];
+		$this->ProductImage->save($ProductImage);
+		exit;
+	}
+	
+	
+	public function changefilename(){
+		
+		$ProductImages = $this->ProductImage->find('all');
+		
+		foreach($ProductImages as $ProductImage){
+			
+			$path_parts = pathinfo($ProductImage['ProductImage']['img_alt']);
+			
+			
+			if(isset($path_parts['extension'])){
+				$filenameold = $path_parts['filename'].'.'.$path_parts['extension'];			
+				$filenamenew = $ProductImage['ProductImage']['img_src'];
+				
+				$oldpath_s = WWW_ROOT."img/small/".$filenameold;
+				$newpath_s = WWW_ROOT."img/small/".$filenamenew;
+				rename($oldpath_s, $newpath_s);
+				
+				$oldpath_m = WWW_ROOT."img/medium/".$filenameold;
+				$newpath_m = WWW_ROOT."img/medium/".$filenamenew;
+				rename($oldpath_m, $newpath_m);
+				
+				$oldpath_l = WWW_ROOT."img/large/".$filenameold;
+				$newpath_l = WWW_ROOT."img/large/".$filenamenew;
+				rename($oldpath_l, $newpath_l);
+			}
+			
+			
+		}
+		exit;
 	}
 	
 	/**
