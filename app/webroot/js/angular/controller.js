@@ -20,7 +20,7 @@ shopping.controller('contactController',['$scope',function($scope){
 
 
 //catalogController
-shopping.controller('catalogController',['$scope','$http','Pagination',function($scope,$http,Pagination){
+shopping.controller('catalogController',['$scope','$http','$cookieStore','Pagination',function($scope,$http,$cookieStore,Pagination){
 	
 	//$scope.title = "Product Page";
 	$scope.allProducts = '{}';
@@ -44,6 +44,55 @@ shopping.controller('catalogController',['$scope','$http','Pagination',function(
 		//console.log(Object.keys($scope.allProducts).length);
         return Math.ceil(Object.keys($scope.allProducts).length/$scope.pageSize);                
     }
+	
+	if(!$cookieStore.get('CartItem'))	{
+		$scope.invoice = {
+			items: []
+		};
+	}
+	else{
+		$scope.invoice = {
+			items: []
+		};
+		$scope.invoice.items=$cookieStore.get('CartItem');
+		console.log($cookieStore.get('CartItem'));	
+	}
+	
+    $scope.addItem = function(pid,ptitle,pprice) {
+        $scope.invoice.items.push({
+			pid:pid,
+			ptitle:ptitle,
+            qty: 1,
+            cost: pprice
+        });
+		$cookieStore.put("CartItem", $scope.invoice.items);
+		console.log($cookieStore.get('CartItem'));
+    },
+
+    $scope.removeItem = function(index) {
+        $scope.invoice.items.splice(index, 1);
+    }
+	
+	$scope.cartItem = function() {
+		var cookieItems=$cookieStore.get('CartItem');
+        angular.forEach(cookieItems, function(item) {
+			$scope.carts=item;
+			console.log($scope.carts);
+        })
+	}
+	
+ 
+    $scope.total = function() {
+        var total = 0;
+		var cookieItems=$cookieStore.get('CartItem');
+        angular.forEach(cookieItems, function(item) {
+            total += item.qty * item.cost;
+        })
+
+        return total;
+   
+	console.log($cookieStore.get($scope.invoice.items));	
+}
 	
 }]);
 

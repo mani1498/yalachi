@@ -5,6 +5,7 @@
 			echo $this->Html->css('bootstrap.min.css'); 
 			echo $this->Html->css('/js/angular/lib/css/bootstrap-theme.min.css'); 
 			echo $this->Html->script('angular/lib/js/angular.min.js'); 
+			echo $this->Html->script('angular/lib/js/angular-cookies.min.js'); 
 			echo $this->Html->script('angular/lib/js/angular-route.min.js'); 
 			echo $this->Html->script('angular/lib/js/angular-filter.min.js'); 
 			echo $this->Html->script('angular/lib/js/angular-resource.min.js');
