@@ -8,6 +8,7 @@
 			echo $this->Html->script('angular/lib/js/angular-route.min.js'); 
 			echo $this->Html->script('angular/lib/js/angular-filter.min.js'); 
 			echo $this->Html->script('angular/lib/js/angular-resource.min.js');
+			echo $this->Html->script('angular/lib/js/angular-cookies.min.js');
 			echo $this->Html->script('angular/lib/js/simplePagination.js');
 		?>
         <meta charset="utf-8">
@@ -84,6 +85,7 @@
           <ul class="nav navbar-nav">
             <li class="active"><a href="#/">Home</a></li>
             <li><a href="#catalog">Catalog</a></li>
+             <li><a href="#cart" ng-cloak>Cart <span style="color:red;">{{ cartCount() }}</span></a></li>
             <li><a href="#about">About</a></li>
             <li><a href="#contact">Contact</a></li>
           </ul>
@@ -91,7 +93,7 @@
             <li><a href="#catalog/vitamins">Vitamins</a></li>
             <li><a href="#catalog/minerals">Minerals</a></li>
             <li><a href="#catalog/herbal">Herbal</a></li>
-           </ul>
+          </ul>
         </div><!--/.nav-collapse -->
       </div>
     </nav>  

@@ -9,7 +9,7 @@
           <h3 style="margin:0;">{{ result.Product.vendor }}</h3>
            <a ng-href="/#productdetail/{{result.Product.id}}"> <img class="img-thumbnail" ng-src="/app/webroot/img/small/{{ result.Product.ProductImage[0].img_src }}" alt="default" /> </a>
           <p>{{ result.Product.price | currency : $ : 2}}</p>
-          <button type="button" class="btn btn-primary btn-xs">ADD TO CART</button>
+          <button type="button" class="btn btn-primary btn-xs" ng-controller="cartController" ng-click="addCart($index,result.Product.id,result.Product.title,result.Product.price,1)">ADD TO CART</button>
       </div>
     </div>
     
