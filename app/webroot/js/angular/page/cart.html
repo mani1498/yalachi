@@ -1,0 +1,45 @@
+<!--<div class="page-header" style="padding-bottom: 0px; margin: 0 0 20px;">
+        <h1 style="margin: 0 0 10px 0;">Cart Page</h1>
+        <table cellpadding="15" cellspacing="10" border="1" width="75%">
+        <tr><th>Id</th><th>Title</th><th>Quantity</th><th>Cost</th></tr>
+        
+        <tr ng-repeat="res in cartItem"><td>{{res.pid}}</td><td>{{res.ptitle}}</td><td><input type="text" ng-model="res.qty" /></td><td>{{(res.cost) * (res.qty)}}</td></tr>
+        
+        </table>
+        
+        <div>{{total()}}</div>
+</div>-->
+
+<h2>Cart List</h2>
+  <p>The add/remove the following products by changing it's values :</p>            
+  <table class="table">
+    <thead>
+      <tr>
+        <th>id</th>
+        <th>Title</th>
+        <th>Price</th>
+        <th>QTY</th>
+        <th>ADD</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="res in cartItem">
+        <td>{{res.pid}}</td>
+        <td>{{ res.ptitle }}</td>
+        <td>{{ res.cost }}</td>
+        <td><input type="text"  ng-change="cartUpdate($index,res.qty)" ng-model="res.qty" /></td>
+        <td ng-click="removeItem($index)">[ X ]</td>
+		<!--<td ng-click="removeCart($index, list._id)">Remove Cart</td>-->
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <table class="table" ng-hide="cartItem.items.length" >
+    <thead>
+      <tr><th>Total</th><th align="center"><h3>{{total()}}</h3></th></tr>
+    </thead>
+    <tbody>
+    <tr><td></td></tr>
+    </tbody>
+   </table>

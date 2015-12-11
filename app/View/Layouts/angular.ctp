@@ -10,11 +10,15 @@
 			echo $this->Html->script('angular/lib/js/angular-filter.min.js'); 
 			echo $this->Html->script('angular/lib/js/angular-resource.min.js');
 			echo $this->Html->script('angular/lib/js/simplePagination.js');
+			
+			echo $this->Html->script('angular/lib/js/services/authentication.service.js'); 
+			echo $this->Html->script('angular/lib/js/services/flash.service.js');
+			echo $this->Html->script('angular/lib/js/services/user.service.local-storage.js');
 		?>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Shopping Cart</title>
+        <title ng-bind="title" ng-class="title"></title>
         <style>
 		/* Sticky footer styles
 		-------------------------------------------------- */
@@ -83,21 +87,22 @@
         </div>
         <div id="navbar" class="collapse navbar-collapse">
           <ul class="nav navbar-nav">
-            <li class="active"><a href="#/">Home</a></li>
-            <li><a href="#catalog">Catalog</a></li>
-            <li><a href="#about">About</a></li>
-            <li><a href="#contact">Contact</a></li>
+            <li class="{{path == '/' ? 'active' : ''}}"><a href="#/">Home</a></li>
+            <li class="{{path == '/catalog' ? 'active' : ''}}"><a href="#catalog">Catalog</a></li>
+            <li class="{{path == '/about' ? 'active' : ''}}"><a href="#about">About</a></li>
+            <li class="{{path == '/contact' ? 'active' : ''}}"><a href="#contact">Contact</a></li>
           </ul>
           <ul class="nav navbar-nav">
             <li><a href="#catalog/vitamins">Vitamins</a></li>
             <li><a href="#catalog/minerals">Minerals</a></li>
             <li><a href="#catalog/herbal">Herbal</a></li>
-           </ul>
+           </ul> <div style="float:right;margin-top:15px;"><a href="#cart"> {{cartItem()}} Items in Cart ({{cartTotal()}})</a></div>
         </div><!--/.nav-collapse -->
+       
       </div>
     </nav>  
     
-       
+     <div ng-class="{ 'alert': flash, 'alert-success': flash.type === 'success', 'alert-danger': flash.type === 'error' }" ng-if="flash" ng-bind="flash.message" style="margin-top:50px;"></div>  
     <div class="container"  ng-view>
 
     </div>

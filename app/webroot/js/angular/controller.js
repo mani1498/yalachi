@@ -4,6 +4,101 @@ shopping.controller("homeController", ["$scope","$log","$timeout","$http", funct
 }]);
 
 
+//loginController 
+shopping.controller("loginController", ["$scope","$log","$timeout","$http","$location","AuthenticationService","FlashService", function ($scope, $log, $timeout, $http,$location,AuthenticationService,FlashService) {
+    //$scope.title = "Home Page";
+	var vm = this;
+    vm.login = login;
+	(function initController() {
+            // reset login status
+            AuthenticationService.ClearCredentials();
+     })();
+	function login() { console.log('a');
+            vm.dataLoading = true;
+            AuthenticationService.Login(vm.username, vm.password, function (response) {
+                if (response.success) { console.log('s');
+                    AuthenticationService.SetCredentials(vm.username, vm.password);
+                    $location.path('/');
+                } else { console.log('f');
+                    FlashService.Error(response.message);
+                    vm.dataLoading = false;
+                }
+            });
+      };
+	
+}]);
+
+//loginController 
+shopping.controller('registrationController', ['$scope','$log','$timeout','$http','$location', 'UserService','FlashService', function ($scope, $log, $timeout, $http,$location, UserService,FlashService) {
+	var vm = this;
+	vm.register = register;
+	
+	function register() {
+            //vm.dataLoading = true;
+            UserService.Create(vm.user)
+                .then(function (response) {
+                    if (response.success) {console.log('s');
+                        FlashService.Success('Registration successful', true);
+                        $location.path('/login');
+                    } else {console.log('f');
+                        FlashService.Error(response.message);
+                        //vm.dataLoading = false;
+                    }
+                });
+        }
+	
+}]);
+
+
+//cartController 
+shopping.controller("cartController", ["$scope",'$rootScope',"$log","$cookies", "$timeout","$http",'shopservice', function ($scope,$rootScope, $log, $cookies, $timeout, $http, shopservice) {
+	var now = new Date();
+    now.setDate(now.getDate() + 7);
+    //$scope.title = "Home Page";
+	//$scope.cartItem = shopservice.get('catalogController');
+	$scope.cartItem = $cookies.getObject('CartItem');
+	 $scope.total = function() {
+        var total = 0;
+        angular.forEach($scope.cartItem, function(item) {
+            total += item.qty * item.cost;
+        })
+        return total;
+	}
+	$scope.removeItem = function(index) {
+		$scope.cartItem = $cookies.getObject('CartItem');
+		$scope.cartItem.splice(index, 1);
+		$cookies.putObject("CartItem", $scope.cartItem, {expires: now});
+		console.log($scope.cartItem);
+    }
+	
+	$scope.cartUpdate = function(index,pqty) {
+		if(pqty>0){
+			$scope.cartItem = $cookies.getObject('CartItem');
+			$scope.cartItem[index].qty=pqty;
+			$cookies.putObject("CartItem", $scope.cartItem, {expires: now});
+			console.log($scope.cartItem);
+		}
+    }
+	$rootScope.cartItem = function() {
+		var total = 0;
+		var cookieItems=$cookies.getObject('CartItem');
+        angular.forEach(cookieItems, function(item) {
+			total +=item.qty;
+        })
+		return total;
+	}
+	
+	$rootScope.cartTotal = function() {
+        var total = 0;
+		var cookieItems=$cookies.getObject('CartItem');
+        angular.forEach(cookieItems, function(item) {
+            total += item.qty * item.cost;
+        })
+        return total;
+	}
+	
+	console.log($scope.cartItem);  
+}]);
 
 //aboutController
 shopping.controller('aboutController',['$scope',function($scope){
@@ -20,9 +115,11 @@ shopping.controller('contactController',['$scope',function($scope){
 
 
 //catalogController
-shopping.controller('catalogController',['$scope','$http','$cookieStore','Pagination',function($scope,$http,$cookieStore,Pagination){
-	
+shopping.controller('catalogController',['$scope','$rootScope','$http','$cookies','Pagination','shopservice',function($scope,$rootScope,$http,$cookies,Pagination,shopservice){
+	var now = new Date();
+    now.setDate(now.getDate() + 7);
 	//$scope.title = "Product Page";
+	//Scopes.store('OneController', $scope);
 	$scope.allProducts = '{}';
 	$scope.loader = true;
 	$http({method: 'GET',url: '/admin/categories/all.json',cache: false
@@ -44,62 +141,74 @@ shopping.controller('catalogController',['$scope','$http','$cookieStore','Pagina
 		//console.log(Object.keys($scope.allProducts).length);
         return Math.ceil(Object.keys($scope.allProducts).length/$scope.pageSize);                
     }
+	$scope.invoice = {items: []	};
 	
-	if(!$cookieStore.get('CartItem'))	{
-		$scope.invoice = {
-			items: []
-		};
+	if($cookies.get('CartItem'))	{
+		$scope.invoice.items=$cookies.getObject('CartItem');
 	}
-	else{
-		$scope.invoice = {
-			items: []
-		};
-		$scope.invoice.items=$cookieStore.get('CartItem');
-		console.log($cookieStore.get('CartItem'));	
+	$scope.addItem = function(detailsArray) {
+		var val='';
+		console.log($cookies.getObject('CartItem'));
+		var cookieItems=$cookies.getObject('CartItem');
+		if(!cookieItems)	{
+			$scope.invoice.items.push({pid:detailsArray.id,ptitle:detailsArray.title,qty:1,cost: detailsArray.price});
+			$cookies.putObject("CartItem", $scope.invoice.items, {expires: now});
+			console.log($scope.invoice.items);
+		}else{
+			var DupItem = objectFindByKey(cookieItems,detailsArray);
+			$cookies.putObject("CartItem", DupItem, {expires: now});
+			console.log($scope.invoice.items);
+			function objectFindByKey(array, key) {
+				console.log(array.length);
+				for (var i = 0; i < array.length; i++) {
+					if (array[i].pid === key.id) {
+						$scope.invoice.items[i].qty=array[i].qty+1;
+						console.log($scope.invoice.items);
+						return $scope.invoice.items;
+					}
+					else{
+						if(i == array.length-1) {
+							$scope.invoice.items.push({pid:key.id,ptitle:key.title,qty:1,cost: key.price});
+							console.log($scope.invoice.items);
+							return $scope.invoice.items;	
+						}
+					}
+				}
+				return null;
+			}
+		}
 	}
 	
-    $scope.addItem = function(pid,ptitle,pprice) {
-        $scope.invoice.items.push({
-			pid:pid,
-			ptitle:ptitle,
-            qty: 1,
-            cost: pprice
-        });
-		$cookieStore.put("CartItem", $scope.invoice.items);
-		console.log($cookieStore.get('CartItem'));
-    },
-
-    $scope.removeItem = function(index) {
+	$scope.removeItem = function(index) {
         $scope.invoice.items.splice(index, 1);
     }
 	
-	$scope.cartItem = function() {
-		var cookieItems=$cookieStore.get('CartItem');
+	$rootScope.cartItem = function() {
+		var total = 0;
+		var cookieItems=$cookies.getObject('CartItem');
         angular.forEach(cookieItems, function(item) {
-			$scope.carts=item;
-			console.log($scope.carts);
+			total +=item.qty;
         })
+		return total;
 	}
-	
- 
-    $scope.total = function() {
+	$rootScope.cartTotal = function() {
         var total = 0;
-		var cookieItems=$cookieStore.get('CartItem');
+		var cookieItems=$cookies.getObject('CartItem');
         angular.forEach(cookieItems, function(item) {
             total += item.qty * item.cost;
         })
-
         return total;
-   
-	console.log($cookieStore.get($scope.invoice.items));	
-}
+	}
+	shopservice.store('catalogController', $scope.invoice.items);
 	
+	//$scope.shopservice = $scope.invoice.items;
 }]);
 
 
 //productdetailController
-shopping.controller('productdetailController',['$scope','$routeParams','$http',function($scope, $routeParams, $http){
-	
+shopping.controller('productdetailController',['$scope','$rootScope','$routeParams','$http','$cookies',function($scope, $rootScope, $routeParams, $http, $cookies){
+	var now = new Date();
+    now.setDate(now.getDate() + 7);
 	//$scope.title = "Product Detail";
 	$scope.loader = true;
     $scope.id = $routeParams.id;
@@ -116,7 +225,61 @@ shopping.controller('productdetailController',['$scope','$routeParams','$http',f
 		console.log("Status: " + status);
 		$scope.loader = false;
 	})
-        
+	$scope.invoice = {items: []	};
+	if($cookies.get('CartItem'))	{
+		$scope.invoice.items=$cookies.getObject('CartItem');
+	}
+	
+	$scope.addItem = function(detailsArray) {
+		var val='';
+		console.log($cookies.getObject('CartItem'));
+		var cookieItems=$cookies.getObject('CartItem');
+		if(!cookieItems)	{
+			$scope.invoice.items.push({pid:detailsArray.id,ptitle:detailsArray.title,qty:1,cost: detailsArray.price});
+			$cookies.putObject("CartItem", $scope.invoice.items, {expires: now});
+			console.log($scope.invoice.items);
+		}else{
+			var DupItem = objectFindByKey(cookieItems,detailsArray);
+			$cookies.putObject("CartItem", DupItem, {expires: now});
+			console.log($scope.invoice.items);
+			function objectFindByKey(array, key) {
+				console.log(array.length);
+				for (var i = 0; i < array.length; i++) {
+					if (array[i].pid === key.id) {
+						$scope.invoice.items[i].qty=array[i].qty+1;
+						console.log($scope.invoice.items);
+						return $scope.invoice.items;
+					}
+					else{
+						if(i == array.length-1) {
+							$scope.invoice.items.push({pid:key.id,ptitle:key.title,qty:1,cost: key.price});
+							console.log($scope.invoice.items);
+							return $scope.invoice.items;	
+						}
+					}
+				}
+				return null;
+			}
+		}
+	}
+	
+	$rootScope.cartTotal = function() {
+        var total = 0;
+		var cookieItems=$cookies.getObject('CartItem');
+        angular.forEach(cookieItems, function(item) {
+            total += item.qty * item.cost;
+        })
+        return total;
+	}
+    $rootScope.cartItem = function() {
+		var total = 0;
+		var cookieItems=$cookies.getObject('CartItem');
+        angular.forEach(cookieItems, function(item) {
+			total +=item.qty;
+        })
+		return total;
+	}
+	    
 }]);
 
 shopping.filter('startFrom', function() {
@@ -124,4 +287,15 @@ shopping.filter('startFrom', function() {
         start = +start; //parse to int
         return input.slice(start);
     }
+});
+shopping.service('shopservice', function($rootScope) {
+     var mem = {};
+    return {
+        store: function (key, value) {
+            mem[key] = value;
+        },
+        get: function (key) {
+            return mem[key];
+        }
+    };
 });
