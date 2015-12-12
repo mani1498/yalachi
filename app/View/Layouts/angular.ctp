@@ -14,6 +14,7 @@
 			echo $this->Html->script('angular/lib/js/services/authentication.service.js'); 
 			echo $this->Html->script('angular/lib/js/services/flash.service.js');
 			echo $this->Html->script('angular/lib/js/services/user.service.local-storage.js');
+			echo $this->Html->script('angular/lib/js/services/cartService.js');
 		?>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">

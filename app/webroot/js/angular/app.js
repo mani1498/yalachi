@@ -1,4 +1,4 @@
-var shopping = angular.module('shopping', ['ngRoute','ngResource','angular.filter','simplePagination','ngCookies','simpleAuth','shoppingFlash','shoppingUser']);
+var shopping = angular.module('shopping', ['ngRoute','ngResource','angular.filter','simplePagination','ngCookies','simpleAuth','shoppingFlash','shoppingUser','shoppingCart']);
 
 shopping.run(function($rootScope,$cookies,$location) {
     $rootScope.$on('shopservice.stored', function (event, data) {
