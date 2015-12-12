@@ -36,8 +36,10 @@
     </thead>
     <tbody>
       <tr ng-repeat="itm in cartItem.items">
-        <td>{{ itm.id }}</td>
-        <td>{{ itm.title }}</td>
+        <td>
+        <img class="img-thumbnail" ng-src="/app/webroot/img/small/{{itm.img}}" alt="default" />
+        </td>
+        <td><a ng-href="/#productdetail/{{itm.id}}"> {{ itm.title }} </a></td>
         <td>{{ itm.price }}</td>
         <td>
             <input type="text" ng-model="itm.qty" value="{{ itm.qty }}" required="required"/>
@@ -46,10 +48,9 @@
         </td>
         <td ng-if="itm.qty >= 0" >{{ itm.sum = itm.qty * itm.price }}</td>
         <td ng-click="removeCart($index)">[X]</td>
-<!--        <td ng-click="updateCart($index,itm.pid,itm.ptitle,itm.price,itm.qty)">check</td> -->
       </tr>
-       <tr><td colspan=3>Cart Total: </td><td>{{ getTotalQty() }}</td><td colspan=2>{{ getTotalSum() }}</td></tr>
-       <tr><td colspan="6"><button type="button" class="btn btn-default" ng-click="updateCart(getTotalQty(),getTotalSum());">Update Cart</button></td></tr>
+       <tr><td colspan=3>Cart Total: </td><td>{{ getTotalQty }}</td><td colspan=2>{{ getTotalSum }}</td></tr>
+       <tr><td colspan="6"><button type="button" class="btn btn-default" ng-click="updateCart(getTotalQty,getTotalSum);">Update Cart</button></td></tr>
     </tbody>
   </table>
   

@@ -20,7 +20,7 @@ shopping.controller('contactController',['$scope',function($scope){
 
 
 //catalogController
-shopping.controller('catalogController',['$scope','$http','Pagination','$cookies',function($scope,$http,Pagination,$cookies){
+shopping.controller('catalogController',['$scope','$http','Pagination','$cookies','cartService',function($scope,$http,Pagination,$cookies,cartService){
 	
 	$scope.allProducts = '{}';
 	$scope.loader = true;
@@ -42,7 +42,11 @@ shopping.controller('catalogController',['$scope','$http','Pagination','$cookies
 	 $scope.numberOfPages = function(){
         return Math.ceil(Object.keys($scope.allProducts).length/$scope.pageSize);                
      }
-	 
+
+	 $scope.addCart = function(a,b,c,d,e){ //a - id b - title c - price  d - qty - e - img
+     	$scope.addData = {id: a, title:b, price:c, qty:d, img:e};
+		cartService.addCart($scope.addData);
+	 }
 
 }]);
 
@@ -68,94 +72,26 @@ shopping.controller('productdetailController',['$scope','$routeParams','$http','
         
 }]);
 
-shopping.controller('cartController',['$scope','$routeParams','$http','$cookies','$filter','$rootScope','$log',function($scope, $routeParams, $http,$cookies,$filter,$rootScope,$log){
+shopping.controller('cartController',['$scope','$routeParams','$http','$cookies','$filter','$rootScope','$log','cartService',function($scope, $routeParams, $http,$cookies,$filter,$rootScope,$log,cartService){
 	
-    /*var list = {items:[{pid: 1, ptitle:"Test1", qty:1, price: 10},{pid: 2, ptitle:"Test2", qty:2, price: 20},{pid: 3, ptitle:"Test3", qty:3, price: 30},{pid: 4, ptitle:"Test4", qty:1, price: 40}]};
-	$scope.cartList = list;*/
+	 $scope.cartItem = cartService.getCartItems();
+	 
+	 $scope.addCart = function(a,b,c,d,e){ //a - id b - title c - price  d - qty - e - img
+     	$scope.addData = {id: a, title:b, price:c, qty:d, img:e};
+		cartService.addCart($scope.addData);
+	 }
+	 
+	 $scope.updateCart = function(a,b){ // a - qty_sum  b - toal_sum
+		 cartService.updateCart(a,b);
+	 }
 	
-	$scope.cartItem = {};
-	$scope.cartItem.items = [];
-	if($cookies.getObject('cart')){
-		$scope.cartItem.items = $cookies.getObject('cart').items;
-	}
-	$scope.errorMessage = "";
-	
-	$scope.expiresTime = function(){
-		var now = new Date();
-    	now.setDate(now.getDate() + 7);	
-		$log.debug("fun: expiresTime - "+ now);
-		return now;
-	};
+	 $scope.removeCart = function(a){ // a - remove id;
+		 cartService.removeCart(a);
+	 }
 
-	$scope.addCart = function(index,pid,title,price,qty){
-		$scope.addData = {id: pid, title:title, price:price, qty:qty}; //internal func var process only
-		var data = $scope.checkData(pid);	
-		if(data){
-		  $scope.errorMessage = "";
-	  	  $scope.cartItem.items.push($scope.addData);
-		  $rootScope.cartCount();
-		  $cookies.putObject('cart', $scope.cartItem,{ expires:$scope.expiresTime() });
-		  $log.debug("fun: addCart - ");console.log($scope.cartItem.items);
-		}else{
-		  $scope.errorMessage = "Product already available in the cart";
-		  $log.debug('fun: addCart - Product already available in the cart')
-		}
-	}
+	 $scope.getTotalSum = cartService.getTotalSum();
 	
-	$scope.updateCart = function(qty,sum){
-		$scope.cartItem["qtyTotal"] = qty;
-		$scope.cartItem["sumTotal"] = sum;
-		$rootScope.cartCount();
-		$cookies.putObject('cart', $scope.cartItem,{ expires:$scope.expiresTime() });
-		console.log($scope.cartItem);
-	}
-	
-	$scope.removeCart = function(removeId){
-		$scope.cartItem.items.splice(removeId, 1);
-		$rootScope.cartCount();
-		$cookies.putObject('cart', $scope.cartItem,{ expires:$scope.expiresTime() });
-		$log.debug("fun: removeCart - "+ $scope.cartItem);
-	}
-	
-	$scope.checkData = function(checkId){
-		var found = $filter('getById')($scope.cartItem.items, checkId);
-		if(found === null){
-		  console.log('available');
-		  return true;	
-		}else {
-			 console.log('Not available');
-		  return false;
-		}
-	}
-	
-	$scope.getTotalSum = function(){
-		var totalSum = 0;
-		$scope.errorMessage = '';
-		for(var i=0; i<$scope.cartItem.items.length; i++){
-			var items = $scope.cartItem.items[i];
-			if(isNaN(items.qty)){
-				return 0;
-			}
-			totalSum += parseInt(items.qty) * parseFloat(items.price);
-			//console.log(typeof totalSum);
-			if(typeof totalSum !== 'number'){
-				  $scope.errorMessage = "invalid Sum";
-				  return 0;
-			}
-		}
-		return totalSum;
-	}
-	
-	$scope.getTotalQty = function(){
-		var totalQty = 0;
-		$scope.errorMessage = '';
-		for(var i=0; i<$scope.cartItem.items.length; i++){
-			var items = $scope.cartItem.items[i];
-			totalQty += parseInt(items.qty);
-		}
-		console.log(totalQty);
-		return totalQty;
-	}
+	 $scope.getTotalQty = cartService.getTotalQty();
 
 	
 }]);
