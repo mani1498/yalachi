@@ -46,10 +46,10 @@
             <span ng-show="itm.qty <= 0" style="color:red;"> Min QTY </span> 
             <span ng-show="itm.qty >= 10" style="color:red;"> Max QTY </span>
         </td>
-        <td ng-if="itm.qty >= 0" >{{ itm.sum = itm.qty * itm.price }}</td>
+        <td ng-if="itm.qty >= 0" >{{ itm.sum = roundOfValue(itm.qty * itm.price) }}</td>
         <td ng-click="removeCart($index)">[X]</td>
       </tr>
-       <tr><td colspan=3>Cart Total: </td><td>{{ getTotalQty }}</td><td colspan=2>{{ getTotalSum }}</td></tr>
+       <tr><td colspan=3>Cart Total: </td><td>{{ getTotalQty() }}</td><td colspan=2>{{ getTotalSum() }}</td></tr>
        <tr><td colspan="6"><button type="button" class="btn btn-default" ng-click="updateCart(getTotalQty,getTotalSum);">Update Cart</button></td></tr>
     </tbody>
   </table>

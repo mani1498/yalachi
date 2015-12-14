@@ -5,6 +5,8 @@ shopping.service('cartService',['$routeParams','$http','$cookies','$filter','$ro
 	this.errorMessage = "";
 	this.cartCount = $rootScope.cartCount();
 	
+	this.cartDisable = true;
+	
 	this.expiresTime = function(){
 		var now = new Date();
     	now.setDate(now.getDate() + 7);	
@@ -56,25 +58,24 @@ shopping.service('cartService',['$routeParams','$http','$cookies','$filter','$ro
 	
 	this.getTotalSum = function(){
 		var totalSum = 0;
-		self.errorMessage = '';
 		for(var i=0; i<self.cartItem.items.length; i++){
 			var items = self.cartItem.items[i];
-			if(isNaN(items.qty)){
-				return 0;
-			}
-			totalSum += parseInt(items.qty) * parseFloat(items.price);
+			totalSum += parseInt(self.roundOfValue(items.qty)) * parseFloat(items.price).toFixed(2);
 			console.log(typeof totalSum);
 			if(typeof totalSum !== 'number'){
 				  self.errorMessage = "invalid Sum";
 				 return 0;
 			}
 		}
-		return totalSum;
+		return self.roundOfValue(totalSum);
+	}
+	
+ 	this.roundOfValue = function(value){
+	 return Math.round(value * 100) / 100;	
 	}
 	
 	this.getTotalQty = function(){
 		var totalQty = 0;
-		self.errorMessage = '';
 		for(var i=0; i<self.cartItem.items.length; i++){
 			var items = self.cartItem.items[i];
 			totalQty += parseInt(items.qty);

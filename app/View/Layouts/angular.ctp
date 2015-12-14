@@ -5,16 +5,18 @@
 			echo $this->Html->css('bootstrap.min.css'); 
 			echo $this->Html->css('/js/angular/lib/css/bootstrap-theme.min.css'); 
 			echo $this->Html->script('angular/lib/js/angular.min.js'); 
+			echo $this->Html->script('angular/lib/js/ui-bootstrap-tpls.min.js'); 
 			echo $this->Html->script('angular/lib/js/angular-route.min.js'); 
 			echo $this->Html->script('angular/lib/js/angular-filter.min.js'); 
 			echo $this->Html->script('angular/lib/js/angular-resource.min.js');
 			echo $this->Html->script('angular/lib/js/angular-cookies.min.js');
 			echo $this->Html->script('angular/lib/js/simplePagination.js');
+			
 		?>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Shopping Cart</title>
+        <title ng-bind="title"></title>
         <style>
 		/* Sticky footer styles
 		-------------------------------------------------- */
@@ -73,29 +75,29 @@
    <nav class="navbar navbar-default navbar-fixed-top">
       <div class="container">
         <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+          <button type="button" class="navbar-toggle collapsed" ng-click="isCollapsed =!isCollapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
             <span class="sr-only">Toggle navigation</span>
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="#">Shopping</a>
+          <a class="navbar-brand" href="#/">Shopping <a href="#cart" ng-cloak style="float:right; padding-top: 15px;    padding-right: 10px;">Cart <span  class="glyphicon glyphicon-shopping-cart">{{ cartCount() }}</span></a>
         </div>
-        <div id="navbar" class="collapse navbar-collapse">
+        <div id="navbar" class="collapse navbar-collapse" uib-collapse="isCollapsed">
           <ul class="nav navbar-nav">
-            <li class="active"><a href="#/">Home</a></li>
-            <li><a href="#catalog">Catalog</a></li>
-             <li><a href="#cart" ng-cloak>Cart <span style="color:red;">{{ cartCount() }}</span></a></li>
-            <li><a href="#about">About</a></li>
-            <li><a href="#contact">Contact</a></li>
+            <li class="{{path == '/' ? 'active' : ''}}"><a href="#/">Home</a></li>
+            <li class="{{path == '/catalog' ? 'active' : ''}}"><a href="#catalog">Catalog</a></li>
+            <li class="{{path == '/about' ? 'active' : ''}}"><a href="#about">About</a></li>
+            <li class="{{path == '/contact' ? 'active' : ''}}"><a href="#contact">Contact</a></li>
           </ul>
-          <ul class="nav navbar-nav">
+         <!-- <ul class="nav navbar-nav">
             <li><a href="#catalog/vitamins">Vitamins</a></li>
             <li><a href="#catalog/minerals">Minerals</a></li>
             <li><a href="#catalog/herbal">Herbal</a></li>
-          </ul>
+          </ul>-->
         </div><!--/.nav-collapse -->
       </div>
+     
     </nav>  
     
        
