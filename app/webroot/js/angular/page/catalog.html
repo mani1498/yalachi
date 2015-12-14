@@ -1,13 +1,13 @@
 <div class="page-header" style="padding-bottom: 0px; margin: 0 0 20px;">
         <h1 style="margin: 0 0 10px 0;">Product Catalog</h1>
 </div>
-<div ng-show="loader" style="text-align: center;top: 50%; position: absolute;left: 50%;"><img src="/app/webroot/img/26.gif" style="text-align:center;" /></div>
+<div ng-show="loader" style="text-align: center;top: 50%; position: absolute;left: 50%;"><img src="app/webroot/img/26.gif" style="text-align:center;" /></div>
 <div class="row" ng-hide="loader">
 
     <div class="row cataglog"> 
       <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2" ng-repeat="result in allProducts | startFrom: currentPage*pageSize | limitTo: pageSize">
           <h3 style="margin:0;">{{ result.Product.vendor }}</h3>
-           <a ng-href="/#productdetail/{{result.Product.id}}"> <img class="img-thumbnail" ng-src="/app/webroot/img/small/{{ result.Product.ProductImage[0].img_src }}" alt="default" /> </a>
+           <a ng-href="#productdetail/{{result.Product.id}}"> <img class="img-thumbnail" ng-src="app/webroot/img/small/{{ result.Product.ProductImage[0].img_src }}" alt="default" /> </a>
           <p>{{ result.Product.price | currency : $ : 2}}</p>
           <button type="button" class="btn btn-primary btn-xs"  ng-disabled="cartDisable(result.Product.id)" ng-click="addCart(result.Product.id,result.Product.title,result.Product.price,1,result.Product.ProductImage[0].img_src)">ADD TO CART</button>
       </div>

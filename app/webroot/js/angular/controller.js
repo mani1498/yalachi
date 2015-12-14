@@ -57,29 +57,12 @@ shopping.controller('catalogController',['$scope','$http','Pagination','$cookies
 		}
 		return false;
 	 }
-	 
-	 $scope.disable= false;
-
-	$scope.validateRow = function(item) {
-	
-	$scope.disable= false;
-		for(var c =0; c < $scope.itemList.length; c++){
-	
-			if($scope.itemList[c].name != "abc"){
-	
-				$scope.disable = true;
-				break;
-			}
-		}
-	
-	   return item.name != 'abc';
-	}
 
 }]);
 
 
 //productdetailController
-shopping.controller('productdetailController',['$scope','$routeParams','$http','$cookies',function($scope, $routeParams, $http,$cookies){
+shopping.controller('productdetailController',['$scope','$routeParams','$http','$cookies','cartService',function($scope, $routeParams, $http,$cookies,cartService){
 
 	$scope.loader = true;
     $scope.id = $routeParams.id;
@@ -96,6 +79,21 @@ shopping.controller('productdetailController',['$scope','$routeParams','$http','
 		console.log("Status: " + status);
 		$scope.loader = false;
 	})
+	
+	$scope.addCart = function(a,b,c,d,e){ //a - id b - title c - price  d - qty - e - img
+     	$scope.addData = {id: a, title:b, price:c, qty:d, img:e};
+		cartService.addCart($scope.addData);
+	 }
+	 
+	$scope.cartDisable = function(cartId){ 
+		$scope.cartItem = cartService.getCartItems();
+		for(var c =0; c < $scope.cartItem.items.length; c++){
+			if($scope.cartItem.items[c].id === cartId){
+				return true;
+			}
+		}
+		return false;
+	 }
         
 }]);
 
