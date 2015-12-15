@@ -4,7 +4,6 @@ shopping.service('cartService',['$routeParams','$http','$cookies','$filter','$ro
 	this.cartItem.items = [];
 	this.errorMessage = "";
 	this.cartCount = $rootScope.cartCount();
-	
 	this.cartDisable = true;
 	
 	this.expiresTime = function(){
@@ -16,7 +15,7 @@ shopping.service('cartService',['$routeParams','$http','$cookies','$filter','$ro
 
 	this.addCart = function(singleObj){
 		self.addData = {id: singleObj.id, title:singleObj.title, price:singleObj.price, qty:singleObj.qty, img:singleObj.img};
-		var data = self.checkData(singleObj.id);	
+		var data = self.checkData(singleObj.id);
 		if(data){
 		  self.errorMessage;
 	  	  self.cartItem.items.push(self.addData);
@@ -25,11 +24,22 @@ shopping.service('cartService',['$routeParams','$http','$cookies','$filter','$ro
 		  $log.debug("fun: addCart - ");
 		  console.log(self.cartItem.items);
 		}else{
+		  self.updateMoreQty(self.cartItem.items,singleObj.id);	
 		  self.errorMessage = "Product already available in the cart";
 		  $log.debug('fun: addCart - Product already available in the cart')
 		}
 	}	
-	
+
+	this.updateMoreQty = function(input,id) {
+		var i=0, len=input.length;
+		for (; i<len; i++) {
+		   if(input[i].id === id){
+			   self.cartItem.items[i].qty = parseInt(input[i].qty) + 1;
+			   $cookies.putObject('cart', self.cartItem,{ expires:self.expiresTime() });
+		   }
+		}
+	 }
+
 	this.updateCart = function(qty,sum){
 		self.cartItem["qtyTotal"] = qty;
 		self.cartItem["sumTotal"] = sum;

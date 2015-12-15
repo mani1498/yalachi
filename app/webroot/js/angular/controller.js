@@ -37,15 +37,18 @@ shopping.controller('catalogController',['$scope','$http','Pagination','$cookies
 	   $scope.loader = false;
 	}); 
 	
+	 
 	 $scope.currentPage = 0;
      $scope.pageSize = 50;
 	 $scope.numberOfPages = function(){
         return Math.ceil(Object.keys($scope.allProducts).length/$scope.pageSize);                
      }
-
+	 
+	 $scope.buttonText = "ADD TO CART";
 	 $scope.addCart = function(a,b,c,d,e){ //a - id b - title c - price  d - qty - e - img
      	$scope.addData = {id: a, title:b, price:c, qty:d, img:e};
 		cartService.addCart($scope.addData);
+		$scope.buttonText = "ADD MORE";
 	 }
 	 
 	 $scope.cartDisable = function(cartId){ 
