@@ -81,7 +81,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="#/">Shopping <a href="#cart" ng-cloak style="float:right; padding-top: 15px;    padding-right: 10px;">Cart <span  class="glyphicon glyphicon-shopping-cart">{{ cartCount() }}</span></a>
+          <a class="navbar-brand" href="#/">Shopping <a href="#cart" ng-cloak style="float:right; padding-top: 15px;    padding-right: 10px;"><span  class="glyphicon glyphicon-shopping-cart">{{ getTotalQty() }}  TOTAL : ${{ getTotalSum() }}</span></a><!--cartCount()-->
         </div>
         <div id="navbar" class="collapse navbar-collapse" uib-collapse="isCollapsed">
           <ul class="nav navbar-nav">

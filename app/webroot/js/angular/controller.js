@@ -60,7 +60,6 @@ shopping.controller('catalogController',['$scope','$http','Pagination','$cookies
 		}
 		return false;
 	 }
-
 }]);
 
 
@@ -83,19 +82,22 @@ shopping.controller('productdetailController',['$scope','$routeParams','$http','
 		$scope.loader = false;
 	})
 	
-	$scope.addCart = function(a,b,c,d,e){ //a - id b - title c - price  d - qty - e - img
+	 $scope.id = $routeParams.id;    
+	 $scope.cartItem = cartService.getCartItems();
+	 //$scope.cartSingleItem = $filter('getById')($scope.cartItem, $scope.id);
+	
+	
+	 $scope.addCart = function(a,b,c,d,e){ //a - id b - title c - price  d - qty - e - img
      	$scope.addData = {id: a, title:b, price:c, qty:d, img:e};
 		cartService.addCart($scope.addData);
 	 }
 	 
-	$scope.cartDisable = function(cartId){ 
-		$scope.cartItem = cartService.getCartItems();
-		for(var c =0; c < $scope.cartItem.items.length; c++){
-			if($scope.cartItem.items[c].id === cartId){
-				return true;
-			}
-		}
-		return false;
+	 $scope.addMoreQty = function(itm,index){
+		 cartService.addMoreQty(itm,index);
+	 }
+	 
+	 $scope.removeMoreQty = function(itm,index){
+		 cartService.removeMoreQty(itm,index);
 	 }
         
 }]);
@@ -119,14 +121,21 @@ shopping.controller('cartController',['$scope','$routeParams','$http','$cookies'
 	 $scope.roundOfValue = function(a){ // a - row sum of price and qty
 		  return cartService.roundOfValue(a);
 	 }
-	 $scope.getTotalSum = function(){
-		 return cartService.getTotalSum();
+	 $scope.cartTotalSum = function(){
+		 return cartService.cartTotalSum();
 	 }
-	 $scope.getTotalQty = function(){
-		 return cartService.getTotalQty();
-	 }
-
 	
+	$scope.cartTotalQty = function(){
+		return cartService.cartTotalQty();
+	 }
+	 
+	 $scope.addMoreQty = function(itm,index){
+		 cartService.addMoreQty(itm,index);
+	 }
+	 
+	 $scope.removeMoreQty = function(itm,index){
+		 cartService.removeMoreQty(itm,index);
+	 }
 }]);
 
 

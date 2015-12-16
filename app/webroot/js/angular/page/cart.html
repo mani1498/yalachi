@@ -41,16 +41,16 @@
         </td>
         <td><a ng-href="/#productdetail/{{itm.id}}"> {{ itm.title }} </a></td>
         <td>{{ itm.price }}</td>
-        <td>
-            <input type="text" ng-model="itm.qty" value="{{ itm.qty }}" required="required"/>
+        <td width="12%">
+           <a ng:click="addMoreQty(itm,$index)">[+]</a><input type="text" ng-model="itm.qty" value="{{ itm.qty }}" disabled style="width: 30px;"/><a ng:click="removeMoreQty(itm,$index)">[-]</a>
             <span ng-show="itm.qty <= 0" style="color:red;"> Min QTY </span> 
             <span ng-show="itm.qty >= 10" style="color:red;"> Max QTY </span>
         </td>
         <td ng-if="itm.qty >= 0" >{{ itm.sum = roundOfValue(itm.qty * itm.price) }}</td>
         <td ng-click="removeCart($index)">[X]</td>
       </tr>
-       <tr><td colspan=3>Cart Total: </td><td>{{ getTotalQty() }}</td><td colspan=2>{{ getTotalSum() }}</td></tr>
-       <tr><td colspan="6"><button type="button" class="btn btn-default" ng-click="updateCart(getTotalQty,getTotalSum);">Update Cart</button></td></tr>
+       <tr><td colspan=3>Cart Total: </td><td>{{ cartTotalQty() }}</td><td colspan=2>{{ cartTotalSum() }}</td></tr>
+       <tr><td colspan="6"><button type="button" class="btn btn-default" ng-click="updateCart(cartTotalQty(),cartTotalSum());">Update Cart</button></td></tr>
     </tbody>
   </table>
   
