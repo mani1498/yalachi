@@ -16,21 +16,9 @@ shopping.settings = {host:"http://report.com",page:"/api/"};
 
 shopping.run(function($rootScope,$cookies,$location){
 	
-	//$rootScope.cookieCartObject = $cookies.getObject('cart') || 0;
+	$rootScope.cookieCartItems = $cookies.getObject('cart') || 0;
 	
-	$rootScope.cartCount = function(){
-		var cookievar;
-		if($cookies.getObject('cart')){
-			 cookievar = $cookies.getObject('cart').items.length 
-		}else{ 
-			 cookievar = 0;
-		}
-		if(cookievar == 0){
-			$cookies.remove('cart');
-		}
-		return cookievar;
-	}
-	
+
 	$rootScope.getTotalQty = function(){
 		var totalQty = 0;
 		var cookievar;
@@ -67,10 +55,24 @@ shopping.run(function($rootScope,$cookies,$location){
 		return cookievar;
 	}
 	
-	$rootScope.buttonText = function(){
-		
+	$rootScope.buttonText = function(id,index){
+		var buttonText;
+		if($cookies.getObject('cart')){
+			for(var i=0; i<$cookies.getObject('cart').items.length ; i++){
+				var item_id = $cookies.getObject('cart').items[i].id;
+				var item_qty = $cookies.getObject('cart').items[i].qty;
+				if(item_id == id && item_qty >= 1){
+					return 'ADD MORE';
+				}
+			}
+			return 'ADD TO CART';
+		}else{ 
+			return 'ADD TO CART';
+		}
+
 	}
 	 
+
 	$rootScope.$on('$routeChangeSuccess', function (event, current, previous) {
           $rootScope.title = current.$$route.title;
 		  $rootScope.path = current.$$route.originalPath; // Make menu tab active on each
