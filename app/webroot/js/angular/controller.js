@@ -3,8 +3,6 @@ shopping.controller("homeController", ["$scope","$log","$timeout","$http", funct
     //$scope.title = "Home Page";
 }]);
 
-
-
 //aboutController
 shopping.controller('aboutController',['$scope',function($scope){
     //$scope.title = "About US";
@@ -20,24 +18,8 @@ shopping.controller('contactController',['$scope',function($scope){
 
 
 //catalogController
-shopping.controller('catalogController',['$scope','$http','Pagination','$cookies','cartService','$location',function($scope,$http,Pagination,$cookies,cartService,$location){
+shopping.controller('catalogController',['$scope','$http','Pagination','$cookies','cartService','$location','$rootScope',function($scope,$http,Pagination,$cookies,cartService,$location,$rootScope){
 	
-	$scope.allProducts = '{}';
-	$scope.loader = true;
-	$http({method: 'GET',url: 'admin/categories/all.json',cache: false
-	 }).success(function (data, status, headers, config) {
-        console.log('successful');
-	    console.log(data.Category);
-	    $scope.allProducts = data.Category;
-	    $scope.loader = false;
-	 }).error(function (data, status, headers, config) {
-	   console.log('failure');
-	   console.log("Data: " + data);
-	   console.log("Status: " + status);
-	   $scope.loader = false;
-	}); 
-	
-	 
 	 $scope.currentPage = 0;
      $scope.pageSize = 50;
 	 $scope.numberOfPages = function(){
@@ -58,12 +40,10 @@ shopping.controller('productdetailController',['$scope','$routeParams','$http','
 
 	$scope.loader = true;
     $scope.id = $routeParams.id;
-    console.log($scope.id);
     $scope.details = {};
 	var req =  { method: 'GET',url: 'products/details/'+ $scope.id+'.json'}
 	$http(req).success(function (result, status, headers, config) {
 		$scope.details = result.Product;
-		console.log($scope.details);
 		$scope.loader = false;
 	})
 	.error(function (result, status, headers, config) {
@@ -149,3 +129,15 @@ shopping.filter('getById', function() {
   }
 });
 
+shopping.filter('sortByDetails',function($filter){
+    return function(items,value){
+			 var filtered = [];
+			 if(typeof value === 'undefined' ||  value == ''){
+				 return items;
+			 }
+			 for (var i=0; i<items.length; i++) {
+				 items[i].Product.price = Number(items[i].Product.price);
+			 }
+		 return $filter('orderBy')(items,value,false);
+    }
+});

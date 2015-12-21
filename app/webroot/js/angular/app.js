@@ -14,11 +14,21 @@ shopping.config(function($routeProvider){
 shopping.settings = {host:"http://report.com",page:"/api/"};
 
 
-shopping.run(function($rootScope,$cookies,$location){
+shopping.run(function($rootScope,$cookies,$location,$http){
 	
 	$rootScope.cookieCartItems = $cookies.getObject('cart') || 0;
 	
-
+	$rootScope.allProducts = '{}';
+	$rootScope.loader = true;
+	$http({method: 'GET',url: 'admin/categories/all.json',cache: false
+	 }).success(function (data, status, headers, config) {
+        console.log('successful');
+	    $rootScope.allProducts = data.Category;
+	    $rootScope.loader = false;
+	 }).error(function (data, status, headers, config) {
+	   $rootScope.loader = false;
+	}); 
+	
 	$rootScope.getTotalQty = function(){
 		var totalQty = 0;
 		var cookievar;

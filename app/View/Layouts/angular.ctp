@@ -4,6 +4,7 @@
         <?php
 			echo $this->Html->css('bootstrap.min.css'); 
 			echo $this->Html->css('/js/angular/lib/css/bootstrap-theme.min.css'); 
+			echo $this->Html->script('angular/lib/js/jquery-1.11.3.min.js');
 			echo $this->Html->script('angular/lib/js/angular.min.js'); 
 			echo $this->Html->script('angular/lib/js/ui-bootstrap-tpls.min.js'); 
 			echo $this->Html->script('angular/lib/js/angular-route.min.js'); 
@@ -90,11 +91,6 @@
             <li class="{{path == '/about' ? 'active' : ''}}"><a href="#about">About</a></li>
             <li class="{{path == '/contact' ? 'active' : ''}}"><a href="#contact">Contact</a></li>
           </ul>
-         <!-- <ul class="nav navbar-nav">
-            <li><a href="#catalog/vitamins">Vitamins</a></li>
-            <li><a href="#catalog/minerals">Minerals</a></li>
-            <li><a href="#catalog/herbal">Herbal</a></li>
-          </ul>-->
         </div><!--/.nav-collapse -->
       </div>
      
@@ -118,7 +114,6 @@
 		echo $this->Html->script('angular/app.js'); 
 		echo $this->Html->script('angular/service.js');
 		echo $this->Html->script('angular/controller.js'); 
-		
 		echo $this->Html->script('angular/directives.js'); 
 		echo $this->Html->script('angular/script.js'); 
 	?>
