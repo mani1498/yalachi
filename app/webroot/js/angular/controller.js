@@ -169,7 +169,7 @@ shopping.controller('SidebarController', function($scope, $aside) {
 	$scope.state = true;
     $scope.openAside = function(position) {
             $aside.open({
-              templateUrl: '/app/webroot/js/angular/page/aside.html',
+              templateUrl: 'app/webroot/js/angular/page/aside.html',
               placement: position,
               backdrop: true,
               controller: function($scope, $modalInstance) {
