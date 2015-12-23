@@ -47,14 +47,14 @@
 	
 shopping.directive('asideDirective', function() {
 	return {
-		templateUrl:'/app/webroot/js/angular/page/asidemenu.html',
+		templateUrl:'app/webroot/js/angular/page/asidemenu.html',
 	}
     
 });
 shopping.directive('asidemenuDirective', function() {
 	return {
 		replace:true,
-		templateUrl:'/app/webroot/js/angular/page/aside.html'
+		templateUrl:'app/webroot/js/angular/page/aside.html'
 	}
     
 });
