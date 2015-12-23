@@ -1,4 +1,4 @@
-var shopping = angular.module('shopping', ['ngRoute','ngResource','ngCookies','angular.filter','simplePagination','ui.bootstrap']);
+var shopping = angular.module('shopping', ['ngRoute','ngResource','ngCookies','angular.filter','simplePagination','ui.bootstrap','ngAside']);
 
 shopping.config(function($routeProvider){
     $routeProvider
@@ -6,6 +6,7 @@ shopping.config(function($routeProvider){
         .when('/about',{title:'About Us',templateUrl: 'app/webroot/js/angular/page/pages.html',controller:'aboutController'})
         .when('/contact',{title:'Contact Us',templateUrl: 'app/webroot/js/angular/page/pages.html',controller:'contactController'})
 		.when('/catalog',{title:'Catalog Page',templateUrl: 'app/webroot/js/angular/page/catalog.html',controller:'catalogController'})
+		.when('/catalog/:title',{title:'Catalog Page',templateUrl: 'app/webroot/js/angular/page/catalog.html',controller:'catalogController'})
         .when('/productdetail/:id',{title:'Product Detail Page',templateUrl: 'app/webroot/js/angular/page/productdetail.html',controller:'productdetailController'})
 		.when('/cart',{title:'Cart Page',templateUrl: 'app/webroot/js/angular/page/cart.html',controller:'cartController'})
     
@@ -14,7 +15,7 @@ shopping.config(function($routeProvider){
 shopping.settings = {host:"http://report.com",page:"/api/"};
 
 
-shopping.run(function($rootScope,$cookies,$location,$http){
+shopping.run(function($rootScope,$cookies,$location,$http,$routeParams){
 	
 	$rootScope.cookieCartItems = $cookies.getObject('cart') || 0;
 	
@@ -22,8 +23,32 @@ shopping.run(function($rootScope,$cookies,$location,$http){
 	$rootScope.loader = true;
 	$http({method: 'GET',url: 'admin/categories/all.json',cache: false
 	 }).success(function (data, status, headers, config) {
-        console.log('successful');
 	    $rootScope.allProducts = data.Category;
+		$rootScope.allProductsCopy = data.Category;
+		$rootScope.categoryMenu = $rootScope.forSortingMenu($rootScope.allProducts);
+		console.log('A successful');
+		console.log($rootScope.categoryMenu);
+		$routeParams.title = $routeParams.title || 'all';
+		$rootScope.catalogTitle = "CATALOG ALL PRODUCTS";
+		$rootScope.catalogProductCount = $rootScope.allProducts.length;
+		
+		$rootScope.allProductsCopy = data.Category;
+		if($routeParams.title != 'all'){
+			 console.log('B successful');
+			 var output = [];
+			 var groupCollect = $rootScope.sortByTitle($rootScope.allProducts,$routeParams.title);
+			 angular.forEach(groupCollect, function(items) {
+				 if(items.Category.title == $routeParams.title){
+				   console.log(items.Category.title);
+				   output.push(items); 
+				 }
+			 });
+			 console.log(output);
+			 $rootScope.catalogTitle = $routeParams.title;
+			 $rootScope.catalogProductCount = output.length;
+			 $rootScope.allProducts = output;
+			
+		}
 	    $rootScope.loader = false;
 	 }).error(function (data, status, headers, config) {
 	   $rootScope.loader = false;
@@ -92,5 +117,30 @@ shopping.run(function($rootScope,$cookies,$location,$http){
 	$rootScope.roundOfValue = function(value){
 	 return Math.round(value * 100) / 100;	
 	}
+	
+	
+	$rootScope.forSortingMenu = function(items){
+	   var unique = [],blocked = [];
+       unique.push(items[0].Category.title);
+	   blocked.push(items[0].Category.id);
+	   for (var i = 1; i < items.length; i++) {
+		if (blocked.indexOf(items[i].Category.id) <= -1) {
+		 unique.push(items[i].Category.title);
+		 blocked.push(items[i].Category.id);
+		}
+	   }
+	   return unique;
+    }
+	
+	$rootScope.sortByTitle = function(items,value){
+	   var sortByTitle = [];
+	   for (var i=0; i<items.length; i++) {
+		    if (items[i].Category.title == value) {
+				 sortByTitle = items;
+			}
+	   }
+	   console.log(sortByTitle);
+	   return sortByTitle;
+    }
 	
 });

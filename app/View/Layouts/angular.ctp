@@ -4,6 +4,8 @@
         <?php
 			echo $this->Html->css('bootstrap.min.css'); 
 			echo $this->Html->css('/js/angular/lib/css/bootstrap-theme.min.css'); 
+			echo $this->Html->css('/js/angular/lib/css/aside.css'); 
+			echo $this->Html->css('/js/angular/lib/css/animate.css'); 
 			echo $this->Html->script('angular/lib/js/jquery-1.11.3.min.js');
 			echo $this->Html->script('angular/lib/js/angular.min.js'); 
 			echo $this->Html->script('angular/lib/js/ui-bootstrap-tpls.min.js'); 
@@ -12,6 +14,7 @@
 			echo $this->Html->script('angular/lib/js/angular-resource.min.js');
 			echo $this->Html->script('angular/lib/js/angular-cookies.min.js');
 			echo $this->Html->script('angular/lib/js/simplePagination.js');
+			echo $this->Html->script('angular/lib/js/angular-aside.min.js');
 			
 		?>
         <meta charset="utf-8">
@@ -73,7 +76,7 @@
     </head>
     <body>
     
-   <nav class="navbar navbar-default navbar-fixed-top">
+   <!--<nav class="navbar navbar-default navbar-fixed-top">
       <div class="container">
         <div class="navbar-header">
           <button type="button" class="navbar-toggle collapsed" ng-click="isCollapsed =!isCollapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
@@ -82,7 +85,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="#/">Shopping <a href="#cart" ng-cloak style="float:right; padding-top: 15px;    padding-right: 10px;"><span  class="glyphicon glyphicon-shopping-cart">{{ getTotalQty() }}  TOTAL : ${{ getTotalSum() }}</span></a><!--cartCount()-->
+          <a class="navbar-brand" href="#/">Shopping <a href="#cart" ng-cloak style="float:right; padding-top: 15px;    padding-right: 10px;"><span  class="glyphicon glyphicon-shopping-cart">{{ getTotalQty() }}  TOTAL : ${{ getTotalSum() }}</span></a>
         </div>
         <div id="navbar" class="collapse navbar-collapse" uib-collapse="isCollapsed">
           <ul class="nav navbar-nav">
@@ -91,13 +94,30 @@
             <li class="{{path == '/about' ? 'active' : ''}}"><a href="#about">About</a></li>
             <li class="{{path == '/contact' ? 'active' : ''}}"><a href="#contact">Contact</a></li>
           </ul>
-        </div><!--/.nav-collapse -->
+        </div>
       </div>
      
-    </nav>  
+    </nav> --> 
+    
+    <nav class="navbar navbar-default" ng-controller="SidebarController">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" id="navigation-toggle" ng-click="openAside('left')">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#/">Shopping <a href="#cart" ng-cloak style="float:right; padding-top: 15px;    padding-right: 10px;"><span  class="glyphicon glyphicon-shopping-cart">{{ getTotalQty() }} CART ${{ getTotalSum() }}</span></a>
+        </div>
+        <div class="navbar-collapse collapse">
+        <!--/.nav-collapse -->
+       <aside-directive></aside-directive>
+      </div>
+    </nav>
     
        
-    <div class="container"  ng-view>
+    <div class="container"  style="padding: 0px;" ng-view>
 
     </div>
       

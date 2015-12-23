@@ -1,0 +1,50 @@
+﻿<style>
+.modal-dialog{
+	width:55%;
+}
+.list-group-item{
+    margin-bottom: 0;
+    border: 0 none;
+    border-bottom: 1px solid #ddd;
+	padding:2px 3px;
+}
+.list-group-item a{
+	background:url(../../../img/arrow1.png) no-repeat 90%;
+	cursor:pointer;
+}
+li.active a{
+	background:url(../../../img/accordion-arrow.gif) no-repeat 90%;
+	color:#fff;
+}
+li.active a:hover{
+	background:#286090;
+}
+li a{
+	padding:0px;
+}
+.modal-body{
+	padding:0px 15px;
+}
+.fa {
+    display: inline-block;
+    font: 14px/1 FontAwesome;
+    font-size: inherit;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+.pull-right {
+    float: right!important;
+}
+.fa.pull-right {
+    margin-left: .3em;
+}
+</style>
+
+<ul class="nav navbar-nav navigation">
+    <li class="list-group-item {{path == '/' ? 'active' : ''}}"><a href="#/">Home</a></li>
+    <li class="list-group-item {{path == '/catalog' ? 'active' : ''}}"><a href="#catalog">Catalog</a></li>
+    <li class=" list-group-item" ng-repeat="menuTitle in categoryMenu" {{path == '/catalog' ? 'active' : ''}}><a ng-href="#catalog/{{menuTitle}}">{{menuTitle}}</a></li>
+<!--<li class=" list-group-item {{path == '/about' ? 'active' : ''}}"><a href="#about">About</a></li>
+    <li class=" list-group-item {{path == '/contact' ? 'active' : ''}}"><a href="#contact">Contact</a></li>-->
+</ul>

@@ -45,18 +45,16 @@
     margin: 0 0 11px;
 }
 </style>
-
-
-
 <div class="container">
 <div ng-show="loader" style="text-align: center;top: 50%; position: absolute;left: 50%;"><img src="app/webroot/img/26.gif" style="text-align:center;" /></div>
 <div class="row" ng-hide="loader">
+	
     <div class="well well-sm">
         <div class="btn-group">
             <a href="#" id="list" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-th-list">
             </span>List</a> <a href="#" id="grid" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-th"></span>Grid</a>
         </div>
-         <div class="btn-group" style="float:right;">
+        <div class="btn-group" style="float:right;">
 			   <select class="form-control"  name="dropdownvalue" ng-model="dropdownvalue">
                 <option value="">DEFAULT</option>
                 <option value="+Product.title">ASCENDING</option>
@@ -64,18 +62,19 @@
                 <option value="+Product.price">LOW TO HIGH</option>
                 <option value="-Product.price">HIGH TO LOW</option>
               </select>
-          </div>
+         </div>
     </div>
     <div id="products" class="row list-group">
         <div ng-hide="loader">
-            <div class="cataglog"> 
+            <div class="cataglog">
+               <h2 style="padding-left: 20px; font-size: 22px;">{{ catalogTitle }} ({{ catalogProductCount }})</h2>
               <!--<div class="item col-xs-6 col-lg-6" ng-repeat="result in allProducts | startFrom: currentPage*pageSize | limitTo: pageSize">-->
               	<div class="item col-xs-6 col-lg-6" ng-repeat="result in allProducts | sortByDetails: dropdownvalue">  
                   <h3 style="margin:10px 5px 10px 5px; font-weight: bold; text-align:center;" class="gridh3">{{ result.Product.title | limitTo:30 }}...</h3>
                   <!--<h3 style="margin:10px 5px 10px 5px; font-weight: bold;" class="listh5">{{ result.Product.title }}</h3>-->
                   
 				  <div class="imagenewDiv" style="text-align:center;">
-                  <a ng-href="#productdetail/{{result.Product.id}}"> <img class="img-thumbnail" ng-src="app/webroot/img/small/{{ result.Product.ProductImage[0].img_src }}" alt="default" /> </a>
+                  <a ng-href="#productdetail/{{result.Product.id}}"> <img class="img-thumbnail" image-lazy-src="app/webroot/img/small/{{ result.Product.ProductImage[0].img_src }}"/> </a>
                   </div>
                   
                   <div class="row">

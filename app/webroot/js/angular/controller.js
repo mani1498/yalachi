@@ -18,8 +18,31 @@ shopping.controller('contactController',['$scope',function($scope){
 
 
 //catalogController
-shopping.controller('catalogController',['$scope','$http','Pagination','$cookies','cartService','$location','$rootScope',function($scope,$http,Pagination,$cookies,cartService,$location,$rootScope){
+shopping.controller('catalogController',['$scope','$http','Pagination','$cookies','cartService','$location','$rootScope','$routeParams',function($scope,$http,Pagination,$cookies,cartService,$location,$rootScope,$routeParams){
 	
+	 var title = $routeParams.title || 'all';
+	 if(title){
+		  if(typeof($rootScope.allProductsCopy)!== 'undefined'){
+			   var output = [];
+			   var titleText,catlogCount;
+			   if(title == 'all'){
+				output  = $rootScope.allProductsCopy;
+				titleText = "CATALOG ALL PRODUCTS";
+				catlogCount  = output.length;
+			   }else{
+				    collection=$rootScope.allProductsCopy;
+					angular.forEach(collection, function(item) {
+						  if(item.Category.title == title)
+						  output.push(item);   
+				   });
+				   titleText = title;
+				   catlogCount  = output.length;
+			   }
+			  $rootScope.allProducts = output;  
+			  $rootScope.catalogTitle = titleText;
+			  $rootScope.catalogProductCount = catlogCount;
+		  }
+	  }
 	 $scope.currentPage = 0;
      $scope.pageSize = 50;
 	 $scope.numberOfPages = function(){
@@ -140,4 +163,25 @@ shopping.filter('sortByDetails',function($filter){
 			 }
 		 return $filter('orderBy')(items,value,false);
     }
+});
+
+shopping.controller('SidebarController', function($scope, $aside) {
+	$scope.state = true;
+    $scope.openAside = function(position) {
+            $aside.open({
+              templateUrl: '/app/webroot/js/angular/page/aside.html',
+              placement: position,
+              backdrop: true,
+              controller: function($scope, $modalInstance) {
+                $scope.ok = function(e) {
+                  $modalInstance.close();
+                 // e.stopPropagation();
+                };
+                $scope.cancel = function(e) {
+                  $modalInstance.dismiss();
+                  e.stopPropagation();
+                };
+              }
+            })
+     }
 });
