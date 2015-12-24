@@ -1,64 +1,56 @@
-<!--<h2>List Table</h2>
-  <p>The .table class adds basic styling (light padding and only horizontal dividers) to a table:</p>            
-  <table class="table">
-    <thead>
-      <tr>
-        <th>id</th>
-        <th>Title</th>
-        <th>Price</th>
-        <th>QTY</th>
-        <th>ADD</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr ng-repeat="list in cartList.items">
-        <td>{{ list.pid }}</td>
-        <td>{{ list.ptitle }}</td>
-        <td>{{ list.price }}</td>
-        <td>{{ list.qty }}</td>
-        <td ng-click="addCart($index,list.pid,list.ptitle,list.price,list.qty)">add cart</td>
-      </tr>
-    </tbody>
-</table>-->
-  
+<div class="row" ng-show="cartItem.items.length"  style="margin:0 0 0 25px;">
+	<div class="row">
+        <div class="col-xs-12 col-lg-12">
+            <h2>Items in your cart</h2>
+        </div>
+    </div>
+    <div class="row" ng-repeat="itm in cartItem.items" style="padding-top:10px; padding-bottom:10px; background-color: #e4e4e4;  border-bottom: thin solid; border-color: #ccc;">
+        <div class="col-xs-3 col-lg-3">
+            <img class="img-thumbnail" ng-src="app/webroot/img/small/{{itm.img}}"  style="margin:15px; 0 0 25px;"/>     
+        </div>
+        <div class="col-xs-7 col-lg-7">
+      		<div class="row">
+              <div class="col-xs-12 col-lg-12">
+        		<a ng-href="#productdetail/{{itm.id}}"> {{ itm.title }} </a>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-xs-12 col-lg-12">
+        		Quantity: <a style="text-decoration: none;" class="glyphicon glyphicon-plus" ng:click="addMoreQty(itm,$index)"></a>
+                <input type="text" ng-model="itm.qty" value="{{ itm.qty }}" disabled style="width: 30px;"/>
+                <a style="text-decoration: none;" class="glyphicon glyphicon-minus" ng:click="removeMoreQty(itm,$index)"></a>
+                <span ng-show="itm.qty <= 0" style="color:red;"> Min QTY </span> 
+                <span ng-show="itm.qty >= 10" style="color:red;"> Max QTY </span>
+              </div>
+            </div>
+        </div>
+        <div class="col-xs-1 col-lg-1">
+             <span class="glyphicon glyphicon-trash" style="float:left;" ng-click="removeCart($index)"></span>
+        </div>
+        <div class="row">
+       		  <div class="col-xs-3 col-lg-3"></div>
+              <div class="col-xs-7 col-lg-7" style="text-align:center;">
+				{{itm.qty }} X ${{ itm.price }}  = ${{ itm.sum = roundOfValue(itm.qty * itm.price) }}
+              </div>
+        </div>
+    </div>
+    <div class="row"  style="margin:0 0 0 25px; border-top-color:#0000FF;">
+        <!--<div class="col-xs-12 col-lg-12">Cart Quantity:  {{ cartTotalQty() }}</div>-->
+        <div class="col-xs-12 col-lg-12" style="text-align:center"><span style="font-weight:bold;">Order Total:</span> ${{ cartTotalSum() }}</div>
+        <div class="col-xs-6 col-lg-6">
+          <a href="#catalog" class="btn btn-primary btn-sm">CONTINUE SHOPPING</a> 
+        </div>
+        <div class="col-xs-6 col-lg-6">
+         <button type="button" class="btn btn-primary btn-sm" ng-click="updateCart(cartTotalQty(),cartTotalSum());">CHECKOUT CART</button>
+        </div>
+    </div>
+    <br/><br/>
+    </div>
+<div>
 
-  <table class="table" ng-show="cartItem.items.length" >
-    <thead>
-      <tr><th colspan=1>Cart Page</th><th colspan=6 style="color:red;">{{ errorMessage }}</th></tr>
-      <tr>
-        <th>id</th>
-        <th>Title</th>
-        <th>Price</th>
-        <th>QTY</th>
-        <th>SUM</th>
-        <th>REMOVE</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr ng-repeat="itm in cartItem.items">
-        <td>
-        <img class="img-thumbnail" ng-src="app/webroot/img/small/{{itm.img}}" alt="default" />
-        </td>
-        <td><a ng-href="#productdetail/{{itm.id}}"> {{ itm.title }} </a></td>
-        <td>{{ itm.price }}</td>
-        <td width="12%">
-           <a ng:click="addMoreQty(itm,$index)">[+]</a><input type="text" ng-model="itm.qty" value="{{ itm.qty }}" disabled style="width: 30px;"/><a ng:click="removeMoreQty(itm,$index)">[-]</a>
-            <span ng-show="itm.qty <= 0" style="color:red;"> Min QTY </span> 
-            <span ng-show="itm.qty >= 10" style="color:red;"> Max QTY </span>
-        </td>
-        <td ng-if="itm.qty >= 0" >{{ itm.sum = roundOfValue(itm.qty * itm.price) }}</td>
-        <td ng-click="removeCart($index)">[X]</td>
-      </tr>
-       <tr><td colspan=3>Cart Total: </td><td>{{ cartTotalQty() }}</td><td colspan=2>{{ cartTotalSum() }}</td></tr>
-       <tr><td colspan="6"><button type="button" class="btn btn-default" ng-click="updateCart(cartTotalQty(),cartTotalSum());">Update Cart</button></td></tr>
-    </tbody>
-  </table>
-  
- 	<table class="table" ng-hide="cartItem.items.length" >
-    <thead>
-      <tr><th>Cart Page</th></tr>
-    </thead>
-    <tbody>
-    <tr><td>Cart items is not available</td></tr>
-    </tbody>
-   </table>
+<div class="row" ng-hide="cartItem.items.length"  style="margin:0 0 0 25px;">
+    <div class="col-xs-12 col-lg-12">
+         <h2>Items in your cart</h2>
+        <p>Cart items is not available</p>
+    </div>
+<div>
