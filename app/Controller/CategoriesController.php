@@ -93,10 +93,10 @@ class CategoriesController extends AppController {
 		$this->Collect->Category->unBindModel(array('hasOne' => array('Metafield')));
 		
 		$categories = $this->Collect->find('all',array('conditions' => array('Category.title'=> $title)));
-		foreach($categories as $category){
+		/*foreach($categories as $category){
 			$categorygroup[$category['Category']['title']][] = $category;
-		}
-		$this->set(array('Category' => $categorygroup,'_serialize' => array('Category')));
+		}*/
+		$this->set(array('Category' => $categories,'_serialize' => array('Category')));
 		
 	}
 	

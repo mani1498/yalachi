@@ -2,33 +2,36 @@
 shoppingCart.service('cartService', function($cookies) {
 	var now = new Date();
     now.setDate(now.getDate() + 7);
-	$scope=this;
-	$scope.invoice = {items: []	};
+	this.invoice = {items:[]};
     this.add = function(detailsArray) {
 		var val='';
 		console.log($cookies.getObject('CartItem'));
 		var cookieItems=$cookies.getObject('CartItem');
 		if(!cookieItems)	{
-			$scope.invoice.items.push({pid:detailsArray.id,ptitle:detailsArray.title,qty:1,cost: detailsArray.price});
-			$cookies.putObject("CartItem", $scope.invoice.items, {expires: now});
+			this.invoice.items.push({pid:detailsArray.id,ptitle:detailsArray.title,qty:1,cost: detailsArray.price});
+			$cookies.putObject("CartItem", this.invoice.items, {expires: now});
 			console.log('New');
 		}else{
-			var DupItem = objectFindByKey(cookieItems,detailsArray);
+			this.invoice.items = $cookies.getObject('CartItem');
+			//console.log(detailsArray);return false;
+			var DupItem = objectFindByKey(cookieItems,detailsArray,this.invoice.items);
 			$cookies.putObject("CartItem", DupItem, {expires: now});
-			console.log($scope.invoice.items);
-			function objectFindByKey(array, key) {
-				console.log(array.length);
-				for (var i = 0; i < array.length; i++) {console.log('Found');
+			console.log(this.invoice.items);
+			function objectFindByKey(array, key, Scopeitems) {
+				//console.log(array.length);
+				for (var i = 0; i < array.length; i++) {
+					console.log('Found');
+					//console.log(this);
 					if (array[i].pid === key.id) {
-						$scope.invoice.items[i].qty=array[i].qty+1;
-						console.log($scope.invoice.items);
-						return $scope.invoice.items;
+						Scopeitems[i].qty=array[i].qty+1;
+						console.log(Scopeitems);
+						return Scopeitems;
 					}
-					else{console.log('Not Found');
-						if(i == array.length-1) {
-							$scope.invoice.items.push({pid:key.id,ptitle:key.title,qty:1,cost: key.price});
-							console.log($scope.invoice.items);
-							return $scope.invoice.items;	
+					else{
+						if(i == array.length-1) {console.log('Not Found');
+							Scopeitems.push({pid:key.id,ptitle:key.title,qty:1,cost: key.price});
+							//console.log(Scopeitems);
+							return Scopeitems;	
 						}
 					}
 				}
@@ -57,8 +60,34 @@ shoppingCart.service('cartService', function($cookies) {
 	
 	this.itemRemove=function(index){
 		var cookieItems=$cookies.getObject('CartItem');
-		$scope.invoice.items.splice(index, 1);
-		$cookies.putObject("CartItem", $scope.invoice.items, {expires: now});
+		this.invoice.items.splice(index, 1);
+		$cookies.putObject("CartItem", this.invoice.items, {expires: now});
+	}
+	
+	this.reduce=function(index){
+		var cookieItems=$cookies.getObject('CartItem');
+		var i =0;
+		angular.forEach(cookieItems, function(item) {
+            if (item.pid === index.id && item.qty > 1) {
+				cookieItems[i].qty--;
+			}
+		 i++;
+        })
+		$cookies.putObject("CartItem", cookieItems, {expires: now});
+	}
+	
+	this.changeName=function(index){
+		var cookieItems=$cookies.getObject('CartItem');
+		var i =0;
+		
+		angular.forEach(cookieItems, function(item) {
+            if (item.pid === index && item.qty > 1) {
+				console.log(index);
+				return true;
+			}
+		 i++;
+        })
+		$cookies.putObject("CartItem", cookieItems, {expires: now});
 	}
 	
 });

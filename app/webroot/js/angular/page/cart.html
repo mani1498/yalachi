@@ -23,11 +23,12 @@
       </tr>
     </thead>
     <tbody>
-      <tr ng-repeat="res in cartItem">
+      <tr ng-repeat="(key, res) in cartItem">
         <td>{{res.pid}}</td>
         <td>{{ res.ptitle }}</td>
-        <td>{{ res.cost }}</td>
-        <td><input type="text"  ng-change="cartUpdate($index,res.qty)" ng-model="res.qty" /></td>
+        <td><a ng:click="addItem(res)">[+]</a>{{ res.cost }}<a ng:click="reduceItem(res)">[-]</a></td>
+        <!--<td><input type="text"  ng-change="cartUpdate($index,res.qty)" ng-model="res.qty" /></td>-->
+        <td><input type="text" value="{{cartQuantity(key)}}" /></td>
         <td ng-click="removeItem($index)">[ X ]</td>
 		<!--<td ng-click="removeCart($index, list._id)">Remove Cart</td>-->
       </tr>

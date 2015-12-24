@@ -3,18 +3,26 @@
     <head>
         <?php
 			echo $this->Html->css('bootstrap.min.css'); 
+			//echo $this->Html->css('/js/angular/lib/css/sidebar.css');
+			echo $this->Html->css('/js/angular/lib/css/aside.css'); 
+			echo $this->Html->css('/js/angular/lib/css/animate.css'); 
 			echo $this->Html->css('/js/angular/lib/css/bootstrap-theme.min.css'); 
+			//echo $this->Html->css('/js/angular/lib/css/font-awesome.min.css'); 
+			
 			echo $this->Html->script('angular/lib/js/angular.min.js'); 
 			echo $this->Html->script('angular/lib/js/angular-cookies.min.js'); 
 			echo $this->Html->script('angular/lib/js/angular-route.min.js'); 
 			echo $this->Html->script('angular/lib/js/angular-filter.min.js'); 
 			echo $this->Html->script('angular/lib/js/angular-resource.min.js');
 			echo $this->Html->script('angular/lib/js/simplePagination.js');
+			echo $this->Html->script('angular/lib/js/angular-aside.min.js');
 			
 			echo $this->Html->script('angular/lib/js/services/authentication.service.js'); 
 			echo $this->Html->script('angular/lib/js/services/flash.service.js');
 			echo $this->Html->script('angular/lib/js/services/user.service.local-storage.js');
 			echo $this->Html->script('angular/lib/js/services/cartService.js');
+			
+			
 		?>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -70,15 +78,27 @@
 			 font-size: 13px;
 			  height: 30px;
 		 }
+		.preloader {
+			padding: 50px;
+			background: url('/app/webroot/img/preloader.gif') no-repeat 50% 50% transparent;
+		}
+		.preloader h4 {
+			width:100%;
+			position:relative;
+			top:100px;
+		}
 		</style>
-
     </head>
-    <body>
+    <body ng-cloak>
     
-   <nav class="navbar navbar-default navbar-fixed-top">
+    <div ng-hide="dataLoaded" class="preloader">
+        <h4>Yalachi is Loading Please Wait ....</h4>
+    </div>
+    <div  ng-show="dataLoaded" >
+    <nav class="navbar navbar-default {{popupHeight}}" ng-hide="navPath()" ng-controller="SidebarController">
       <div class="container">
         <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+          <button type="button" class="navbar-toggle" id="navigation-toggle" ng-click="openAside('left')">
             <span class="sr-only">Toggle navigation</span>
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
@@ -86,43 +106,32 @@
           </button>
           <a class="navbar-brand" href="#">Shopping</a>
         </div>
-        <div id="navbar" class="collapse navbar-collapse">
-          <ul class="nav navbar-nav">
-            <li class="{{path == '/' ? 'active' : ''}}"><a href="#/">Home</a></li>
-            <li class="{{path == '/catalog' ? 'active' : ''}}"><a href="#catalog">Catalog</a></li>
-            <li class="{{path == '/about' ? 'active' : ''}}"><a href="#about">About</a></li>
-            <li class="{{path == '/contact' ? 'active' : ''}}"><a href="#contact">Contact</a></li>
-          </ul>
-          <ul class="nav navbar-nav">
-            <li><a href="#catalog/vitamins">Vitamins</a></li>
-            <li><a href="#catalog/minerals">Minerals</a></li>
-            <li><a href="#catalog/herbal">Herbal</a></li>
-           </ul> <div style="float:right;margin-top:15px;"><a href="#cart"> {{cartItem()}} Items in Cart ({{cartTotal()}})</a></div>
-        </div><!--/.nav-collapse -->
-       
+        <div class="navbar-collapse collapse">
+        <!--/.nav-collapse -->
+       <aside-directive></aside-directive>
       </div>
-    </nav>  
+    </nav>
     
      <div ng-class="{ 'alert': flash, 'alert-success': flash.type === 'success', 'alert-danger': flash.type === 'error' }" ng-if="flash" ng-bind="flash.message" style="margin-top:50px;"></div>  
-    <div class="container"  ng-view>
+    <div class="container"  ng-view >
 
     </div>
       
 
        
 
-    <footer class="footer">
+    <footer class="footer" ng-hide="navPath()">
       <div class="container">
         <p class="text-muted">Place sticky footer content here.</p>
       </div>
     </footer>
-         
+    </div>     
     <?php 
+		echo $this->Html->script('ui-bootstrap-tpls-0.14.3.min.js'); 
 		echo $this->Html->script('angular/app.js'); 
 		echo $this->Html->script('angular/controller.js'); 
 		echo $this->Html->script('angular/service.js');
 		echo $this->Html->script('angular/directives.js'); 
-		echo $this->Html->script('angular/script.js'); 
-	?>
+		echo $this->Html->script('angular/script.js'); ?>
     </body>
 </html>
