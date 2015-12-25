@@ -46,6 +46,16 @@
 }
 </style>
 <div class="container">
+ 	<div class="row">
+   	 <div class="col-xs-8 col-md-8">
+        <div class="form-group" style="text-align:center;">
+          <input type="text" class="form-control" name="search" ng-model="search" placeholder="search" > 
+        </div> 
+  	  </div> 
+       <div class="col-xs-4 col-md-4">
+      <button type="button" class="btn btn-primary btn-sm" ng-click="searchClick(search)">SEARCH</button>
+      </div>
+    </div>
 <div ng-show="loader" style="text-align: center;top: 50%; position: absolute;left: 50%;"><img src="app/webroot/img/26.gif" style="text-align:center;" /></div>
 <div class="row" ng-hide="loader">
 	
