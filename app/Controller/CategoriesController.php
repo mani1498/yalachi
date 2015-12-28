@@ -78,7 +78,7 @@ class CategoriesController extends AppController {
 		$this->Collect->Product->unBindModel(array('hasOne' => array('Option','Metafield')));
 		$this->Collect->Category->unBindModel(array('hasMany' => array('Collect')));
 		$this->Collect->Category->unBindModel(array('hasOne' => array('Metafield')));
-		$category = $this->Collect->find('all');
+		$category = $this->Collect->find('all',array('conditions'=>array('not' => array('Product.price' => 0.00))));
 		$this->set(array('Category' => $category,'_serialize' => array('Category')));
 		
 	}

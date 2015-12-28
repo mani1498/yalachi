@@ -8,6 +8,7 @@
 /app/tmp
 /app/webroot/angular
 /lib/Cake/Console/Templates/skel/tmp/
+/backup
 /plugins
 /vendors
 /build

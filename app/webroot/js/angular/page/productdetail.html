@@ -1,38 +1,27 @@
-<div ng-show="loader" style="text-align: center;top: 50%; position: absolute;left: 50%;"><img src="/app/webroot/img/26.gif" style="text-align:center;" /></div>
+<div ng-show="loader" style="text-align: center;top: 50%; position: absolute;left: 50%;"><img src="app/webroot/img/26.gif" style="text-align:center;" /></div>
 <div ng-hide="loader">
    <br/>
    <br/>
    <br/>
-   <h3>{{details.Product.title}}</h3>
-   <!--  ng-repeat="(key, value) in details.ProductImage" -->
-    <div class="col-xs-12 col-md-12">
-    <!--<img ng-repeat="(k,v) in details.ProductImage" ng-show="v.hasOwnProperty('0')" src="{{details.ProductImage.[0].title)}}" title="{{details.Product.title}}"  style="width:250px; height:250px" />-->
-    <img src="{{ details.ProductImage[0].img_alt }}"  title="{{ details.Product.title}}"  style="width:250px; height:250px" />
+<div class="row">
+<div class="col-xs-12 col-md-12">
+          <div class="col-xs-12 col-md-8"><img class="img-thumbnail" ng-src="app/webroot/img/medium/{{ details.ProductImage[0].img_src }}"  title="{{ details.Product.title}}"  alt="default" /></div>
+          
+ 		   <div class="col-xs-12 col-md-8"> <h3>{{details.Product.title}}</h3> </div>   
+           <div class="col-xs-12 col-md-8">Asin: {{details.Product.sku}}</div>
+          <!-- <div class="col-xs-12 col-md-8" ng-repeat="itm in cartItem.items" ng-if="itm.id == id">Quantity: {{itm.qty}} {{ $index }}-->
+           <div class="col-xs-12 col-md-8" ng-repeat="itm in cartItem.items" ng-if="itm.id == id"><a ng:click="addMoreQty(itm,$index)">[+]</a><input type="text" ng-model="itm.qty" value="{{ itm.qty }}" disabled style="width: 30px;"/><a ng:click="removeMoreQty(itm,$index)">[-]</a>
+           </div> 
+           <div class="col-xs-12 col-md-8">Brand: {{details.Product.vendor}}</div>
+           <div class="col-xs-12 col-md-8">Manufacture: {{details.Product.description}}</div>  
+           <div class="col-xs-12 col-md-8">Competitor Count: {{details.Product.type}}</div>
+           <div class="col-xs-12 col-md-8">Merchant: {{details.Product.barcode}}</div>
+           <div class="col-xs-12 col-md-8">Offer Price: ${{details.Product.list_price}}</div>
+           <div class="col-xs-12 col-md-8">Offer Amount Saved: ${{details.Product.price}}</div>
+           <div class="col-xs-12 col-md-8">Offer Amount Saved: ${{details.Product.price}}</div>
+           <div class="col-xs-12 col-md-8" style="padding:20px;">
+           <button type="button" class="btn btn-primary btn-md"  ng-disabled="cartDisable(details.Product.id)" ng-click="addCart(details.Product.id,details.Product.title,details.Product.price,1,details.ProductImage[0].img_src)">ADD TO CART</button>
+           </div>
     </div>
-
-   <div class="col-xs-6 col-md-4">Asin:</div>  
-   <div class="col-xs-12 col-md-8"> {{details.Product.sku}}</div>
-        
-   <div class="col-xs-6 col-md-4">Category:</div>  
-   <div class="col-xs-12 col-md-8"> {{details.Product.quantity}}</div>
-    
-   <div class="col-xs-6 col-md-4">Brand</div>
-   <div class="col-xs-12 col-md-8"> {{details.Product.vendor}}</div>
-    
-   <div class="col-xs-6 col-md-4">Manufacture</div>
-   <div class="col-xs-12 col-md-8">{{details.Product.description}}</div>
-    
-   <div class="col-xs-6 col-md-4">Competitor Count:</div>
-   <div class="col-xs-12 col-md-8">{{details.Product.type}}</div>
-    
-   <div class="col-xs-6 col-md-4">Merchant</div>
-   <div class="col-xs-12 col-md-8">{{details.Product.barcode}}</div>
-    
-   <div class="col-xs-6 col-md-4">Offer Price</div>
-   <div class="col-xs-12 col-md-8">${{details.Product.list_price}}</div>
-    
-   <div class="col-xs-6 col-md-4">Offer Amount Saved</div>
-   <div class="col-xs-12 col-md-8">${{details.Product.price}}</div>
-
-
+</div>
 </div>
