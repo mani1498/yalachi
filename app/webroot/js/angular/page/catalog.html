@@ -49,7 +49,7 @@
  	<div class="row">
    	 <div class="col-xs-8 col-md-8">
         <div class="form-group" style="text-align:center;">
-          <input type="text" class="form-control" name="search" ng-model="search" placeholder="search" > 
+          <input type="text" class="form-control" name="search" autocorrect="off" ng-model="search" placeholder="search" > 
         </div> 
   	  </div> 
        <div class="col-xs-4 col-md-4">
@@ -83,8 +83,8 @@
                   <h3 style="margin:10px 5px 10px 5px; font-weight: bold; text-align:center;" class="gridh3">{{ result.Product.title | limitTo:30 }}...</h3>
                   <!--<h3 style="margin:10px 5px 10px 5px; font-weight: bold;" class="listh5">{{ result.Product.title }}</h3>-->
                   
-				  <div class="imagenewDiv" style="text-align:center;">
-                  <a ng-href="#productdetail/{{result.Product.id}}"> <img class="img-thumbnail" image-lazy-src="app/webroot/img/small/{{ result.Product.ProductImage[0].img_src }}"/> </a>
+				  <div class="imagenewDiv" style="text-align:center;"><!--image-lazy-src-->
+                  <a ng-href="#productdetail/{{result.Product.id}}"> <img class="img-thumbnail" ng-src="app/webroot/img/small/{{ result.Product.ProductImage[0].img_src }}"/> </a>
                   </div>
                   
                   <div class="row">
