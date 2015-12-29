@@ -222,21 +222,22 @@ shopping.filter('sortByDetails',function($filter){
     }
 });
 
-shopping.controller('SidebarController', function($scope, $aside) {
+shopping.controller('SidebarController', function($scope, $aside,$location) {
 	$scope.state = true;
     $scope.openAside = function(position) {
             $aside.open({
               templateUrl: 'app/webroot/js/angular/page/aside.html',
               placement: position,
               backdrop: true,
-              controller: function($scope, $modalInstance) {
+              controller: function($scope, $uibModalInstance) {
                 $scope.ok = function(e) {
-                  $modalInstance.close();
+                  $uibModalInstance.close();
                  // e.stopPropagation();
                 };
-                $scope.cancel = function(e) {
-                  $modalInstance.dismiss();
-                  e.stopPropagation();
+                $scope.cancel = function(url) {
+                  	$uibModalInstance.dismiss();
+					$location.path(url);
+                  //e.stopPropagation();
                 };
               }
             })
