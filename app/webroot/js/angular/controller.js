@@ -222,7 +222,7 @@ shopping.filter('sortByDetails',function($filter){
     }
 });
 
-shopping.controller('SidebarController', function($scope, $aside) {
+shopping.controller('SidebarController', function($scope,$timeout,$aside) {
 	$scope.state = true;
     $scope.openAside = function(position) {
             $aside.open({
@@ -232,11 +232,14 @@ shopping.controller('SidebarController', function($scope, $aside) {
               controller: function($scope, $modalInstance) {
                 $scope.ok = function(e) {
                   $modalInstance.close();
-                 // e.stopPropagation();
+                  e.stopPropagation();
                 };
                 $scope.cancel = function(e) {
-                  $modalInstance.dismiss();
-                  e.stopPropagation();
+				  $timeout(function() {
+       				$modalInstance.dismiss();
+					console.log('update with timeout fired')
+				   }, 50);
+				 e.stopPropagation();
                 };
               }
             })
