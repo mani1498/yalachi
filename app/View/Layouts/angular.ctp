@@ -15,7 +15,7 @@
 			echo $this->Html->script('angular/lib/js/angular-cookies.min.js');
 			echo $this->Html->script('angular/lib/js/simplePagination.js');
 			echo $this->Html->script('angular/lib/js/angular-aside.min.js');
-			
+			echo $this->Html->script('angular/lib/js/angular-touch.min.js');
 		?>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
