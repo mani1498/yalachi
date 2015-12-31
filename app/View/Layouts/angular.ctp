@@ -93,7 +93,21 @@
       </div>
     </nav>
     
-       
+     <div class="container" style="padding: 0px;">  
+       <div class="row">
+      <!--<form ng-submit="submit()">-->
+   	   <div class="col-xs-8 col-md-8">
+        <div class="form-group" style="text-align:center;">
+          <input type="text" class="form-control"  autocorrect="off" ng-model="search" placeholder="search" > 
+        </div> 
+  	   </div> 
+       <div class="col-xs-4 col-md-4">
+     	<button type="button" class="btn btn-primary btn-sm" ng-click="searchClick(search)">SEARCH</button>
+       <!--<input type="submit" class="btn btn-primary btn-sm" value="SUBMIT" />-->
+       </div>
+     <!-- </form> -->
+	 </div>
+     </div>
     <div class="container"  style="padding: 0px;" ng-view>
 
     </div>
