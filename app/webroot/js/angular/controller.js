@@ -1,8 +1,6 @@
 //homeController 
 shopping.controller("homeController", ["$scope","$log","$timeout","$http",'$rootScope', function ($scope, $log, $timeout, $http,$rootScope) {
     $scope.title = "Home Page";
-	console.log('asfadsddf sdfasdf a');
-	console.log($rootScope);
 	  $scope.myInterval = 3500;
 	  $scope.noWrapSlides = false;
 	  var slides = $scope.slides = [];
@@ -10,7 +8,7 @@ shopping.controller("homeController", ["$scope","$log","$timeout","$http",'$root
 	  $scope.addSlide = function(i) {
 		var newWidth = 600 + slides.length + 1;
 		slides.push({
-		  image: '/app/webroot/img/slider/carausol' + i,
+		  image: '/app/webroot/img/slider/carausol' + i + '.jpg',
 		 /* text: ['More','Extra','Lots of','Surplus'][slides.length % 4] + ' ' +
 			['Cats', 'Kittys', 'Felines', 'Cutes'][slides.length % 4]*/
 		});
