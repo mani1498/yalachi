@@ -8,7 +8,7 @@ shopping.controller("homeController", ["$scope","$log","$timeout","$http",'$root
 	  $scope.addSlide = function(i) {
 		var newWidth = 600 + slides.length + 1;
 		slides.push({
-		  image: '/app/webroot/img/slider/carausol' + i + '.jpg',
+		  image: 'app/webroot/img/slider/carausol' + i + '.jpg',
 		 /* text: ['More','Extra','Lots of','Surplus'][slides.length % 4] + ' ' +
 			['Cats', 'Kittys', 'Felines', 'Cutes'][slides.length % 4]*/
 		});
