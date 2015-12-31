@@ -1,6 +1,26 @@
 //homeController 
-shopping.controller("homeController", ["$scope","$log","$timeout","$http", function ($scope, $log, $timeout, $http) {
-    //$scope.title = "Home Page";
+shopping.controller("homeController", ["$scope","$log","$timeout","$http",'$rootScope', function ($scope, $log, $timeout, $http,$rootScope) {
+    $scope.title = "Home Page";
+	console.log('asfadsddf sdfasdf a');
+	console.log($rootScope);
+	  $scope.myInterval = 3500;
+	  $scope.noWrapSlides = false;
+	  var slides = $scope.slides = [];
+	  console.log($scope);
+	  $scope.addSlide = function(i) {
+		var newWidth = 600 + slides.length + 1;
+		slides.push({
+		  image: '/app/webroot/img/slider/carausol' + i,
+		 /* text: ['More','Extra','Lots of','Surplus'][slides.length % 4] + ' ' +
+			['Cats', 'Kittys', 'Felines', 'Cutes'][slides.length % 4]*/
+		});
+	  };
+	  for (var i=1; i<4; i++) {
+		$scope.addSlide(i);
+	  }
+	  //$scope.homeCategory=$rootScope.homeCategory
+	  
+	  
 }]);
 
 //aboutController
@@ -232,12 +252,12 @@ shopping.controller('SidebarController', function($scope, $aside,$location) {
               controller: function($scope, $uibModalInstance) {
                 $scope.ok = function(e) {
                   $uibModalInstance.close();
-                 // e.stopPropagation();
+				  e.stopPropagation();
                 };
                 $scope.cancel = function(url) {
                   	$uibModalInstance.dismiss();
 					$location.path(url);
-                  //e.stopPropagation();
+                  return false;
                 };
               }
             })

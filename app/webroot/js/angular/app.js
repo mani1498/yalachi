@@ -1,6 +1,6 @@
 var shopping = angular.module('shopping', ['ngRoute','ngResource','ngCookies','angular.filter','simplePagination','ui.bootstrap','ngAside','ngTouch']);
 
-shopping.config(function($routeProvider){
+shopping.config(function($routeProvider){console.log('trr');
     $routeProvider
         .when('/',{title:'Home Page',templateUrl: 'app/webroot/js/angular/page/home.html',controller:'homeController'})
         .when('/about',{title:'About Us',templateUrl: 'app/webroot/js/angular/page/pages.html',controller:'aboutController'})
@@ -26,8 +26,8 @@ shopping.run(function($rootScope,$cookies,$location,$http,$routeParams){
 	    $rootScope.allProducts = data.Category;
 		$rootScope.allProductsCopy = data.Category;
 		$rootScope.categoryMenu = $rootScope.forSortingMenu($rootScope.allProducts);
-		console.log('A successful');
-		console.log($rootScope.categoryMenu);
+		//console.log($rootScope.categoryMenu);
+		//console.log($rootScope.allProducts);
 		$routeParams.title = $routeParams.title || 'all';
 		$rootScope.catalogTitle = "CATALOG ALL PRODUCTS";
 		$rootScope.catalogProductCount = $rootScope.allProducts.length;
@@ -53,7 +53,7 @@ shopping.run(function($rootScope,$cookies,$location,$http,$routeParams){
 	 }).error(function (data, status, headers, config) {
 	   $rootScope.loader = false;
 	}); 
-	
+	console.log($rootScope);
 	$rootScope.getTotalQty = function(){
 		var totalQty = 0;
 		var cookievar;
@@ -109,6 +109,7 @@ shopping.run(function($rootScope,$cookies,$location,$http,$routeParams){
 	 
 
 	$rootScope.$on('$routeChangeSuccess', function (event, current, previous) {
+		console.log('suck');
           $rootScope.title = current.$$route.title;
 		  $rootScope.path = current.$$route.originalPath; // Make menu tab active on each
 		  $rootScope.isCollapsed = true;
@@ -120,15 +121,26 @@ shopping.run(function($rootScope,$cookies,$location,$http,$routeParams){
 	
 	
 	$rootScope.forSortingMenu = function(items){
-	   var unique = [],blocked = [];
+		//console.log(items);
+	   var unique = [],blocked = [],allCategory = {};
        unique.push(items[0].Category.title);
 	   blocked.push(items[0].Category.id);
 	   for (var i = 1; i < items.length; i++) {
+		   console.log(blocked.indexOf(items[i].Category.id))
 		if (blocked.indexOf(items[i].Category.id) <= -1) {
-		 unique.push(items[i].Category.title);
-		 blocked.push(items[i].Category.id);
+		 	unique.push(items[i].Category.title);
+		 	blocked.push(items[i].Category.id);
 		}
+		// home page category lists
+		allCategory[items[i].Category.title] = allCategory[items[i].Category.title] || [];
+    	allCategory[items[i].Category.title].push( items[i] );
+		
+		//allCategory.push(unique[i].items[i]);
+		
 	   }
+	   console.log();
+	   $rootScope.homeCategory= allCategory;
+	   
 	   return unique;
     }
 	

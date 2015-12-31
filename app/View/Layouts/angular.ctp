@@ -61,8 +61,7 @@
 		code {
 		  font-size: 80%;
 		}
-		</style>
-        <style>	 
+		
 		 .cataglog .col-xs-12 {
 			padding-bottom: 2%;
 			text-align:center;
@@ -71,6 +70,81 @@
 			 font-size: 13px;
 			  height: 30px;
 		 }
+		 .navbar-header{
+			 /*background-color:#e4755a;*/
+		 }
+		 .navbar-header button span{
+			 /*color:#fff; */
+			 color:#ddd;
+		 }
+		 .navbar-default .navbar-toggle {
+				/*border-color: #fff;*/
+				color:#ddd;
+		  }
+		  .navbar-default .navbar-toggle .icon-bar {
+				/*background-color: #fff;*/
+				color:#ddd;
+			}
+		/* .accountButton {
+			float: left;
+			height: 18px;
+			width: 18px;
+			margin-left: 24px;
+			background: url('/app/webroot/img/accountButtonBg.png') 0 0 no-repeat;
+			margin-top: 18px;
+		}*/
+		.glyphicon-chevron-left:before {
+			content: "\e079";
+			background: #e4755a;
+			padding: 5px;
+			margin-left:-30px;
+		}
+		.glyphicon-chevron-right:before {
+			content: "\e080";
+			background: #e4755a;
+			padding: 5px;
+			margin-right:-30px;
+		}
+		.footerWrapper {
+			padding-left: 24px;
+			padding-right: 24px;
+			/*background-color: #e4755a;*/
+			height: 60px;
+			overflow: visible;
+		}
+		.footerWrapper > .copyright {
+			float: left;
+			/*color: #fff;*/
+			color:#000;
+			margin-top: 18px;
+		}
+		.footerLinksWrapper {
+			float: right;
+			display: block;
+			margin-top: 18px;
+		}
+		.footerLinksWrapper > .footerLink {
+			float: left;
+			margin-left: 12px;
+			padding-right: 9px;
+			margin-top: 0px;
+			/*border-right: 1px solid rgba(255,255,255,0.12);*/
+			border-right: 1px solid #000;
+		}
+		.footerWrapper a {
+			/*color: #fff;*/
+			color:#000;
+			margin-top: 18px;
+		}
+		span > a {
+			display: inline;
+		}
+		.carousel-indicators li {
+			background-color:#e4755a;
+		}
+		.carousel-indicators .active {
+			background-color: #f00;
+		}
 		</style>
 
     </head>
@@ -99,7 +173,7 @@
      
     </nav> --> 
     
-    <nav class="navbar navbar-default" ng-controller="SidebarController">
+    <nav class="navbar navbar-default" ng-controller="SidebarController" style="position:fixed; width:100%;z-index:10000; top:0; left:0; height:50px;">
       <div class="container">
         <div class="navbar-header">
           <button type="button" class="navbar-toggle" id="navigation-toggle" ng-click="openAside('left')">
@@ -108,7 +182,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="#/">Shopping <a href="#cart" ng-cloak style="float:right; padding-top: 15px;    padding-right: 10px;"><span  class="glyphicon glyphicon-shopping-cart">{{ getTotalQty() }} CART ${{ getTotalSum() }}</span></a>
+          <a class="navbar-brand glyphicon glyphicon-user"  href="/#/"></a><a href="#cart" ng-cloak style="float:left; padding: 18px 10px 0px 20px;"><span  class="glyphicon glyphicon-shopping-cart">{{ getTotalQty() }} CART ${{ getTotalSum() }}</span></a>
         </div>
         <div class="navbar-collapse collapse">
         <!--/.nav-collapse -->
@@ -117,7 +191,7 @@
     </nav>
     
        
-    <div class="container"  style="padding: 0px;" ng-view>
+    <div class="container"  style="padding: 0px; margin-top:60px;" ng-view>
 
     </div>
       
@@ -125,9 +199,7 @@
        
 
     <footer class="footer">
-      <div class="container">
-        <p class="text-muted">Place sticky footer content here.</p>
-      </div>
+      <div class="footerWrapper"> <span class="copyright">© copyright yalachi.</span> <span class="footerLinksWrapper"><a href="" class="footerLink">Help</a><a href="" class="footerLink">Terms</a></span> </div>
     </footer>
          
     <?php 
