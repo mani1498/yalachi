@@ -5,6 +5,7 @@ shopping.config(function($routeProvider){console.log('trr');
         .when('/',{title:'Home Page',templateUrl: 'app/webroot/js/angular/page/home.html',controller:'homeController'})
         .when('/about',{title:'About Us',templateUrl: 'app/webroot/js/angular/page/pages.html',controller:'aboutController'})
         .when('/contact',{title:'Contact Us',templateUrl: 'app/webroot/js/angular/page/pages.html',controller:'contactController'})
+		.when('/search/:id',{title:'Search Page',templateUrl: 'app/webroot/js/angular/page/catalog.html',controller:'searchController'})
 		.when('/catalog',{title:'Catalog Page',templateUrl: 'app/webroot/js/angular/page/catalog.html',controller:'catalogController'})
 		.when('/catalog/:title',{title:'Catalog Page',templateUrl: 'app/webroot/js/angular/page/catalog.html',controller:'catalogController'})
         .when('/productdetail/:id',{title:'Product Detail Page',templateUrl: 'app/webroot/js/angular/page/productdetail.html',controller:'productdetailController'})
@@ -16,7 +17,8 @@ shopping.settings = {host:"http://report.com",page:"/api/"};
 
 
 shopping.run(function($rootScope,$cookies,$location,$http,$routeParams){
-	
+
+
 	$rootScope.cookieCartItems = $cookies.getObject('cart') || 0;
 	
 	$rootScope.allProducts = '{}';
@@ -26,8 +28,6 @@ shopping.run(function($rootScope,$cookies,$location,$http,$routeParams){
 	    $rootScope.allProducts = data.Category;
 		$rootScope.allProductsCopy = data.Category;
 		$rootScope.categoryMenu = $rootScope.forSortingMenu($rootScope.allProducts);
-		//console.log($rootScope.categoryMenu);
-		//console.log($rootScope.allProducts);
 		$routeParams.title = $routeParams.title || 'all';
 		$rootScope.catalogTitle = "CATALOG ALL PRODUCTS";
 		$rootScope.catalogProductCount = $rootScope.allProducts.length;
@@ -107,14 +107,23 @@ shopping.run(function($rootScope,$cookies,$location,$http,$routeParams){
 
 	}
 	 
-
+	 
 	$rootScope.$on('$routeChangeSuccess', function (event, current, previous) {
-		console.log('suck');
           $rootScope.title = current.$$route.title;
 		  $rootScope.path = current.$$route.originalPath; // Make menu tab active on each
 		  $rootScope.isCollapsed = true;
+		  console.log($rootScope);
     });
 	
+	$rootScope.searchClick = function(val){
+			console.log('searchClick');
+			console.log('search/'+val);
+			$location.path('search/'+val);
+			console.log($rootScope);
+	}
+	
+
+
 	$rootScope.roundOfValue = function(value){
 	 return Math.round(value * 100) / 100;	
 	}

@@ -150,29 +150,7 @@
     </head>
     <body>
     
-   <!--<nav class="navbar navbar-default navbar-fixed-top">
-      <div class="container">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" ng-click="isCollapsed =!isCollapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="#/">Shopping <a href="#cart" ng-cloak style="float:right; padding-top: 15px;    padding-right: 10px;"><span  class="glyphicon glyphicon-shopping-cart">{{ getTotalQty() }}  TOTAL : ${{ getTotalSum() }}</span></a>
-        </div>
-        <div id="navbar" class="collapse navbar-collapse" uib-collapse="isCollapsed">
-          <ul class="nav navbar-nav">
-            <li class="{{path == '/' ? 'active' : ''}}"><a href="#/">Home</a></li>
-            <li class="{{path == '/catalog' ? 'active' : ''}}"><a href="#catalog">Catalog</a></li>
-            <li class="{{path == '/about' ? 'active' : ''}}"><a href="#about">About</a></li>
-            <li class="{{path == '/contact' ? 'active' : ''}}"><a href="#contact">Contact</a></li>
-          </ul>
-        </div>
-      </div>
-     
-    </nav> --> 
-    
+
     <nav class="navbar navbar-default" ng-controller="SidebarController" style="position:fixed; width:100%;z-index:10000; top:0; left:0; height:50px;">
       <div class="container">
         <div class="navbar-header">
@@ -189,13 +167,22 @@
        <aside-directive></aside-directive>
       </div>
     </nav>
-    
-       
     <div class="container"  style="padding: 0px; margin-top:60px;" ng-view>
-
-    </div>
-      
-
+       <div class="row">
+      <!--<form ng-submit="submit()">-->
+   	   <div class="col-xs-8 col-md-8">
+        <div class="form-group" style="text-align:center;">
+          <input type="text" class="form-control"  autocorrect="off" ng-model="search" placeholder="search" > 
+        </div> 
+  	   </div> 
+       <div class="col-xs-4 col-md-4">
+     	<button type="button" class="btn btn-primary btn-sm" ng-click="searchClick(search)">SEARCH</button>
+       <!--<input type="submit" class="btn btn-primary btn-sm" value="SUBMIT" />-->
+       </div>
+     <!-- </form> -->
+	 </div>
+     </div>
+   
        
 
     <footer class="footer">

@@ -99,41 +99,46 @@ shopping.controller('catalogController',['$scope','$http','Pagination','$cookies
 	 
 }]);
 
-/*//searchController
-shopping.controller('searchController',['$scope','$http','Pagination','$cookies','cartService','$location','$rootScope','$routeParams',function($scope,$http,Pagination,$cookies,cartService,$location,$rootScope,$routeParams){
-	console.log('searchController');
-	 var searchItems = $routeParams.searchItems || '';
-	 if(searchItems){
-		  $rootScope.searchItems = 'true';
-		  console.log('searchController A');
-		  if(typeof($rootScope.allProductsCopy) !== 'undefined'){
-			   var output = [];
-			   var productTitle;
-			   var titleText,catlogCount;
-			   console.log('searchController B');
-			   if(searchItems != ''){
-				    collection=$rootScope.allProductsCopy;
-					angular.forEach(collection, function(items) {
-						 productTitle = items.Product.title;
-						 console.log(productTitle);
-						 var res = productTitle.search(searchItems);
-						 console.log('a');
-						 if(res != -1)
-						  output.push(items);   
-				   });
-				   titleText = searchItems;
-				   catlogCount  = output.length;
-			   }else{
-				   titleText = 'SEARCH EMPTY NOT FOUND';
-				   catlogCount  = 0
+//searchController
+shopping.controller('searchController',['$scope','$http','$cookies','cartService','$location','$rootScope','$routeParams','$filter',
+function($scope,$http,$cookies,cartService,$location,$rootScope,$routeParams,$filter){
+	
+	
+	 console.log('searchController');
+	 $scope.id = $routeParams.id || '';
+	 $scope.searchClick = function(){
+		console.log('s');
+		var searchItems = $scope.id;
+		console.log(searchItems);
+		 if(searchItems){
+		  console.log(searchItems);
+			  if(typeof($rootScope.allProductsCopy) !== 'undefined'){
+				   var output = [];
+				   var productTitle;
+				   var titleText,catlogCount;
+				   console.log('searchController B');
+				   if(searchItems != ''){
+						collection=$rootScope.allProductsCopy;
+						console.log(collection.length);
+						console.log(searchItems);
+						output =  $filter('filter')(collection,{Product:{title:searchItems}},false);
+					    titleText = searchItems;
+					    catlogCount  = output.length;
+				   }else{
+					   titleText = 'SEARCH EMPTY NOT FOUND';
+					   catlogCount  = 0
+				  }
+				  $rootScope.allProducts = output; 
+				  $rootScope.search = ''; 
+				  $rootScope.catalogTitle = "Search Keyword: "+'"'+titleText+'"';
+				  $rootScope.catalogProductCount = catlogCount;
 			  }
-			  $rootScope.allProducts = output;  
-			  $rootScope.catalogTitle = titleText;
-			  $rootScope.catalogProductCount = catlogCount;
-		  }
-	  }
+	  	}
+	 }();
+	
+	
 }]);
-*/
+
 
 //productdetailController
 shopping.controller('productdetailController',['$scope','$routeParams','$http','$cookies','cartService',function($scope, $routeParams, $http,$cookies,cartService){
