@@ -167,7 +167,7 @@
        <aside-directive></aside-directive>
       </div>
     </nav>
-    <div class="container"  style="padding: 0px; margin-top:60px;" ng-view>
+    <div class="container"  style="padding: 0px; margin-top:20%;">
        <div class="row">
       <!--<form ng-submit="submit()">-->
    	   <div class="col-xs-8 col-md-8">
@@ -183,6 +183,8 @@
 	 </div>
      </div>
    
+    <div class="container"  style="padding: 0px;" ng-view>
+    </div>
        
 
     <footer class="footer">
