@@ -134,7 +134,12 @@ function($scope,$http,$cookies,cartService,$location,$rootScope,$routeParams,$fi
 	  	}
 	 }();
 	
-	
+	 $scope.cartItem = cartService.getCartItems();
+	 $scope.addCart = function(a,b,c,d,e,eve){ //a - id b - title c - price  d - qty - e - img
+     	$scope.addData = {id: a, title:b, price:c, qty:d, img:e};
+	 	eve.target.innerHTML = 'ADD MORE';
+		cartService.addCart($scope.addData);
+	 }
 }]);
 
 
