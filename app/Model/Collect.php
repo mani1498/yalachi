@@ -17,7 +17,11 @@ class Collect extends AppModel {
 	public $recursive = 2;
 
 	// The Associations below have been created with all possible keys, those that are not needed can be removed
-
+	public $validate = array(
+        'category_id' => array(
+            'rule' => 'notBlank',
+        ),
+	);
 /**
  * belongsTo associations
  *

@@ -25,6 +25,27 @@ class Category extends AppModel {
 	
 	public $displayField = 'title';
 	public $recursive = 2;
+	
+	public $validate = array(
+        'title' => array(
+            'rule' => array('minLength', '8'),
+            'message' => 'Minimum 8 characters long'
+        ),
+		'description' => array(
+            'rule' => 'notBlank',
+        ),
+		'img_src' => array(
+			'rule' => array(
+				'extension',
+				array('gif', 'jpeg', 'png', 'jpg')
+			),
+			'message' => 'Please supply a valid image.'
+		),
+		'publish' => array(
+			'rule' => array('boolean'),
+			'message' => 'Incorrect value for myCheckbox'
+		)
+    );
 
 	// The Associations below have been created with all possible keys, those that are not needed can be removed
 

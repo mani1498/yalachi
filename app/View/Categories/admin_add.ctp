@@ -1,5 +1,4 @@
 <?php echo $this->element('view_header'); ?>
-
 <div class="categories form">
 <?php echo $this->Form->create('Category',array('id'=>'adminAdd','type' => 'file','role'=>'form')); ?>
 	<fieldset>

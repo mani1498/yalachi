@@ -41,6 +41,7 @@
 <body>
     <div id="wrapper">
         <?php echo $this->element('nav'); ?>
+		
         <?php echo $this->fetch('content'); ?>
     </div>
     <!-- /#wrapper -->
@@ -99,10 +100,14 @@
 			 $(".varient-enable").click(function () {
 				 if(!varenb){
 				  $('#varient_body').show();
+				  $(this).removeClass('.glyphicon-plus-sign');
+				  $(this).addClass('.glyphicon-minus-sign');
 				  varenb=1;
 				 }
 				 else{
 					 varenb=0;
+					 $(this).addClass('.glyphicon-plus-sign');
+				  $(this).removeClass('.glyphicon-minus-sign');
 				 $('#varient_body').hide();
 				 }
 			 });

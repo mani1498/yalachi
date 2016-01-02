@@ -63,8 +63,8 @@
                          	<a href="#"><i class="fa fa-files-o fa-fw"></i>Categories Actions</a>
                             <ul class="nav nav-second-level">
                                 <li><?php echo $this->Html->link(__('List Category'), array('controller' => 'categories', 'action' => 'index')); ?></li>
-                                <li><?php echo $this->Html->link(__('List Collects'), array('controller' => 'categories', 'action' => 'index')); ?> </li>
-                                <li><?php echo $this->Html->link(__('New Collect'), array('controller' => 'collects', 'action' => 'add')); ?> </li>
+                                <?php /*?><li><?php echo $this->Html->link(__('List Collects'), array('controller' => 'categories', 'action' => 'index')); ?> </li>
+                                <li><?php echo $this->Html->link(__('New Collect'), array('controller' => 'collects', 'action' => 'add')); ?> </li><?php */?>
                             </ul>
                         </li>
                         
@@ -73,7 +73,7 @@
                             <ul class="nav nav-second-level">
                         
                                 <li><?php echo $this->Html->link(__('List Products'), array('controller' => 'products','action' => 'index')); ?></li>
-                                <li><?php echo $this->Html->link(__('List Collects'), array('controller' => 'collects', 'action' => 'index')); ?> </li>
+                                <?php /*?><li><?php echo $this->Html->link(__('List Collects'), array('controller' => 'collects', 'action' => 'index')); ?> </li>
                                 <li><?php echo $this->Html->link(__('New Collect'), array('controller' => 'collects', 'action' => 'add')); ?> </li>
                                 <li><?php echo $this->Html->link(__('List Options'), array('controller' => 'options', 'action' => 'index')); ?> </li>
                                 <li><?php echo $this->Html->link(__('New Option'), array('controller' => 'options', 'action' => 'add')); ?> </li>
@@ -86,7 +86,7 @@
                                 <li><?php echo $this->Html->link(__('List Reviews'), array('controller' => 'reviews', 'action' => 'index')); ?> </li>
                                 <li><?php echo $this->Html->link(__('New Review'), array('controller' => 'reviews', 'action' => 'add')); ?> </li>
                                 <li><?php echo $this->Html->link(__('List Wishlists'), array('controller' => 'wishlists', 'action' => 'index')); ?> </li>
-                                <li><?php echo $this->Html->link(__('New Wishlist'), array('controller' => 'wishlists', 'action' => 'add')); ?> </li>
+                                <li><?php echo $this->Html->link(__('New Wishlist'), array('controller' => 'wishlists', 'action' => 'add')); ?> </li><?php */?>
                             </ul>
                         </li>
                         
