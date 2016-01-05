@@ -84,7 +84,7 @@
   <div class="mainCategory" ng-repeat="(key,result) in homeCategory| limitTo:4">
   <h4 class="sectionTitle">{{key}}<a  ng-href="#/catalog/{{key}}" class="sectionTitleLink">More »</a></h4>
   <div class="homeProductsWrapper">
-    <div class="homeProductWrapper" ng-repeat="res1 in homeCategory[key]| limitTo:2"><a ng-href="#productdetail/{{res1.Product.id}}"><img class="img-thumbnail" src="app/webroot/img/small/{{ res1.Product.ProductImage[0].img_src }}"/>
+    <div class="homeProductWrapper" ng-repeat="res1 in homeCategory[key]| limitTo:2"><a ng-href="#productdetail/{{res1.Product.id}}"><img class="img-thumbnail" ng-src="app/webroot/img/small/{{ res1.Product.ProductImage[0].img_src }}"/>
       <div class="homeProductInfoWrapper"><span class="homeProductTitle">{{res1.Product.title | limitTo:25 }}</span><h3 href="" class="homePurchaseButton">{{ res1.Product.price | currency : $ : 2}}</h3></a></div>
     </div>
    </div>

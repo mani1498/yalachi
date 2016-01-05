@@ -1,10 +1,10 @@
 //homeController 
 shopping.controller("homeController", ["$scope","$log","$timeout","$http",'$rootScope', function ($scope, $log, $timeout, $http,$rootScope) {
-    $scope.title = "Home Page";
+	  console.log('homeController');
+      $scope.title = "Home Page";
 	  $scope.myInterval = 3500;
 	  $scope.noWrapSlides = false;
 	  var slides = $scope.slides = [];
-	  console.log($scope);
 	  $scope.addSlide = function(i) {
 		var newWidth = 600 + slides.length + 1;
 		slides.push({
@@ -21,22 +21,8 @@ shopping.controller("homeController", ["$scope","$log","$timeout","$http",'$root
 	  
 }]);
 
-//aboutController
-shopping.controller('aboutController',['$scope',function($scope){
-    //$scope.title = "About US";
-    $scope.description = "This is Testing content";
-}]);
-
-//contactController
-shopping.controller('contactController',['$scope',function($scope){
-    //$scope.title = "Contact";
-    $scope.description = "This is Testing content";
-    $scope.phone = "+1 23-234-2135";
-}]);
-
-
 //catalogController
-shopping.controller('catalogController',['$scope','$http','Pagination','$cookies','cartService','$location','$rootScope','$routeParams','$filter',function($scope,$http,Pagination,$cookies,cartService,$location,$rootScope,$routeParams,$filter){
+shopping.controller('catalogController',['$scope','$http','Pagination','$cookies','cartService','$location','$rootScope','$routeParams','$filter','$anchorScroll',function($scope,$http,Pagination,$cookies,cartService,$location,$rootScope,$routeParams,$filter,$anchorScroll){
 	console.log('catalogController');
 	 var title = $routeParams.title || 'all';
 	 /*if(title == 'search'){  $location.path( '/catalog/search/notfound' ); return false; }*/
@@ -57,6 +43,8 @@ shopping.controller('catalogController',['$scope','$http','Pagination','$cookies
 				   titleText = title;
 				   catlogCount  = output.length;
 			   }
+			  //$location.hash('shoppingApp');
+			  $anchorScroll();
 			  $rootScope.allProducts = output;  
 			  $rootScope.catalogTitle = titleText;
 			  $rootScope.catalogProductCount = catlogCount;
@@ -112,6 +100,8 @@ function($scope,$http,$cookies,cartService,$location,$rootScope,$routeParams,$fi
 		  console.log(searchItems);
 			  if(typeof($rootScope.allProductsCopy) !== 'undefined'){
 				   var output = [];
+				   var output1 = [];
+				    var output2 = [];
 				   var productTitle;
 				   var titleText,catlogCount;
 				   console.log('searchController B');
@@ -119,7 +109,15 @@ function($scope,$http,$cookies,cartService,$location,$rootScope,$routeParams,$fi
 						collection=$rootScope.allProductsCopy;
 						console.log(collection.length);
 						console.log(searchItems);
-						output =  $filter('filter')(collection,{Product:{title:searchItems}},false);
+						console.log(collection);
+						///console.log(collection[0].$$hashKey);
+						
+						//output1 =  $filter('filter')(collection,{Product:{title:searchItems}});
+						output2 = $filter('filter')(collection,{Product:{tags:searchItems}});
+						//console.log(output1)
+						console.log(output2)
+						//output = output1.concat(output2);
+						output = output2;
 					    titleText = searchItems;
 					    catlogCount  = output.length;
 				   }else{
@@ -215,40 +213,6 @@ shopping.controller('cartController',['$scope','$routeParams','$http','$cookies'
 		 cartService.removeMoreQty(itm,index);
 	 }
 }]);
-
-
-shopping.filter('startFrom', function() {
-    return function(input, start) {
-        start = +start; //parse to int
-        return input.slice(start);
-    }
-});
-
-
-shopping.filter('getById', function() {
-  return function(input, id) {
-    var i=0, len=input.length;
-    for (; i<len; i++) {
-      if (+input[i].id == +id) {
-        return input[i];
-      }
-    }
-    return null;
-  }
-});
-
-shopping.filter('sortByDetails',function($filter){
-    return function(items,value){
-			 var filtered = [];
-			 if(typeof value === 'undefined' ||  value == ''){
-				 return items;
-			 }
-			 for (var i=0; i<items.length; i++) {
-				 items[i].Product.price = Number(items[i].Product.price);
-			 }
-		 return $filter('orderBy')(items,value,false);
-    }
-});
 
 shopping.controller('SidebarController', function($scope, $aside,$location) {
 	$scope.state = true;
