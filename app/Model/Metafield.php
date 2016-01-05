@@ -11,7 +11,11 @@ class Metafield extends AppModel {
  *
  * @var string
  */
-	  
+	public $validate = array(
+        'url_handle' => array(
+            'rule' => 'notBlank',
+        ),
+	); 
 	public $displayField = 'title';
 	
 	public $belongsTo = array(

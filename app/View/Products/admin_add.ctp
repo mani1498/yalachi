@@ -10,7 +10,7 @@
             	<div class="panel-heading">Products</div>              
                 <div class="panel-body">           
                 <?php 
-                  echo $this->Form->input('title',array('div'=>false,'error'=>false, 'before' => '<div class="form-group">', 'after' => '</div>', 'class'=>'validate[required] form-control','placeholder'=>'Title','id'=>'pTitle','value'=>'','onChange'=>'toggle(this.value)'));
+                  echo $this->Form->input('title',array('div'=>false,'error'=>false, 'before' => '<div class="form-group">', 'after' => '</div>', 'class'=>'validate[required] form-control','placeholder'=>'Title','id'=>'pTitle','onChange'=>'toggle(this.value)'));
                   echo $this->Form->input('description',array('div'=>false,'error'=>false, 'before' => '<div class="form-group">', 'after' => '</div>', 'class'=>'validate[required] form-control'));
                 ?>
                 </div>
@@ -34,12 +34,12 @@
             	<div class="panel-heading">Price</div>              
                 <div class="panel-body">           
                  <?php
-					echo $this->Form->input('price',array('div'=>false,'error'=>false, 'before' => '<div class="form-group">', 'after' => '</div>', 'class'=>'validate[required] form-control'));
-					echo $this->Form->input('list_price',array('div'=>false,'error'=>false, 'before' => '<div class="form-group">', 'after' => '</div>', 'class'=>'validate[required] form-control'));
+					echo $this->Form->input('price',array('div'=>false,'error'=>false,'type'=>'text', 'before' => '<div class="form-group">', 'after' => '</div>', 'class'=>'validate[required] form-control'));
+					echo $this->Form->input('list_price',array('div'=>false,'error'=>false,'type'=>'text', 'before' => '<div class="form-group">', 'after' => '</div>', 'class'=>'validate[required] form-control'));
 					echo $this->Form->input('sku',array('div'=>false,'error'=>false, 'before' => '<div class="form-group">', 'after' => '</div>', 'class'=>'validate[required] form-control'));
 					echo $this->Form->input('barcode',array('div'=>false,'error'=>false, 'before' => '<div class="form-group">', 'after' => '</div>', 'class'=>'validate[required] form-control'));
-					echo $this->Form->input('quantity',array('div'=>false,'error'=>false, 'before' => '<div class="form-group">', 'after' => '</div>', 'class'=>'validate[required] form-control'));
-					echo $this->Form->input('weight',array('div'=>false,'error'=>false, 'before' => '<div class="form-group">', 'after' => '</div>', 'class'=>'validate[required] form-control'));
+					echo $this->Form->input('quantity',array('div'=>false,'error'=>false,'type'=>'text', 'before' => '<div class="form-group">', 'after' => '</div>', 'class'=>'validate[required] form-control'));
+					echo $this->Form->input('weight',array('div'=>false,'error'=>false,'type'=>'text', 'before' => '<div class="form-group">', 'after' => '</div>', 'class'=>'validate[required] form-control'));
 					echo $this->Form->input('tax',array('div'=>false,'error'=>false, 'before' => '<div class="form-group">', 'after' => '</div>'));
 					echo $this->Form->input('shipping',array('div'=>false,'error'=>false, 'before' => '<div class="form-group">', 'after' => '</div>'));
 				?>	
@@ -96,7 +96,7 @@
      <div class="row">
         <div class="col-lg-10">
             <div class="panel panel-default">
-            	<div class="panel-heading">Add Varients <span class="varient-enable">+</span></div>              
+            	<div class="panel-heading">Add Varients <span class="varient-enable glyphicon glyphicon-plus"></span></div>              
                 <div class="panel-body" id="varient_body">           
                  <?php
 						echo $this->Form->input('Option.options_name',array('div'=>false,'error'=>false, 'before' => '<div class="form-group">', 'after' => '</div>', 'class'=>'validate[required] form-control'));

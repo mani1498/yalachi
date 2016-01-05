@@ -124,10 +124,12 @@ class CategoriesController extends AppController {
 				$this->request->data['Category']['img_src'] = $this->request->data['Category']['img_src']['name']!='' ? $this->Image->upload_image_and_thumbnail($this->request->data['Category']['img_src'],573,380,180,110, "Category") : '';
 				$this->Category->create();
 			if ($this->Category->save($this->request->data)) {
-				$this->Flash->success(__('The category has been saved.'));
+				$this->Session->setFlash(__('The category has been saved.'), 'flash-message', array('type' => 'success'), 'success');
 				return $this->redirect(array('action' => 'index'));
 			} else {
-				$this->Flash->error(__('The category could not be saved. Please, try again.'));
+				//echo '<pre>';print_r($this->Category->validationErrors);exit;
+				 $this->Session->setFlash(__('The category could not be saved. Please, try again.'), 'flash-message', array('type' => 'cake-error'), 'error');
+				
 			}
 			}
 		}

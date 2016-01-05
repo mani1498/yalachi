@@ -406,3 +406,23 @@ table.dataTable thead .sorting:after {
     border: 2px solid #000;
     text-align: center;
 }
+.cake-error{
+   /* width: 100%;
+    background: #ebebeb;
+    border-radius: 3px;
+    padding: 5px;
+    margin-top: 0px;*/
+	color:#f00;
+}
+.success{
+	color:#9C0;
+}
+.cake-warning{
+	color:#FC0;
+}
+.notice{
+	color:#FCF;
+}
+.form-error{
+	border:1px solid #F30;
+}

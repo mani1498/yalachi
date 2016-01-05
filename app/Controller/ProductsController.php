@@ -218,7 +218,6 @@ class ProductsController extends AppController {
 				
 			if(isset($this->request->data['ProductVarient']))
 			$this->request->data['Product']['varients'] = true;
-			//echo '<pre>';print_r($this->request->data);exit;
 			$this->Product->create();
 			if ($this->Product->save($this->request->data)) {
 				$product_id = $this->Product->getLastInsertId();
@@ -252,7 +251,7 @@ class ProductsController extends AppController {
 					$this->Option->save($this->request->data);
 				  }
 				}
-				if(isset($this->request->data['ProductVarient'])){
+				if(isset($this->request->data['ProductVarient']['val'])){
 				  foreach($this->request->data['ProductVarient']['val']  as  $value){
 					$this->request->data['ProductVarient']['price'] = $value['price'];
 					$this->request->data['ProductVarient']['sku'] = $value['sku'];
@@ -277,20 +276,24 @@ class ProductsController extends AppController {
 				$this->Flash->success(__('The product has been saved.'));
 				return $this->redirect(array('action' => 'index'));
 			} else {
+				self::categoryList();
 				$this->Flash->error(__('The product could not be saved. Please, try again.'));
 			}
 		}
 		else{
-			$this->Category->unBindModel(array('hasOne' => array('Metafield'),'hasMany' => array('Collect')));
-			$options = array('conditions' => array('Category.publish' => 1),'fields'=> array('Category.id','Category.title'));
-			$category= $this->Category->find('all', $options);
-			foreach($category as $key => $values) {
-				$value[$values['Category']['id']]= $values['Category']['title'];
-			}
-			$this->set('category', $value);
+			self::categoryList();
 		}
 	}
-
+	
+	private function categoryList(){
+		$this->Category->unBindModel(array('hasOne' => array('Metafield'),'hasMany' => array('Collect')));
+		$options = array('conditions' => array('Category.publish' => 1),'fields'=> array('Category.id','Category.title'));
+		$category= $this->Category->find('all', $options);
+		foreach($category as $key => $values) {
+			$value[$values['Category']['id']]= $values['Category']['title'];
+		}
+		$this->set('category', $value);
+	}
 
 	public function details($id = null) {
 		header("Access-Control-Allow-Origin: *");

@@ -20,6 +20,31 @@ class Product extends AppModel {
  */
 	public $displayField = 'title';
 	public $recursive = 2;
+	public $validate = array(
+        'title' => array(
+            'rule' => array('minLength', '8'),
+            'message' => 'Minimum 8 characters long'
+        ),
+		'description' => array(
+            'rule' => 'notBlank',
+        ),
+		'price' => array(
+            'rule' => array('decimal', 2)
+        ),
+		'list_price' => array(
+            'rule' => array('decimal', 2)
+        )
+		,
+		'quantity' => array(
+            'rule' => array('decimal', 2)
+        ),
+		'weight' => array(
+            'rule' => array('decimal', 2)
+        ),
+		'tags' => array(
+            'rule' => 'notBlank',
+        )
+    );
 	//public $fields = array('id','price','list_price','sku','barcode','quantity','weight','tax','shipping');
 
 	// The Associations below have been created with all possible keys, those that are not needed can be removed
