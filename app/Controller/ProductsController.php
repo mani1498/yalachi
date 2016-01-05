@@ -215,7 +215,7 @@ class ProductsController extends AppController {
  */
 	public function admin_add() {
 		if ($this->request->is('post')) {
-				
+			//echo '<pre>';print_r($this->request->data);exit;	
 			if(isset($this->request->data['ProductVarient']))
 			$this->request->data['Product']['varients'] = true;
 			$this->Product->create();
@@ -244,15 +244,16 @@ class ProductsController extends AppController {
 				else
 				$this->request->data['ProductImage']['img_src']=0;
 				
-				if(!empty($this->request->data['Option']['options_name'])){	
-				  foreach($this->request->data['Option']['val'] as $oid){
-					$this->request->data['Option']['options_values'] = $oid['options_values'];
-					$this->Option->create();
-					$this->Option->save($this->request->data);
-				  }
-				}
+				
 				if(isset($this->request->data['ProductVarient']['val'])){
 				  foreach($this->request->data['ProductVarient']['val']  as  $value){
+					  
+					$this->request->data['Option']['options_values'] = $value['options_values'];
+					$this->Option->create();
+					$this->Option->save($this->request->data);  
+					  
+					$this->request->data['ProductVarient']['option_id'] = $this->Option->getLastInsertId();
+					 
 					$this->request->data['ProductVarient']['price'] = $value['price'];
 					$this->request->data['ProductVarient']['sku'] = $value['sku'];
 					$this->request->data['ProductVarient']['barcode'] = $value['barcode'];
@@ -333,7 +334,7 @@ class ProductsController extends AppController {
 			throw new NotFoundException(__('Invalid product'));
 		}
 		if ($this->request->is(array('post', 'put'))) {
-			//echo '<pre>';print_r($this->request->data);exit;
+			
 			if ($this->Product->save($this->request->data)) {
 				 if($this->request->data['ProductImage']['img_src'][0]['name'] != ''){
 				  foreach($this->request->data['ProductImage']['img_src'] as $photo){
@@ -352,11 +353,10 @@ class ProductsController extends AppController {
 			$this->Product->unBindModel(array('hasMany' => array('Order','Wishlist')));
 			$this->Collect->unBindModel(array('belongsTo' => array('Product')));
 			$this->ProductImage->unBindModel(array('belongsTo' => array('Product')));
-			$this->ProductVarient->unBindModel(array('belongsTo' => array('Product','Option')));
+			$this->ProductVarient->unBindModel(array('belongsTo' => array('Option','Product')));
 			$this->Metafield->unBindModel(array('belongsTo' => array('Product','Category')));
 			$this->Review->unBindModel(array('belongsTo' => array('Product')));
-			$this->Option->unBindModel(array('belongsTo' => array('Product')));
-			$this->Option->unBindModel(array('hasMany' => array('ProductVarient')));
+			$this->Option->unBindModel(array('hasMany' => array('ProductVarient'),'belongsTo' => array('Product')));
 			$options = array('conditions' => array('Product.' . $this->Product->primaryKey => $id));
 			$this->request->data = $this->Product->find('first', $options);
 			$this->Category->unBindModel(array('hasOne' => array('Metafield'),'hasMany' => array('Collect')));
@@ -366,6 +366,7 @@ class ProductsController extends AppController {
 				$value[$values['Category']['id']]= $values['Category']['title'];
 			}
 			$this->set('category', $value);
+			
 		}
 	}
 

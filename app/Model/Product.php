@@ -119,6 +119,32 @@ class Product extends AppModel {
 			'exclusive' => '',
 			'finderQuery' => '',
 			'counterQuery' => ''
+		),
+		'Option' => array(
+			'className' => 'Option',
+			'foreignKey' => 'product_id',
+			'dependent' => false,
+			'conditions' => '',
+			'fields' => array('options_name', 'options_values', 'img_src'),
+			'order' => '',
+			'limit' => '',
+			'offset' => '',
+			'exclusive' => '',
+			'finderQuery' => '',
+			'counterQuery' => ''
+		),
+		'ProductVarient' => array(
+			'className' => 'ProductVarient',
+			'foreignKey' => 'product_id',
+			'dependent' => false,
+			'conditions' => '',
+			'fields' => array('option_id','price','list_price','sku','barcode','quantity','weight','tax'),
+			'order' => '',
+			'limit' => '',
+			'offset' => '',
+			'exclusive' => '',
+			'finderQuery' => '',
+			'counterQuery' => ''
 		)
 	);
 	
@@ -133,19 +159,7 @@ class Product extends AppModel {
 			'recursive'=>'1',
             'dependent' => false
         ),
-		'Option' => array(
-			'className' => 'Option',
-			'foreignKey' => 'product_id',
-			'dependent' => false,
-			'conditions' => '',
-			'fields' => array('options_name', 'options_values', 'img_src'),
-			'order' => '',
-			'limit' => '',
-			'offset' => '',
-			'exclusive' => '',
-			'finderQuery' => '',
-			'counterQuery' => ''
-		)
+		
     );
 	
 	

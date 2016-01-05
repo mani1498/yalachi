@@ -1,5 +1,5 @@
 <?php echo $this->element('view_header');
-echo $this->Html->css('selectivity-full.css'); ?>
+echo $this->Html->css('selectivity-full.css'); //echo '<pre>';print_r($this->request->data);?>
 <div class="addNewButton" style="float:none;">
          <?php echo $this->Html->link(__('Back to User'), array('action' => 'index'),array('class' => 'btn btn-primary','type'=>'button')); ?>
          <?php echo $this->Html->link(__('Delete User'), array('action' => 'delete', $this->Form->value('User.id')),array('class' => 'btn btn-primary','type'=>'button'), array('confirm' => __('Are you sure you want to delete # %s?', $this->Form->value('User.id')))); ?>
@@ -60,8 +60,11 @@ echo $this->Html->css('selectivity-full.css'); ?>
 					echo $this->Form->input('vendor',array('div'=>false,'error'=>false, 'before' => '<div class="form-group">', 'after' => '</div>', 'class'=>'validate[required] form-control'));
 					echo $this->Form->input('type',array('div'=>false,'error'=>false,'before' => '<div class="form-group">', 'after' => '</div>' ,'multiple'=>'', 'class'=>'validate[required] form-control'));
 					echo $this->Form->input('tags',array('div'=>false,'error'=>false, 'before' => '<div class="form-group">', 'after' => '</div>', 'class'=>'validate[required] form-control'));
-					echo $this->Form->input('Collect.category_id',array('div'=>false,'error'=>false, 'name'=>'Collect[category_id][]', 'type'=>'select','multiple', 'options'=>$category, 'before' => '<div class="form-group">', 'after' => '</div>' , 'class'=>'validate[required]' ,'id'=>'multiple-select-box-edit'));
+					echo $this->Form->input('Collect.category_id',array('div'=>false,'error'=>false, 'name'=>'Collect[category_id][]', 'type'=>'select','multiple', 'options'=>$category, 'before' => '<div class="form-group">', 'after' => '</div>' , 'class'=>'validate[required]' ,'id'=>'multiple-select-box-edit')); foreach($this->request->data['Collect'] as $categry){
 				?>
+                <span class="peditCategoryList"><?php echo $categry['Category']['title']; ?> <a>x</a></span>
+                <?php 
+				 }?>
                 </div>
             </div>
 		</div>
@@ -88,6 +91,7 @@ echo $this->Html->css('selectivity-full.css'); ?>
             <div class="panel panel-default">
                 <div class="panel-heading">Meta</div>              
                 <div class="panel-body"> 
+                 
                   <?php
 						
 						echo $this->Form->input('Metafield.title',array('div'=>false,'error'=>false, 'before' => '<div class="form-group">', 'after' => '</div>', 'class'=>'validate[required] form-control'));
@@ -103,14 +107,26 @@ echo $this->Html->css('selectivity-full.css'); ?>
         <div class="col-lg-10">
             <div class="panel panel-default">
             	<div class="panel-heading">Add Varients <span class="varient-enable">+</span></div>              
-                <div class="panel-body" id="varient_body">           
+                <div class="panel-body" id="varient_body" style=" <?php echo is_array($this->request->data['Option']) ? 'display:block' : 'display:none'; ?>">          
                  <?php
-						echo $this->Form->input('Option.options_name',array('div'=>false,'error'=>false, 'before' => '<div class="form-group">', 'after' => '</div>', 'class'=>'validate[required] form-control'));
-					    //echo $this->Html->tag('span', '', array('class' => 'selectivity-input','id'=>'emails-input' ,'name'=>'Option[options_values][]'));
-				 ?>
-                 <div id='TextBoxesGroup'>
-	
-</div>
+						echo $this->Form->input('Option.options_name',array('div'=>false,'error'=>false, 'before' => '<div class="form-group">', 'after' => '</div>', 'class'=>'validate[required] form-control', 'value'=>$this->request->data['Option'][0]['options_name']));
+					    //echo $this->Html->tag('span', '', array('class' => 'selectivity-input','id'=>'emails-input' ,'name'=>'Option[options_values][]')); 
+						echo $this->Html->tag('label', 'Option Values');?>
+                         <ul id="eventTags">
+                <?php  foreach($this->request->data['Option'] as $optlist){
+				?>
+                <li><?php echo $optlist['options_values']; ?> </li>
+                <?php 
+				 }?>
+            </ul>
+				
+                 	<div id='TextBoxesGroup'>
+                    <?php $var =1; foreach($this->request->data['ProductVarient'] as $varlist){ ?>
+                    <div id="TextBoxDiv<?php echo $var;?>">
+						<div class="varient-group"><label>price</label><input type="text" id="price<?php echo $var;?>" value="<?php echo $varlist['price'];?>"  ></div><div class="varient-group"><label>SKU</label><input type="text" id="sku<?php echo $var;?>" value="<?php echo $varlist['sku'];?>"  ></div><div class="varient-group"><label>BarCode</label><input type="text" id="barcode<?php echo $var;?>" value="<?php echo $varlist['barcode'];?>"  ></div>
+                     </div> 
+                    <?php $var++;} ?>   
+					</div>
                 </div>
             </div>
         </div>

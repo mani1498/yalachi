@@ -24,9 +24,11 @@ class SettingsController extends AppController {
  * @return void
  */
 	public function admin_index() {
-		$this->checkadmin();
+		//$this->checkadmin();
 		if (!$this->Setting->exists(1)) {
-			throw new NotFoundException(__('Invalid setting'));
+			$this->Setting->recursive = 0;
+			$this->set('settings', $this->Paginator->paginate());
+			//throw new NotFoundException(__('Invalid setting'));
 		}
 		
 		if ($this->request->is(array('post', 'put'))) {

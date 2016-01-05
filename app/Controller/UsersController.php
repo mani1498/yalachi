@@ -116,14 +116,14 @@ class UsersController extends AppController {
  * @return void
  */
 	public function admin_index() {
-		$this->checkadmin();
+		//$this->checkadmin();
 		$this->User->recursive = 0;
 		$this->set('users', $this->Paginator->paginate('User',array('User.privilages' => 'subadmin')));
 	}
 	
 	
 	public function admin_customers() {
-		$this->checkadmin();
+		//$this->checkadmin();
 		$this->User->recursive = 0;
 		$this->set('users', $this->Paginator->paginate('User',array('User.privilages' => 'cutomers')));
 	}
