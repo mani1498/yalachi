@@ -426,3 +426,13 @@ table.dataTable thead .sorting:after {
 .form-error{
 	border:1px solid #F30;
 }
+/*******  product Edit  ***********/
+.peditCategoryList{
+	background-color:#eaeaea;
+	padding:5px;
+}
+.peditCategoryList a{
+	padding:0px 5px;
+	text-decoration:none;
+	cursor:pointer;
+}

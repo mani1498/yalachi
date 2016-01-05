@@ -55,8 +55,11 @@
 					echo $this->Form->input('vendor',array('div'=>false,'error'=>false, 'before' => '<div class="form-group">', 'after' => '</div>', 'class'=>'validate[required] form-control'));
 					echo $this->Form->input('type',array('div'=>false,'error'=>false,'before' => '<div class="form-group">', 'after' => '</div>' ,'multiple'=>'', 'class'=>'validate[required] form-control'));
 					echo $this->Form->input('tags',array('div'=>false,'error'=>false, 'before' => '<div class="form-group">', 'after' => '</div>', 'class'=>'validate[required] form-control'));
+					//echo $this->Html->tag('label', 'Tags');
+					//echo $this->Html->tag('ul', '', array('id'=>'removeConfirmationTags','name'=>''));
+					
 					echo $this->Form->input('Collect.category_id',array('div'=>false,'error'=>false, 'name'=>'Collect[category_id][]', 'type'=>'select','multiple', 'options'=>$category, 'before' => '<div class="form-group">', 'after' => '</div>' , 'class'=>'validate[required]' ,'id'=>'multiple-select-box'));
-				?>
+				?><input type="hidden" name="data[Product][tags]" id="tagProduct" />
                 </div>
             </div>
 		</div>
@@ -80,7 +83,6 @@
                 <div class="panel-heading">Meta</div>              
                 <div class="panel-body"> 
                   <?php
-						
 						echo $this->Form->input('Metafield.title',array('div'=>false,'error'=>false, 'before' => '<div class="form-group">', 'after' => '</div>', 'class'=>'validate[required] form-control'));
 						echo $this->Form->input('Metafield.description',array('div'=>false,'error'=>false, 'before' => '<div class="form-group ">', 'after' => '</div>', 'class'=>'validate[required] form-control'));
 						echo $this->Form->input('Metafield.url_handle',array('div'=>false,'error'=>false,'label'=>false, 'type'=>'text', 'before' => '<label>URL Handle</label><div class="form-group input-group"><span class="input-group-addon">http://newshop/product/</span>', 'after' => '</div>','id'=>'urlHandleProduct', 'class'=>'validate[required] form-control','style'=>'margin-left:0px;'));
@@ -100,11 +102,12 @@
                 <div class="panel-body" id="varient_body">           
                  <?php
 						echo $this->Form->input('Option.options_name',array('div'=>false,'error'=>false, 'before' => '<div class="form-group">', 'after' => '</div>', 'class'=>'validate[required] form-control'));
-					    echo $this->Html->tag('span', '', array('class' => 'selectivity-input','id'=>'emails-input' ,'name'=>'Option[options_values][]'));
+					    //echo $this->Html->tag('span', '', array('class' => 'selectivity-input','id'=>'emails-input' ,'name'=>'Option[options_values][]'));
+						echo $this->Html->tag('label', 'Option Values');
+						echo $this->Html->tag('ul', '', array('id'=>'eventTags'));
 				 ?>
-                 <div id='TextBoxesGroup'>
-	
-</div>
+                 
+                 <div id='TextBoxesGroup'>	</div>
                 </div>
             </div>
         </div>
