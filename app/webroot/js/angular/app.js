@@ -109,17 +109,17 @@ shopping.run(function($rootScope,$cookies,$location,$http,$routeParams){
 	 
 	 
 	$rootScope.$on('$routeChangeSuccess', function (event, current, previous) {
+		  console.log('routeChangeSuccess');
           $rootScope.title = current.$$route.title;
 		  $rootScope.path = current.$$route.originalPath; // Make menu tab active on each
 		  $rootScope.isCollapsed = true;
-		  console.log($rootScope);
     });
 	
 	$rootScope.searchClick = function(val){
 			console.log('searchClick');
-			console.log('search/'+val);
+			//console.log('search/'+val);
 			$location.path('search/'+val);
-			console.log($rootScope);
+			//console.log($rootScope);
 	}
 	
 

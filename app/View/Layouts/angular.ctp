@@ -148,7 +148,7 @@
 		</style>
 
     </head>
-    <body>
+    <body id="shoppingApp">
     
 
     <nav class="navbar navbar-default" ng-controller="SidebarController" style="position:fixed; width:100%;z-index:10000; top:0; left:0; height:50px;">
@@ -196,6 +196,7 @@
 		echo $this->Html->script('angular/service.js');
 		echo $this->Html->script('angular/controller.js'); 
 		echo $this->Html->script('angular/directives.js'); 
+		echo $this->Html->script('angular/filter.js'); 
 		echo $this->Html->script('angular/script.js'); 
 	?>
     </body>
