@@ -235,3 +235,47 @@ shopping.controller('SidebarController', function($scope, $aside,$location) {
             })
      }
 });
+
+shopping.controller('VendorController', function($scope, $aside,$location) {
+ $scope.state = true;
+    $scope.openAside = function(position) {
+            $aside.open({
+              templateUrl: 'app/webroot/js/angular/page/vendor.html',
+              placement: position,
+              backdrop: true,
+              controller: function($scope, $uibModalInstance,$rootScope,cartService) {
+                $scope.ok = function(e) {
+                  $uibModalInstance.close();
+      				e.stopPropagation();
+                };
+                $scope.cancel = function(url) {
+                   $uibModalInstance.dismiss();
+     				$location.path(url);
+                  return false;
+                };
+				var chkven=[];
+				$scope.checkVendor = function(list) {
+                  chkven.push(list);
+                };
+				$scope.vendorok = function(){
+					console.log(chkven);
+					angular.forEach(chkven, function(value, key) {
+						if(field == value){
+							isInArrayNgForeach(field, arr);
+						}
+					});
+					
+				}
+				/*function isInArrayNgForeach(field, arr) {
+					var result = false;
+					angular.forEach(arr, function(value, key) {
+						if(field == value)
+							result = true;
+					});
+					return result;
+				}*/
+				
+              }
+            })
+     }
+});

@@ -39,6 +39,15 @@ class ProductsController extends AppController {
 		if (!$this->Product->exists($id)) {
 			throw new NotFoundException(__('Invalid product'));
 		}
+		//$options = array('conditions' => array('Product.' . $this->Product->primaryKey => $id));
+		//$this->set('product', $this->Product->find('first', $options));
+		$this->Product->unBindModel(array('hasMany' => array('Order','Wishlist')));
+		$this->Collect->unBindModel(array('belongsTo' => array('Product')));
+		$this->ProductImage->unBindModel(array('belongsTo' => array('Product')));
+		$this->ProductVarient->unBindModel(array('belongsTo' => array('Option','Product')));
+		$this->Metafield->unBindModel(array('belongsTo' => array('Product','Category')));
+		$this->Review->unBindModel(array('belongsTo' => array('Product')));
+		$this->Option->unBindModel(array('hasMany' => array('ProductVarient'),'belongsTo' => array('Product')));
 		$options = array('conditions' => array('Product.' . $this->Product->primaryKey => $id));
 		$this->set('product', $this->Product->find('first', $options));
 	}

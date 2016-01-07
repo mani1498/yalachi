@@ -58,7 +58,13 @@ shopping.directive('asidemenuDirective', function() {
 	}
     
 });
-
+shopping.directive('vendorDirective', function() {
+ return {
+  replace:true,
+  templateUrl:'app/webroot/js/angular/page/vendor.html'
+ }
+    
+});
 shopping.directive('errSrc', function() {
 	console.log('errSrc');
       return {

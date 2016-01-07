@@ -131,11 +131,15 @@ shopping.run(function($rootScope,$cookies,$location,$http,$routeParams){
 	
 	$rootScope.forSortingMenu = function(items){
 		//console.log(items);
-	   var unique = [],blocked = [],allCategory = {};
+	   var unique = [],blocked = [],allCategory = {},vendorUnique = [],vendorBlock = [];
        unique.push(items[0].Category.title);
 	   blocked.push(items[0].Category.id);
+	   
+	   vendorUnique.push(items[0].Product.vendor);
+	   vendorBlock.push(items[0].Product.id);
+	   
 	   for (var i = 1; i < items.length; i++) {
-		   console.log(blocked.indexOf(items[i].Category.id))
+		   //console.log(blocked.indexOf(items[i].Category.id))
 		if (blocked.indexOf(items[i].Category.id) <= -1) {
 		 	unique.push(items[i].Category.title);
 		 	blocked.push(items[i].Category.id);
@@ -145,10 +149,14 @@ shopping.run(function($rootScope,$cookies,$location,$http,$routeParams){
     	allCategory[items[i].Category.title].push( items[i] );
 		
 		//allCategory.push(unique[i].items[i]);
-		
+			if (vendorBlock.indexOf(items[i].Product.id) <= -1) {
+			 	vendorUnique.push(items[i].Product.title);
+			 	vendorBlock.push(items[i].Product.id);
+			}
 	   }
-	   console.log();
+	   console.log(vendorUnique);
 	   $rootScope.homeCategory= allCategory;
+	   $rootScope.vendorList= vendorUnique;
 	   
 	   return unique;
     }
