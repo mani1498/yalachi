@@ -15,7 +15,7 @@ class UsersController extends AppController {
  *
  * @var array
  */
-	public $components = array('Paginator', 'Flash', 'Session');
+	public $components = array('RequestHandler','Paginator', 'Flash', 'Session');
 	public $layout = 'admin';
 	public $uses = array('Product','Category','Collect','Option','ProductImage','ProductVarient','Metafield','Review');
 /**
@@ -275,5 +275,30 @@ class UsersController extends AppController {
 	public function admin_dashboard() {
 		$this->layout = 'admin';
 	}
+	
+	public function login() {
+		$this->layout = ''; 
+		header("Access-Control-Allow-Origin: *");
+		header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept");
+		if($this->request->is('post')){
+				$options = array('conditions' => array('User.email'=>$this->request->data['User']['username']));
+		        $check = $this->User->find('first', $options);
+				if(!empty($check)){
+					if($check['User']['password'] == $this->request->data['User']['password']){
+					 $this->Session->write($check);
+					 $session_id = $this->Session->id();
+					 $responseLogin = array('userInfo'=>array('email'=>$check['User']['email'],'sessionId'=>$session_id),'message'=>'Login Success','Response'=>'S');
+					}
+					else
+					 $responseLogin = array('message'=>'Invalid Password','Response'=>'E');
+				}
+				else
+					$responseLogin = array('message'=>'Invalid Username','Response'=>'E');
+		}else{
+			$responseLogin = array('message'=>'Invalid methods','Response'=>'E');
+		}
+		$this->set(array('userLogin' => $responseLogin,'_serialize' => array('userLogin')));
+	}
+
 
 }
