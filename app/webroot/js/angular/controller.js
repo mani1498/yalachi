@@ -281,11 +281,53 @@ shopping.controller('VendorController', function($scope, $aside,$location) {
 });
 
 //loginController 
-shopping.controller("loginController", ["$scope","$log","$timeout","$http","$location","FlashService", function ($scope, $log, $timeout, $http,$location,FlashService) {
-   
+shopping.controller("loginController", ["$scope","$log","$timeout","$http","$location","AuthenticationService","FlashService", function ($scope, $log, $timeout, $http,$location,AuthenticationService,FlashService) {
+   var vm = this;
+    vm.login = login;
+	(function initController() {
+            // reset login status
+            AuthenticationService.ClearCredentials();
+     })();
+	function login() { console.log(vm);
+            vm.dataLoading = true;
+            AuthenticationService.Login(vm, function (response) {
+                if (response.success) { console.log('s'); console.log(response);
+                    AuthenticationService.SetCredentials(vm.username, vm.password);
+                    $location.path('/myaccount');
+                } else { console.log('f'); console.log(response);
+                    FlashService.Error(response.message);
+                    vm.dataLoading = false;
+                }
+            });
+      };
 }]);
 
 //loginController 
-shopping.controller('registrationController', ['$scope','$log','$timeout','$http','$location','FlashService', function ($scope, $log, $timeout, $http,$location,FlashService) {
+shopping.controller('registrationController', ['$scope','$log','$timeout','$http','$location',"AuthenticationService","FlashService", function ($scope, $log, $timeout, $http,$location,AuthenticationService,FlashService) {
+	var vm = this;
+	vm.register = register;
 	
+	function register() {
+            //vm.dataLoading = true;
+            UserService.Create(vm.user)
+                .then(function (response) {
+                    if (response.success) {console.log('s');
+                        FlashService.Success('Registration successful', true);
+                        $location.path('/login');
+                    } else {console.log('f');
+                        FlashService.Error(response.message);
+                        //vm.dataLoading = false;
+                    }
+                });
+        }
+}]);
+
+shopping.controller('myaccountController', ['$scope','$log','$timeout','$http','$location','$cookieStore', function ($scope, $log, $timeout, $http, $location,$cookieStore) {
+	$cookieStore.get('globals');
+	console.log($cookieStore.get('globals'));
+	if(!$cookieStore.get('globals'))
+		$location.path('/login');
+	else
+		console.log('You Fuck');
+		
 }]);

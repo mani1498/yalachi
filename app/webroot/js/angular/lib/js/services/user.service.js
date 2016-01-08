@@ -2,7 +2,7 @@
     'use strict';
 
     angular
-        .module('app')
+        .module('shoppingUserAuth',[])
         .factory('UserService', UserService);
 
     UserService.$inject = ['$http'];
@@ -26,8 +26,8 @@
             return $http.get('/api/users/' + id).then(handleSuccess, handleError('Error getting user by id'));
         }
 
-        function GetByUsername(username) {
-            return $http.get('/api/users/' + username).then(handleSuccess, handleError('Error getting user by username'));
+        function GetByUsername(User) {console.log(User);
+            return $http.post('/users/login.json',User).then(handleSuccess, handleError('Error getting user by username'));
         }
 
         function Create(user) {console.log(user);
