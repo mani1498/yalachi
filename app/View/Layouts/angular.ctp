@@ -167,7 +167,7 @@
        <aside-directive></aside-directive>
       </div>
     </nav>
-    <div class="container"  style="padding: 0px; margin-top:20%;">
+    <div class="container"  ng-hide="navPath()" style="padding: 0px; margin-top:20%;">
        <div class="row">
       <!--<form ng-submit="submit()">-->
    	   <div class="col-xs-8 col-md-8">
@@ -182,7 +182,8 @@
      <!-- </form> -->
 	 </div>
      </div>
-   <div ng-controller="VendorController"><a ng-click="openAside('bottom')">Vendor</a></div>
+   <div ng-controller="VendorController"  ng-hide="navPath()"><a ng-click="openAside('bottom')">Vendor</a></div>
+    <div ng-class="{ 'alert': flash, 'alert-success': flash.type === 'success', 'alert-danger': flash.type === 'error' }" ng-if="flash" ng-bind="flash.message" style="margin-top:50px;"></div>  
     <div class="container"  style="padding: 0px;" ng-view>
     </div>
        
@@ -194,6 +195,7 @@
     <?php 
 		echo $this->Html->script('angular/app.js'); 
 		echo $this->Html->script('angular/service.js');
+		echo $this->Html->script('angular/lib/js/services/flash.service.js');
 		echo $this->Html->script('angular/controller.js'); 
 		echo $this->Html->script('angular/directives.js'); 
 		echo $this->Html->script('angular/filter.js'); 

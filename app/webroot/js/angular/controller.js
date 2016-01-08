@@ -279,3 +279,13 @@ shopping.controller('VendorController', function($scope, $aside,$location) {
             })
      }
 });
+
+//loginController 
+shopping.controller("loginController", ["$scope","$log","$timeout","$http","$location","FlashService", function ($scope, $log, $timeout, $http,$location,FlashService) {
+   
+}]);
+
+//loginController 
+shopping.controller('registrationController', ['$scope','$log','$timeout','$http','$location','FlashService', function ($scope, $log, $timeout, $http,$location,FlashService) {
+	
+}]);

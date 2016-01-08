@@ -1,4 +1,4 @@
-var shopping = angular.module('shopping', ['ngRoute','ngResource','ngCookies','angular.filter','simplePagination','ui.bootstrap','ngAside','ngTouch']);
+var shopping = angular.module('shopping', ['ngRoute','ngResource','ngCookies','angular.filter','simplePagination','ui.bootstrap','ngAside','ngTouch','shoppingFlash']);
 
 shopping.config(function($routeProvider){console.log('trr');
     $routeProvider
@@ -10,6 +10,8 @@ shopping.config(function($routeProvider){console.log('trr');
 		.when('/catalog/:title',{title:'Catalog Page',templateUrl: 'app/webroot/js/angular/page/catalog.html',controller:'catalogController'})
         .when('/productdetail/:id',{title:'Product Detail Page',templateUrl: 'app/webroot/js/angular/page/productdetail.html',controller:'productdetailController'})
 		.when('/cart',{title:'Cart Page',templateUrl: 'app/webroot/js/angular/page/cart.html',controller:'cartController'})
+		.when('/login',{title:'Login Yalachi', templateUrl: 'app/webroot/js/angular/page/login.html',controller:'loginController', controllerAs: 'vm'})
+		.when('/register',{title:'Login Yalachi', templateUrl: 'app/webroot/js/angular/page/register.html',controller:'registrationController', controllerAs: 'vm'})
     
 });
 
@@ -17,8 +19,14 @@ shopping.settings = {host:"http://report.com",page:"/api/"};
 
 
 shopping.run(function($rootScope,$cookies,$location,$http,$routeParams){
-
-
+	
+	/****   Hide search and other functionality on login/registration process  *****/
+	
+	$rootScope.navPath = function(){
+		if($rootScope.path=='/login' || $rootScope.path=='/register'){
+			return true;
+		}
+	};
 	$rootScope.cookieCartItems = $cookies.getObject('cart') || 0;
 	
 	$rootScope.allProducts = '{}';
@@ -122,8 +130,6 @@ shopping.run(function($rootScope,$cookies,$location,$http,$routeParams){
 			//console.log($rootScope);
 	}
 	
-
-
 	$rootScope.roundOfValue = function(value){
 	 return Math.round(value * 100) / 100;	
 	}
