@@ -27,7 +27,7 @@
         }
 
         function GetByUsername(User) {console.log(User);
-            return $http.post('/users/login.json',User).then(handleSuccess, handleError('Error getting user by username'));
+            return $http.post('users/login.json',User).then(handleSuccess, handleError('Error getting user by username'));
         }
 
         function Create(user) {console.log(user);
