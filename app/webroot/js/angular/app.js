@@ -1,4 +1,4 @@
-var shopping = angular.module('shopping', ['ngRoute','ngResource','ngCookies','angular.filter','simplePagination','ui.bootstrap','ngAside','ngTouch','shoppingFlash']);
+var shopping = angular.module('shopping', ['ngRoute','ngResource','ngCookies','angular.filter','simplePagination','ui.bootstrap','ngAside','ngTouch','shoppingFlash','simpleAuth','shoppingUserAuth']);
 
 shopping.config(function($routeProvider){console.log('trr');
     $routeProvider
@@ -12,6 +12,7 @@ shopping.config(function($routeProvider){console.log('trr');
 		.when('/cart',{title:'Cart Page',templateUrl: 'app/webroot/js/angular/page/cart.html',controller:'cartController'})
 		.when('/login',{title:'Login Yalachi', templateUrl: 'app/webroot/js/angular/page/login.html',controller:'loginController', controllerAs: 'vm'})
 		.when('/register',{title:'Login Yalachi', templateUrl: 'app/webroot/js/angular/page/register.html',controller:'registrationController', controllerAs: 'vm'})
+		.when('/myaccount',{title:'Yalachi - My Account', templateUrl: 'app/webroot/js/angular/page/myaccount.html',controller:'myaccountController', controllerAs: 'vm'})
     
 });
 
