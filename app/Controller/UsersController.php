@@ -307,8 +307,7 @@ class UsersController extends AppController {
 		if ($this->request->is('post')) {
 			$this->User->create($this->request->data);
 			if ($this->User->save($this->request->data)) {
-				$this->Flash->success(__('The user has been saved.'));
-				return $this->redirect(array('action' => 'index'));
+				$responseRegistration = array('message'=>'Registration Success','Response'=>'S');
 			} else {
 				$responseRegistration = array('message'=>'The user could not be saved. Please, try again.','Response'=>'E');
 			}
