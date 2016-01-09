@@ -305,11 +305,17 @@ class UsersController extends AppController {
 		header("Access-Control-Allow-Origin: *");
 		header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept");
 		if ($this->request->is('post')) {
-			$this->User->create($this->request->data);
-			if ($this->User->save($this->request->data)) {
-				$responseRegistration = array('message'=>'Registration Success','Response'=>'S');
-			} else {
-				$responseRegistration = array('message'=>'The user could not be saved. Please, try again.','Response'=>'E');
+			$options = array('conditions' => array('User.email'=>$this->request->data['User']['email']));
+		     $check = $this->User->find('first', $options);
+			if(empty($check)){
+				$this->User->create($this->request->data);
+				if ($this->User->save($this->request->data)) {
+					$responseRegistration = array('message'=>'Registration Success','Response'=>'S');
+				} else {
+					$responseRegistration = array('message'=>'The user could not be saved. Please, try again.','Response'=>'E');
+				}
+			}else{
+					$responseRegistration = array('message'=>'Email already exists. Please, try another email.','Response'=>'E');
 			}
 		}else{
 				$responseRegistration = array('message'=>'Invalid methods','Response'=>'E');
