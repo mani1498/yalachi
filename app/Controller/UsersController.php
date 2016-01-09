@@ -311,6 +311,8 @@ class UsersController extends AppController {
 			} else {
 				$responseRegistration = array('message'=>'The user could not be saved. Please, try again.','Response'=>'E');
 			}
+		}else{
+				$responseRegistration = array('message'=>'Invalid methods','Response'=>'E');
 		}
 		$this->set(array('userRegistration' => $responseRegistration,'_serialize' => array('userRegistration')));
 	}
