@@ -164,7 +164,8 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand glyphicon glyphicon-user"  href="#/login"></a><a href="#cart" ng-cloak style="float:left; padding: 18px 10px 0px 20px;"><span  class="glyphicon glyphicon-shopping-cart">{{ getTotalQty() }} CART ${{ getTotalSum() }}</span></a>
+          <a class="navbar-brand glyphicon glyphicon-user"  ng-href="{{cookieUser == true ? '#/myaccount' : '#/login'}}"></a>
+          <a href="#cart" ng-cloak style="float:left; padding: 18px 10px 0px 20px;"><span  class="glyphicon glyphicon-shopping-cart">{{ getTotalQty() }} CART ${{ getTotalSum() }}</span></a>
         </div>
         <div class="navbar-collapse collapse">
         <!--/.nav-collapse -->
@@ -187,7 +188,6 @@
 	 </div>
      </div>
    <div ng-controller="VendorController"  ng-hide="navPath()"><a ng-click="openAside('bottom')">Vendor</a></div>
-    <div ng-class="{ 'alert': flash, 'alert-success': flash.type === 'success', 'alert-danger': flash.type === 'error' }" ng-if="flash" ng-bind="flash.message" style="margin-top:50px;"></div>  
     <div class="container"  style="padding:0px;" ng-view>
     </div>
        

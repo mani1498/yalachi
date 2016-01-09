@@ -30,7 +30,12 @@ shopping.run(function($rootScope,$cookies,$location,$http,$routeParams){
 	};
 	$rootScope.cookieCartItems = $cookies.getObject('cart') || 0;
 	
-	$rootScope.cookieUser= $cookies.getObject('globals') || 0;
+	$rootScope.cookieUser= function(){
+		 if(!$cookieStore.get('globals'))
+			return false;
+		else
+			return true;
+	 }
 	
 	$rootScope.allProducts = '{}';
 	$rootScope.loader = true;

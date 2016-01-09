@@ -281,18 +281,22 @@ shopping.controller('VendorController', function($scope, $aside,$location) {
 });
 
 //loginController 
-shopping.controller("loginController", ["$scope","$log","$timeout","$http","$location","AuthenticationService","FlashService", function ($scope, $log, $timeout, $http,$location,AuthenticationService,FlashService) {
+shopping.controller("loginController", ["$scope","$rootScope","$log","$timeout","$http","$location","AuthenticationService","FlashService", function ($scope, $rootScope,$log, $timeout, $http,$location,AuthenticationService,FlashService) {
    var vm = this;
     vm.login = login;
 	(function initController() {
             // reset login status
             AuthenticationService.ClearCredentials();
+			// varible for User icon redirection
+			$rootScope.cookieUser = 0;
      })();
 	function login() { console.log(vm);
             vm.dataLoading = true;
             AuthenticationService.Login(vm, function (response) {
                 if (response.success) { console.log('s'); console.log(response);
                     AuthenticationService.SetCredentials(vm.username, vm.password);
+					// varible for User icon redirection
+					$rootScope.cookieUser = 1;
                     $location.path('/myaccount');
                 } else { console.log('f'); console.log(response);
                     FlashService.Error(response.message);
@@ -315,7 +319,7 @@ shopping.controller('registrationController', ['$scope','$log','$timeout','$http
                         FlashService.Success('Registration successful', true);
                         $location.path('/login');
                     } else {console.log('f');
-                        FlashService.Error(response.message);
+                        FlashService.Error(response.userRegistration.message);
                         //vm.dataLoading = false;
                     }
                 });

@@ -30,8 +30,9 @@
             return $http.post('users/login.json',User).then(handleSuccess, handleError('Error getting user by username'));
         }
 
-        function Create(user) {console.log(user);
-            return $http.post('users/registration.json', user).then(handleSuccess, handleError('Error creating user'));
+        function Create(user) {
+			var cred ={};	cred['User'] = user;
+            return $http.post('users/registration.json', cred).then(handleSuccess, handleError('Error creating user'));
         }
 
         function Update(user) {
