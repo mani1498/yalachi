@@ -303,7 +303,7 @@ shopping.controller("loginController", ["$scope","$log","$timeout","$http","$loc
 }]);
 
 //loginController 
-shopping.controller('registrationController', ['$scope','$log','$timeout','$http','$location',"AuthenticationService","FlashService", function ($scope, $log, $timeout, $http,$location,AuthenticationService,FlashService) {
+shopping.controller('registrationController', ['$scope','$log','$timeout','$http','$location','UserService','FlashService', function ($scope, $log, $timeout, $http,$location,UserService,FlashService) {
 	var vm = this;
 	vm.register = register;
 	
@@ -311,7 +311,7 @@ shopping.controller('registrationController', ['$scope','$log','$timeout','$http
             //vm.dataLoading = true;
             UserService.Create(vm.user)
                 .then(function (response) {
-                    if (response.success) {console.log('s');
+                    if (response.userRegistration.Response == 'S') {console.log('s' + response);
                         FlashService.Success('Registration successful', true);
                         $location.path('/login');
                     } else {console.log('f');
@@ -320,7 +320,9 @@ shopping.controller('registrationController', ['$scope','$log','$timeout','$http
                     }
                 });
         }
+	
 }]);
+
 
 shopping.controller('myaccountController', ['$scope','$log','$timeout','$http','$location','$cookieStore', function ($scope, $log, $timeout, $http, $location,$cookieStore) {
 	$cookieStore.get('globals');

@@ -30,6 +30,8 @@ shopping.run(function($rootScope,$cookies,$location,$http,$routeParams){
 	};
 	$rootScope.cookieCartItems = $cookies.getObject('cart') || 0;
 	
+	$rootScope.cookieUser= $cookies.getObject('globals') || 0;
+	
 	$rootScope.allProducts = '{}';
 	$rootScope.loader = true;
 	$http({method: 'GET',url: 'admin/categories/all.json',cache: false

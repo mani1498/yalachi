@@ -1,5 +1,13 @@
-﻿<div class="col-md-6 col-md-offset-3"  style="margin-top:20%;margin-bottom:10%">
-    <h2>Login</h2>
+﻿<style>
+.textBreakBottom {
+    height: 0px;
+    clear: both;
+    margin-bottom: 23px;
+    border-top: 3px solid #f0f0f0;
+}
+</style>
+<div class="col-md-6 col-md-offset-3"  style="margin-top:20%;margin-bottom:10%">
+    <h3>Login</h3>
     <form name="form" ng-submit="vm.login()" role="form">
         <div class="form-group" ng-class="{ 'has-error': form.username.$dirty && form.username.$error.required }">
             <label for="username">Username</label>
@@ -14,7 +22,15 @@
         <div class="form-actions">
             <button type="submit" ng-disabled="form.$invalid || vm.dataLoading" class="btn btn-primary">Login</button>
             <img ng-if="vm.dataLoading" src="app/webroot/img/26.gif" width="26px" height="26px" />
-            <a href="#/register" class="btn btn-link">Register</a>
+            <!--<a href="#/register" class="btn btn-link">Register</a>-->
         </div>
     </form>
+</div>
+<div class="textBreakBottom"></div>
+<div class="col-md-6 col-md-offset-3"  style="margin-bottom:10%">
+<h3>CREATE ACCOUNT</h3>
+
+<span>By creating an account on our website you will be able to shop faster, be up to date on an orders status, and keep track of the orders you have previously made.</span><br /><br />
+
+<a href="#/register" class="btn btn-primary">Register</a>
 </div>
