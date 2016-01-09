@@ -293,10 +293,11 @@ shopping.controller("loginController", ["$scope","$rootScope","$log","$timeout",
 	function login() { console.log(vm);
             vm.dataLoading = true;
             AuthenticationService.Login(vm, function (response) {
-                if (response.success) { console.log('s'); console.log(response);
+                if (response.success) {
                     AuthenticationService.SetCredentials(vm.username, vm.password);
 					// varible for User icon redirection
 					$rootScope.cookieUser = 1;
+					$rootScope.userDetails=response.userDetails.userLogin.userInfo;
                     $location.path('/myaccount');
                 } else { console.log('f'); console.log(response);
                     FlashService.Error(response.message);
@@ -328,9 +329,10 @@ shopping.controller('registrationController', ['$scope','$log','$timeout','$http
 }]);
 
 
-shopping.controller('myaccountController', ['$scope','$log','$timeout','$http','$location','$cookieStore', function ($scope, $log, $timeout, $http, $location,$cookieStore) {
+shopping.controller('myaccountController', ['$scope',"$rootScope",'$log','$timeout','$http','$location','$cookieStore', function ($scope,$rootScope, $log, $timeout, $http, $location,$cookieStore) {
 	$cookieStore.get('globals');
-	console.log($cookieStore.get('globals'));
+	//console.log($cookieStore.get('globals'));
+	console.log($rootScope);
 	if(!$cookieStore.get('globals'))
 		$location.path('/login');
 	else

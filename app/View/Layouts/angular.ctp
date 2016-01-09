@@ -187,7 +187,7 @@
      <!-- </form> -->
 	 </div>
      </div>
-   <div ng-controller="VendorController"  ng-hide="navPath()"><a ng-click="openAside('bottom')">Vendor</a></div>
+  <!-- <div ng-controller="VendorController"  ng-hide="navPath()"><a ng-click="openAside('bottom')">Vendor</a></div>-->
     <div class="container"  style="padding:0px;" ng-view>
     </div>
        

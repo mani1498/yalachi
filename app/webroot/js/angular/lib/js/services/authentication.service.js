@@ -19,9 +19,9 @@ simpleAuth.factory('AuthenticationService', function ($http, $cookieStore, $root
 				var cred ={};
 				cred['User'] = credentials;
                 UserService.GetByUsername(cred)
-                    .then(function (user) {console.log(user.userLogin.Response);
-                        if (user !== null && user.userLogin.Response == 'S') {
-                            response = { success: true };
+                    .then(function (user) {
+                        if (user !== null && user.userLogin.Response == 'S') {console.log(user);
+                            response = { success: true , userDetails:user};
                         } else {
                             response = { success: false, message: 'Username or password is incorrect' };
                         }
