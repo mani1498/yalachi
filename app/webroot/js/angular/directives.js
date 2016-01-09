@@ -51,6 +51,12 @@ shopping.directive('asideDirective', function() {
 	}
     
 });
+shopping.directive('userMenuDirective', function() {
+	return {
+		templateUrl:'app/webroot/js/angular/page/userMenu.html',
+	}
+    
+});
 shopping.directive('asidemenuDirective', function() {
 	return {
 		replace:true,

@@ -214,8 +214,31 @@ shopping.controller('cartController',['$scope','$routeParams','$http','$cookies'
 	 }
 }]);
 
-shopping.controller('SidebarController', function($scope, $aside,$location) {
+shopping.controller('SidebarController', function($scope, $aside,$location,$cookieStore) {
 	$scope.state = true;
+	$scope.userRedirect=function(){
+		if(!$cookieStore.get('globals'))
+		$location.path('/login');
+		else{
+			var position = 'left';
+				$aside.open({
+				  templateUrl: 'app/webroot/js/angular/page/userMenu/userMenu.html',
+				  placement: position,
+				  backdrop: true,
+				  controller: function($scope, $uibModalInstance) {
+					$scope.ok = function(e) {
+					  $uibModalInstance.close();
+					  e.stopPropagation();
+					};
+					$scope.cancel = function(url) {
+						$uibModalInstance.dismiss();
+						$location.path(url);
+					  return false;
+					};
+				  }
+				})
+		}
+	}
     $scope.openAside = function(position) {
             $aside.open({
               templateUrl: 'app/webroot/js/angular/page/aside.html',

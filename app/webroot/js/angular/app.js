@@ -24,7 +24,7 @@ shopping.run(function($rootScope,$cookies,$location,$http,$routeParams){
 	/****   Hide search and other functionality on login/registration process  *****/
 	
 	$rootScope.navPath = function(){
-		if($rootScope.path=='/login' || $rootScope.path=='/register'){
+		if($rootScope.path=='/login' || $rootScope.path=='/register' || $rootScope.path=='/myaccount'){
 			return true;
 		}
 	};

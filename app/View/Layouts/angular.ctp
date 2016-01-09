@@ -164,7 +164,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand glyphicon glyphicon-user"  ng-href="{{cookieUser == true ? '#/myaccount' : '#/login'}}"></a>
+          <a class="navbar-brand glyphicon glyphicon-user" ng-click="userRedirect()"></a>
           <a href="#cart" ng-cloak style="float:left; padding: 18px 10px 0px 20px;"><span  class="glyphicon glyphicon-shopping-cart">{{ getTotalQty() }} CART ${{ getTotalSum() }}</span></a>
         </div>
         <div class="navbar-collapse collapse">
