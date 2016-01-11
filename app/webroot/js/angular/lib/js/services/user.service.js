@@ -36,7 +36,8 @@
         }
 
         function Update(user) {
-            return $http.put('/api/users/' + user.id, user).then(handleSuccess, handleError('Error updating user'));
+			var cred ={};	cred['User'] = user; console.log('cred');
+            return $http.put('users/updateProfile.json', cred).then(handleSuccess, handleError('Error updating user'));
         }
 
         function Delete(id) {

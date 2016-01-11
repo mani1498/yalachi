@@ -49,6 +49,6 @@ li a{
     <li class="list-group-item {{path == '/myaccount' ? 'active' : ''}}"  ng-click="cancel('/myaccount')"><a href="#/myaccount">My Account</a></li>
     <li class="list-group-item {{path == '/myorders' ? 'active' : ''}}"  ng-click="cancel('/myorders')"><a href="#/myorders">My Orders</a></li>
     <li class="list-group-item {{path == '/catalog' ? 'active' : ''}}"  ng-click="cancel('/profile')"><a href="#/profile">Change Profile</a></li>
-    <li class="list-group-item" ng-click="cancel('/')"><a ng-href="#/login">Logout</a></li>
+    <li class="list-group-item" ng-click="logout()"><a>Logout</a></li>
 </ul>
 </div>

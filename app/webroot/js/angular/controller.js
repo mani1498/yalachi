@@ -225,7 +225,7 @@ shopping.controller('SidebarController', function($scope, $aside,$location,$cook
 				  templateUrl: 'app/webroot/js/angular/page/userMenu/userMenu.html',
 				  placement: position,
 				  backdrop: true,
-				  controller: function($scope, $uibModalInstance) {
+				  controller: function($scope, $uibModalInstance,AuthenticationService) {
 					$scope.ok = function(e) {
 					  $uibModalInstance.close();
 					  e.stopPropagation();
@@ -235,6 +235,12 @@ shopping.controller('SidebarController', function($scope, $aside,$location,$cook
 						$location.path(url);
 					  return false;
 					};
+					$scope.logout = function(){
+						$uibModalInstance.dismiss();
+						AuthenticationService.ClearCredentials();
+						$location.path('/login');
+					  	return false;
+					}
 				  }
 				})
 		}
@@ -304,12 +310,15 @@ shopping.controller('VendorController', function($scope, $aside,$location) {
 });
 
 //loginController 
-shopping.controller("loginController", ["$scope","$rootScope","$log","$timeout","$http","$location","AuthenticationService","FlashService", function ($scope, $rootScope,$log, $timeout, $http,$location,AuthenticationService,FlashService) {
+shopping.controller("loginController", ["$scope","$rootScope","$cookieStore","$timeout","$http","$location","AuthenticationService","FlashService", function ($scope, $rootScope,$cookieStore, $timeout, $http,$location,AuthenticationService,FlashService) {
    var vm = this;
     vm.login = login;
 	(function initController() {
             // reset login status
+			if(!$cookieStore.get('globals'))
             AuthenticationService.ClearCredentials();
+			else
+			$location.path('/myaccount');
 			// varible for User icon redirection
 			$rootScope.cookieUser = 0;
      })();
@@ -352,13 +361,29 @@ shopping.controller('registrationController', ['$scope','$log','$timeout','$http
 }]);
 
 
-shopping.controller('myaccountController', ['$scope',"$rootScope",'$log','$timeout','$http','$location','$cookieStore', function ($scope,$rootScope, $log, $timeout, $http, $location,$cookieStore) {
+shopping.controller('myaccountController', ['$scope',"$rootScope",'$log','$timeout','$http','$location','$cookieStore','UserService','FlashService', function ($scope,$rootScope,$log, $timeout, $http, $location,$cookieStore,UserService,FlashService) {
+	var vm = this;
+	vm.userUpdate = userUpdate;
+	
 	$cookieStore.get('globals');
-	//console.log($cookieStore.get('globals'));
-	console.log($rootScope);
 	if(!$cookieStore.get('globals'))
 		$location.path('/login');
 	else
 		console.log('You Fuck');
-		
+	function userUpdate(userDetails) {console.log('gjgk');
+		console.log(userDetails);
+            //vm.dataLoading = true;
+			vm.user=userDetails;
+		UserService.Update(vm.user)
+		.then(function (response) {console.log('resp');
+			console.log(response);
+			if (response.updateProfile.Response == 'S') {console.log('Updated successfully');
+				FlashService.Success('Updated successfully', true);
+				$location.path('/myaccount');
+			} else {console.log('f');
+				FlashService.Error(response.userRegistration.message);
+				//vm.dataLoading = false;
+			}
+		});
+    }	
 }]);
