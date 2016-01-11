@@ -287,7 +287,8 @@ class UsersController extends AppController {
 					if($check['User']['password'] == $this->request->data['User']['password']){
 					 $this->Session->write($check);
 					 $session_id = $this->Session->id();
-					 $responseLogin = array('userInfo'=>array('email'=>$check['User']['email'],'sessionId'=>$session_id,'firstName'=>$check['User']['first_name']),'message'=>'Login Success','Response'=>'S');
+					 $check['User']['sessionId'] = $session_id;
+					 $responseLogin = array('userInfo'=>$check['User'],'message'=>'Login Success','Response'=>'S');
 					}
 					else
 					 $responseLogin = array('message'=>'Invalid Password','Response'=>'E');
