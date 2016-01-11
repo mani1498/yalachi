@@ -323,7 +323,21 @@ class UsersController extends AppController {
 		$this->set(array('userRegistration' => $responseRegistration,'_serialize' => array('userRegistration')));
 	}
 	
-
+	public function updateProfile() {
+		$this->layout = ''; 
+		header("Access-Control-Allow-Origin: *");
+		header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept");
+		if ($this->request->is(array('post', 'put'))) {
+				if ($this->User->save($this->request->data)) {
+					$responseProfile = array('message'=>'The user has been updated.','Response'=>'S');
+				} else {
+					$responseProfile = array('message'=>'The user could not be update. Please, try again.','Response'=>'E');
+				}
+		}else{
+				$responseProfile = array('message'=>'Invalid methods','Response'=>'E');
+		}
+		$this->set(array('updateProfile' => $responseProfile,'_serialize' => array('updateProfile')));
+	}
 		
 
 }
