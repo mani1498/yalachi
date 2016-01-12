@@ -29,7 +29,11 @@ shopping.run(function($rootScope,$cookies,$location,$http,$routeParams){
 		}
 	};
 	$rootScope.cookieCartItems = $cookies.getObject('cart') || 0;
-	
+	// Get User Information from localstorage if e logged in
+	if(!localStorage.userDetails){
+		localStorage.userDetails = JSON.stringify([]);
+	}
+	$rootScope.userDetails = JSON.parse(localStorage.userDetails);
 	$rootScope.cookieUser= function(){
 		 if(!$cookieStore.get('globals'))
 			return false;

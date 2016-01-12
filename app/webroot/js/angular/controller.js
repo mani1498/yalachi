@@ -330,6 +330,7 @@ shopping.controller("loginController", ["$scope","$rootScope","$cookieStore","$t
 					// varible for User icon redirection
 					$rootScope.cookieUser = 1;
 					$rootScope.userDetails=response.userDetails.userLogin.userInfo;
+					localStorage.userDetails = JSON.stringify(response.userDetails.userLogin.userInfo);
                     $location.path('/myaccount');
                 } else { console.log('f'); console.log(response);
                     FlashService.Error(response.message);
