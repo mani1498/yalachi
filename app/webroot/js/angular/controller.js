@@ -374,7 +374,10 @@ shopping.controller('myaccountController', ['$scope',"$rootScope",'$log','$timeo
 		vm.user=userDetails;
 		UserService.Update(vm.user,$cookieStore.get('userCookies'))
 		.then(function (response) {
+			console.log(response);
 			if (response.updateProfile.Response == 'S') {console.log('done');
+				$rootScope.userDetails=response.updateProfile.userInfo;
+				localStorage.userDetails = JSON.stringify(response.updateProfile.userInfo);
 				FlashService.Success('Updated successfully', true);
 				$scope.showme=false;
 				$location.path('/myaccount');
