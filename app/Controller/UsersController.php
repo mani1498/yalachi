@@ -333,9 +333,10 @@ class UsersController extends AppController {
 				header("Access-Control-Allow-Origin: *");
 				header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept");
 				if ($this->request->is(array('post', 'put'))) {
-						if ($this->User->save($this->request->data)) {
-							$responseProfile = array('message'=>'The user has been updated.','Response'=>'S');
-						} else {
+						if ($this->User->save($this->request->data)){
+							$this->request->data['User']['sessionId'] = $readSessionId;
+							$responseProfile = array('userInfo'=>$this->request->data['User'],'message'=>'The user has been updated.','Response'=>'S');
+						}else{
 							$responseProfile = array('message'=>'The user could not be update. Please, try again.','Response'=>'E');
 						}
 				}else{
