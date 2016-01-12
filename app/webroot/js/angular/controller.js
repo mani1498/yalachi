@@ -379,6 +379,7 @@ shopping.controller('myaccountController', ['$scope',"$rootScope",'$log','$timeo
 		.then(function (response) {console.log('resp');
 			console.log(response);
 			if (response.updateProfile.Response == 'S') {console.log('Updated successfully');
+				$scope.showme=false;
 				FlashService.Success('Updated successfully', true);
 				$location.path('/myaccount');
 			} else {console.log('f');
