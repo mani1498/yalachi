@@ -13,6 +13,8 @@ shopping.config(function($routeProvider){console.log('trr');
 		.when('/login',{title:'Login Yalachi', templateUrl: 'app/webroot/js/angular/page/login.html',controller:'loginController', controllerAs: 'vm'})
 		.when('/register',{title:'Login Yalachi', templateUrl: 'app/webroot/js/angular/page/register.html',controller:'registrationController', controllerAs: 'vm'})
 		.when('/myaccount',{title:'Yalachi - My Account', templateUrl: 'app/webroot/js/angular/page/myaccount.html',controller:'myaccountController', controllerAs: 'vm'})
+		.when('/myorders',{title:'Cart Page',templateUrl: 'app/webroot/js/angular/page/myorders.html',controller:'myorderController'})
+		
     
 });
 

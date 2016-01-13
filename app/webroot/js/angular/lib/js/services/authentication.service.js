@@ -1,7 +1,7 @@
 ﻿(function() {
   "use strict";
 var simpleAuth = angular.module('simpleAuth', []);
-simpleAuth.factory('AuthenticationService', function ($http, $cookieStore, $rootScope, $timeout, UserService) {
+simpleAuth.factory('AuthenticationService', function ($http, $cookieStore, $rootScope, $timeout, UserService,$cookies) {
         var service = {};
 
         service.Login = Login;
@@ -9,7 +9,12 @@ simpleAuth.factory('AuthenticationService', function ($http, $cookieStore, $root
         service.ClearCredentials = ClearCredentials;
 
         return service;
-
+		
+		function expiresTime(){
+			var now = new Date();
+			now.setDate(now.getDate() + 7);	
+			return now;
+		}
         function Login(credentials, callback) {
 
             /* Dummy authentication for testing, uses $timeout to simulate api call
@@ -21,6 +26,7 @@ simpleAuth.factory('AuthenticationService', function ($http, $cookieStore, $root
                 UserService.GetByUsername(cred)
                     .then(function (user) {
                         if (user !== null && user.userLogin.Response == 'S') {console.log(user);
+							$cookies.putObject('userCookies', user.userLogin.userInfo.sessionId,{ expires:expiresTime() });
                             response = { success: true , userDetails:user};
                         } else {
                             response = { success: false, message: 'Username or password is incorrect' };

@@ -362,30 +362,32 @@ shopping.controller('registrationController', ['$scope','$log','$timeout','$http
 }]);
 
 
-shopping.controller('myaccountController', ['$scope',"$rootScope",'$log','$timeout','$http','$location','$cookieStore','UserService','FlashService', function ($scope,$rootScope,$log, $timeout, $http, $location,$cookieStore,UserService,FlashService) {
+shopping.controller('myaccountController', ['$scope',"$rootScope",'$log','$timeout','$http','$location','$cookieStore','UserService','FlashService','$cookies', function ($scope,$rootScope,$log, $timeout, $http, $location,$cookieStore,UserService,FlashService,$cookies) {
 	var vm = this;
 	vm.userUpdate = userUpdate;
-	
 	$cookieStore.get('globals');
 	if(!$cookieStore.get('globals'))
 		$location.path('/login');
 	else
-		console.log('You Fuck');
-	function userUpdate(userDetails) {console.log('gjgk');
-		console.log(userDetails);
-            //vm.dataLoading = true;
-			vm.user=userDetails;
-		UserService.Update(vm.user)
-		.then(function (response) {console.log('resp');
+		console.log('You ****');
+	function userUpdate(userDetails) {
+		vm.user=userDetails;
+		UserService.Update(vm.user,$cookieStore.get('userCookies'))
+		.then(function (response) {
 			console.log(response);
 			if (response.updateProfile.Response == 'S') {console.log('Updated successfully');
 				$scope.showme=false;
+				$rootScope.userDetails=response.updateProfile.userInfo;
+				localStorage.userDetails = JSON.stringify(response.updateProfile.userInfo);
 				FlashService.Success('Updated successfully', true);
 				$location.path('/myaccount');
-			} else {console.log('f');
+			} else {
 				FlashService.Error(response.userRegistration.message);
 				//vm.dataLoading = false;
 			}
 		});
     }	
+}]);
+shopping.controller('myorderController',['$scope','$rootScope',function($scope,$rootScope){
+	
 }]);

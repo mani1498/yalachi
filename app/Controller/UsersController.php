@@ -325,20 +325,32 @@ class UsersController extends AppController {
 	}
 	
 	public function updateProfile() {
-		$this->layout = ''; 
-		header("Access-Control-Allow-Origin: *");
-		header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept");
-		if ($this->request->is(array('post', 'put'))) {
-				if ($this->User->save($this->request->data)) {
-					$responseProfile = array('message'=>'The user has been updated.','Response'=>'S');
-				} else {
-					$responseProfile = array('message'=>'The user could not be update. Please, try again.','Response'=>'E');
+		$this->layout = '';
+		if(!empty($this->request->header('userSession'))){
+			$headerSessionId = $this->request->header('userSession');
+			$readSessionId = $this->Session->id();
+			if($headerSessionId == $readSessionId){
+				header("Access-Control-Allow-Origin: *");
+				header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept");
+				if ($this->request->is(array('post', 'put'))) {
+						if ($this->User->save($this->request->data)){
+							$this->request->data['User']['sessionId'] = $readSessionId;
+							$responseProfile = array('userInfo'=>$this->request->data['User'],'message'=>'The user has been updated.','Response'=>'S');
+						}else{
+							$responseProfile = array('message'=>'The user could not be update. Please, try again.','Response'=>'E');
+						}
+				}else{
+						$responseProfile = array('message'=>'Invalid methods','Response'=>'E');
 				}
+			}else{
+				$responseProfile = array('message'=>'Invalid Session Id','Response'=>'E');
+			}
 		}else{
-				$responseProfile = array('message'=>'Invalid methods','Response'=>'E');
+			$responseProfile = array('message'=>'Empty Request Header','Response'=>'E');
 		}
 		$this->set(array('updateProfile' => $responseProfile,'_serialize' => array('updateProfile')));
 	}
+		
 		
 
 }

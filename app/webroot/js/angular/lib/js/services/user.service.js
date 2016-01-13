@@ -6,7 +6,7 @@
         .factory('UserService', UserService);
 
     UserService.$inject = ['$http'];
-    function UserService($http) {
+    function UserService($http,$cookieStore) {
         var service = {};
 
         service.GetAll = GetAll;
@@ -26,7 +26,7 @@
             return $http.get('/api/users/' + id).then(handleSuccess, handleError('Error getting user by id'));
         }
 
-        function GetByUsername(User) {console.log(User);
+        function GetByUsername(User) {
             return $http.post('users/login.json',User).then(handleSuccess, handleError('Error getting user by username'));
         }
 
@@ -35,9 +35,9 @@
             return $http.post('users/registration.json', cred).then(handleSuccess, handleError('Error creating user'));
         }
 
-        function Update(user) {
-			var cred ={};	cred['User'] = user; console.log('cred');
-            return $http.put('users/updateProfile.json', cred).then(handleSuccess, handleError('Error updating user'));
+        function Update(user,userCookie) {
+			var cred ={};	cred['User'] = user;
+            return $http.put('users/updateProfile.json', cred,{headers: {'userSession': userCookie}}).then(handleSuccess, handleError('Error updating user'));
         }
 
         function Delete(id) {

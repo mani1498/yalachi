@@ -6,6 +6,7 @@
 			echo $this->Html->css('/js/angular/lib/css/bootstrap-theme.min.css'); 
 			echo $this->Html->css('/js/angular/lib/css/aside.css'); 
 			echo $this->Html->css('/js/angular/lib/css/animate.css'); 
+			echo $this->Html->css('/js/angular/lib/css/style.css'); 
 			echo $this->Html->script('angular/lib/js/jquery-1.11.3.min.js');
 			echo $this->Html->script('angular/lib/js/angular.min.js'); 
 			echo $this->Html->script('angular/lib/js/ui-bootstrap-tpls.min.js'); 
